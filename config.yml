@@ -28,6 +28,18 @@ params:
     - due:
         a: 2
         b: 3
+  
+  cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe, ma non avendo informazioni conviene tenere così
+    - class1:
+        alpha: 4.4
+        beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+    - class2:
+        alpha: 4.4
+        beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+    - class3:
+        alpha: 4.4
+        beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+   
 
 subcampaign1:
   prices: [0000]
