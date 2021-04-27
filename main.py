@@ -5,4 +5,5 @@ with open('config.yml', 'r') as file:
 
 
 print(config["seed"])
-print(config["params"]["avg_cc"])
+print(config["conv_rate"]["young"]["passionate"])
+print(config["conv_rate"]["young"]["passionate"][0])

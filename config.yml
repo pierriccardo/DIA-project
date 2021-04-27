@@ -1,34 +1,27 @@
 seed: 1234
-
+imgpath: "img"
 
 params:
-  avg_price: 7
+  avg_price: 6
   avg_cc: 0.42 # avg cost per click
-  prices: [2, 3, 5, 6, 7, 8, 10, 11, 12, 13]
+  prices: [1, 2, 3, 4, 5, 6, 7, 8, 9]
   bids: [.42, .43, .5, .6]
-  days: 365
-  num_classes: 3
 
-  conv_rate:
-    class1: 
-      a: 1
-      b: 2
-    class2:
-      a: 1
-      b: 2
-    class3:
-      a: 1
-      b: 2
+feature1: ["young", "adult"]
+feature2: ["interested", "disinterested"]
 
-  click_through_rate: 0.01
-  prova:
-    - uno:
-        a: 2
-        b: 3
-    - due:
-        a: 2
-        b: 3
-
-subcampaign1:
-  prices: [0000]
-
+conv_rate:
+  young:
+    interested: [1.26, 0.6]
+    disinterested: [1.44, 1.04]
+  adult:
+    interested: [2.17, 0.86]
+    disinterested: [0.53, 0.3]
+  
+features_colors:
+  young:
+    interested: 'r'
+    disinterested: 'g'
+  adult:
+    interested: 'b'
+    disinterested: 'y'

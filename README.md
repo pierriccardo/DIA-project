@@ -8,3 +8,5 @@ or if you have pip3:
 
     pip3 install -r requirements.txt
     
+# Folders:
+- img: images generated 
