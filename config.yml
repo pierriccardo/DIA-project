@@ -1,11 +1,13 @@
 seed: 1234
 imgpath: "img"
 
-params:
-  avg_price: 6
-  avg_cc: 0.42 # avg cost per click
-  prices: [1, 2, 3, 4, 5, 6, 7, 8, 9]
-  bids: [.42, .43, .5, .6]
+avg_price: 6
+avg_cc: 0.42 # avg cost per click
+prices: [2, 3, 3.5, 4, 4.5, 5.5, 6, 6.5, 7, 8]
+bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]   
+
+classes: ["class1", "class2", "class3"]
+class_color: ['r', 'g', 'b']
 
 feature1: ["young", "adult"]
 feature2: ["interested", "disinterested"]
@@ -27,12 +29,12 @@ features_colors:
     disinterested: 'y'
 
 cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe, ma non avendo informazioni conviene tenere così
-  - class1:
-      alpha: 4.4
-      beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-  - class2:
-      alpha: 4.4
-      beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-  - class3:
-      alpha: 4.4
-      beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class1:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class2:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class3:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui

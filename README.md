@@ -4,9 +4,12 @@ To run the code fist you have to install all the dependencies with:
 
     pip install -r requirements.txt
 
-or if you have pip3:
+# Documentation
 
-    pip3 install -r requirements.txt
+To generate all the images:
+
+    python plotter.py
     
 # Folders:
-- img: images generated 
+- img: images generated
+- others: resources, tutorial
