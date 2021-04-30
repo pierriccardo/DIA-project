@@ -3,7 +3,7 @@ import yaml
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pricing import conv_rate, cost_per_click
+from pricing import *
 
 
 
@@ -114,7 +114,7 @@ class Plotter:
     
     def plot_all_cost_per_click(self):
 
-        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=3)
+        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=4)
         #plt.tight_layout()
         fig.suptitle('Cost per click', fontsize=20)
 
@@ -146,11 +146,50 @@ class Plotter:
         savepath = os.path.join(self.config["imgpath"], filename)
         fig.savefig(savepath)
 
+
+    def plot_all_new_clicks(self):
+        
+        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=4)
+        #plt.tight_layout()
+        fig.suptitle('New clicks', fontsize=20)
+
+        ax[0].set_ylabel('New clicks')
+
+        cc = self.config["avg_cc"]
+
+        for index, user_class in enumerate(self.config["classes"]):
+
+                Na,p0 = tuple(self.config["new_clicks"][user_class])
+                color = self.config["class_color"][index]
+
+                ax[index].set_xlabel('Bid')
+
+                x = self.config["bids"]
+                y = [new_clicks(i, Na, p0, cc) for i in x]
+                ax[index].plot(x, y, 
+                            color, 
+                            label=f'{user_class}',
+                            marker='o',
+                            markersize=3,
+                            markerfacecolor=color,
+                            markeredgecolor=color,
+                            markeredgewidth=4)
+
+                ax[index].legend(loc=0)
+                ax[index].grid(True, color='0.6', dashes=(5,2,1,2))
+
+        # saving image
+        filename = 'all_new_clicks.png'
+        savepath = os.path.join(self.config["imgpath"], filename)
+        fig.savefig(savepath)
+
+
 if __name__ == "__main__":
     p = Plotter()
 
     p.plot_all_conv_rate()
     p.plot_merged_conv_rate()
+    p.plot_all_new_clicks()
     
     for f1 in p.config["feature1"]:
         for f2 in p.config["feature2"]:
