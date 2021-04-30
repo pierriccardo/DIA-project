@@ -47,4 +47,12 @@ cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe
     alpha: 4.4
     beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
 
+
 return_probability: [0.1, 2.21, 6.64, 0.5]
+
+new_clicks:
+  class1: [10000, 0.03]
+  class2: [10000, 0.005]
+  class3: [10000, 0.02]
+  class4: [10000, 0.003]
+

@@ -12,3 +12,9 @@ def cost_per_click(bid, alpha):
 def return_probability(_lambda, size=100000):
     return np.random.poisson(_lambda, size=size)
 
+def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
+    p = 1-(cc/(2*bid))
+    mean = Na*p*p0
+    sd = (Na*p*p0*(1-p0))**0.5
+    return np.random.normal(mean,sd)
+
