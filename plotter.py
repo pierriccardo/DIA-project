@@ -15,11 +15,11 @@ class Plotter:
             self.config = yaml.safe_load(file)
         
     def plot_conv_rate(self, feature1="young", feature2="interested"):
-        a, b = tuple(self.config["conv_rate"][feature1][feature2])
+        a, b, c = tuple(self.config["conv_rate"][feature1][feature2])
         color = self.config["features_colors"][feature1][feature2]
 
         x = np.linspace(0,8,20) 
-        y = conv_rate(x, a, b)
+        y = conv_rate(x, a, b, c)
 
         fig = plt.figure(figsize=(6,5))
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
@@ -56,11 +56,11 @@ class Plotter:
                 ax[i, j].set_xlabel('Price(€)')
                 ax[i, j].set_ylabel('Conversion Rate')
 
-                a, b = tuple(self.config["conv_rate"][feature1][feature2])
+                a, b, c = tuple(self.config["conv_rate"][feature1][feature2])
                 color = self.config["features_colors"][feature1][feature2]
 
                 x = np.linspace(0,10,20) 
-                y = conv_rate(x, a, b)
+                y = conv_rate(x, a, b, c)
 
                 ax[i, j].plot(x, y, 
                             color, 
@@ -90,11 +90,11 @@ class Plotter:
         for i, feature1 in enumerate(self.config["feature1"]):
             for j, feature2 in enumerate(self.config["feature2"]):
 
-                a, b = tuple(self.config["conv_rate"][feature1][feature2])
+                a, b, c = tuple(self.config["conv_rate"][feature1][feature2])
                 color = self.config["features_colors"][feature1][feature2]
 
                 x = np.linspace(0,8,20) 
-                y = conv_rate(x, a, b)
+                y = conv_rate(x, a, b, c)
                 ax.plot(x, y, 
                             color, 
                             label=f'{feature1}-{feature2}',

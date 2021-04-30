@@ -14,11 +14,11 @@ feature2: ["interested", "disinterested"]
 
 conv_rate:
   young:
-    interested: [1.26, 0.6]
-    disinterested: [1.44, 1.04]
+    interested: [1.26, 0.6, 0.45]
+    disinterested: [1.44, 1.04, 0.65]
   adult:
-    interested: [2.17, 0.86]
-    disinterested: [0.53, 0.3]
+    interested: [2.17, 0.86, 0.45]
+    disinterested: [0.53, 0.3, 0.65]
   
 features_colors:
   young:
