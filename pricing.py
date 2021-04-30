@@ -7,3 +7,8 @@ def conv_rate(x, a=1, b=1, c=1):
 def cost_per_click(bid, alpha):
     beta = np.sqrt(bid)
     return bid * np.random.beta(alpha, beta, 1)
+
+
+def return_probability(_lambda, size=100000):
+    return np.random.poisson(_lambda, size=size)
+

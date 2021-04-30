@@ -3,7 +3,7 @@ import yaml
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pricing import conv_rate, cost_per_click
+from pricing import conv_rate, cost_per_click, return_probability
 
 
 
@@ -114,7 +114,7 @@ class Plotter:
     
     def plot_all_cost_per_click(self):
 
-        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=3)
+        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=4)
         #plt.tight_layout()
         fig.suptitle('Cost per click', fontsize=20)
 
@@ -146,6 +146,38 @@ class Plotter:
         savepath = os.path.join(self.config["imgpath"], filename)
         fig.savefig(savepath)
 
+    def plot_all_return_probability(self):
+
+        fig, ax = plt.subplots(figsize=(12, 6), nrows=1, ncols=4)
+        #plt.tight_layout()
+        fig.suptitle('Return Probability', fontsize=20)
+
+        ax[0].set_ylabel('Return Probability')
+
+        for index, user_class in enumerate(self.config["classes"]):
+
+            _lambda = self.config["return_probability"][index]
+            color = self.config["class_color"][index]
+            
+            
+            ax[index].set_title(f'Probability to return for {user_class}')
+            ax[index].set_xlabel("Number of comebacks")
+
+            ax[index].hist(
+                return_probability(_lambda), 
+                14, 
+                density=True, 
+                color=color,
+                label=f'{user_class}')
+
+            ax[index].legend(loc=0)
+            ax[index].grid(True, color='0.6', dashes=(5,2,1,2))
+
+        # saving image
+        filename = 'all_return_probability.png'
+        savepath = os.path.join(self.config["imgpath"], filename)
+        fig.savefig(savepath)
+
 if __name__ == "__main__":
     p = Plotter()
 
@@ -157,5 +189,6 @@ if __name__ == "__main__":
             p.plot_conv_rate(f1, f2)
     
     p.plot_all_cost_per_click()
+    p.plot_all_return_probability()
 
     

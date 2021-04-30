@@ -6,11 +6,16 @@ avg_cc: 0.42 # avg cost per click
 prices: [2, 3, 3.5, 4, 4.5, 5.5, 6, 6.5, 7, 8]
 bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]   
 
-classes: ["class1", "class2", "class3"]
-class_color: ['r', 'g', 'b']
+classes: ["class1", "class2", "class3", "class4"]
+class_color: ['r', 'g', 'b', 'y']
 
 feature1: ["young", "adult"]
 feature2: ["interested", "disinterested"]
+
+# class1 = young interested
+# class2 = young disinterested
+# class3 = adult interested
+# class4 = adult disinterested
 
 conv_rate:
   young:
@@ -38,3 +43,8 @@ cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe
   class3:
     alpha: 4.4
     beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class4:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+
+return_probability: [0.1, 2.21, 6.64, 0.5]
