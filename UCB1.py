@@ -78,14 +78,24 @@ class UCB1(Learner):
         self.reward_per_arm[pulled_arm].append(reward)
 
 
-#if __name__ == '__main__':
-#    from Environment import Environment
-    #    p = mp.array([0.1, 0.8, 0.3])
-    #n_arms = len(p)
-    #env = Environment(n_arms = n_arms, probabilities = p)
-    #T = 100
-    #learner = UCB1(n_arms)
-    #for _ in range(T):
-        #    pulled_arm = learner.pull_arm()
-        #print(f "{pulled_arm = }")
-        #reward = env
+if __name__ == '__main__':
+    from Enviroment_V1 import Environment
+    import yaml
+
+    with open('config.yml', 'r') as file:
+        config = yaml.safe_load(file)
+
+    prices = config["prices"]
+    n_arms = len(prices)
+    bid = config["bids"]
+    alpha = 4.4 
+    _lambda = 2.21
+
+    env = Environment(n_arms, prices, bid, alpha, _lambda)
+    T = 100
+    learner = UCB1(n_arms)
+    for _ in range(T):
+        pulled_arm = learner.pull_arm()
+        print("pulled_arm =", pulled_arm)
+        reward = env.round(pulled_arm)
+        learner.update_observations(pulled_arm, reward) 
