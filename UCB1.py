@@ -51,17 +51,18 @@ class Learner:
 
 
 class UCB1(Learner):
-    def __init__(self, n_arms):
+    def __init__(self, n_arms, prices):
         super().__init__(n_arms)
         self.empirical_means = np.zeros(n_arms)
         self.confidence = np.zeros(n_arms)
+        self.prices = prices
 
     def pull_arm(self):
         # All'inizio devo provare una volta tutti gli arm 
         if self.t < self.n_arms:
             arm = self.t
         else:
-            upper_bound = self.empirical_means + self.confidence
+            upper_bound = (self.empirical_means + self.confidence)*self.prices
             arm = np.random.choice(np.where(upper_bound == upper_bound.max())[0])
         return arm
 
