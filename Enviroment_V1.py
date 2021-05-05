@@ -13,7 +13,7 @@ class Environment():
         self.alpha = alpha
         self._lambda = _lambda
 
-    def conv_rate(x, a=1, b=1, c=1):
+    def conv_rate(x, a=1.0, b=1.0, c=1.0):
         return ((c*x) ** a) * np.exp(-b * c * x)
 
     def cost_per_click(bid, alpha):
@@ -32,11 +32,11 @@ class Environment():
 
     def round(self, pulled_arm):
         print(self._lambda)
-        X = np.random.poisson(2.21, 1)
-        print(self.bid[5])
-        N = self.new_clicks(self.bid[5])
-        c = self.cost_per_click(self.bid[5],self.alpha) 
-        reward = (X + 1)*self.conv_rate(self.prices[pulled_arm])*self.prices[pulled_arm] * N  - N * c
+        X = 2.21
+        N = 10000*0.01*(1-(0.44/(2*0.5)))
+        c = self.bid[5] * np.random.beta(self.alpha, np.sqrt(self.bid[5]), 1)
+        p = self.prices[pulled_arm]
+        reward = (X + 1)*self.conv_rate(float(p))* p * N  - N * c
         return reward
 
 

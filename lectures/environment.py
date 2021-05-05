@@ -1,21 +1,25 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
+'''
+environment class is defined by:
+- a number of arms
+- a prob. distribution for each arm reward function
 
 
-mu, sigma = 0, 0.1 # mean and standard deviation
-s = np.random.normal(mu, sigma, 1000)
+Environment interacts with the learner by returning 
+a stochastic reward depending on the pulled arm
+'''
 
+class Environment():
+    def __init__(self, n_arms, probabilities):
 
-abs(mu - np.mean(s)) < 0.01
+        self.n_arms = n_arms
+        
+        # specifies the probability dist. of the 
+        # arm reward
+        self.probabilities = probabilities
 
-abs(sigma - np.std(s, ddof=1)) < 0.01
-
-
-
-count, bins, ignored = plt.hist(s, 30, density=True)
-plt.plot(bins, 1/(sigma * np.sqrt(2 * np.pi)) *
-               np.exp( - (bins - mu)**2 / (2 * sigma**2) ),
-         linewidth=2, color='r')
-plt.show()
+    def round(self, pulled_arm):
+        reward = np.random.binomial(1, self.probabilities[pulled_arm])
+        return reward
 
