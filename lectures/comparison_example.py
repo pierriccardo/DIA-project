@@ -9,7 +9,7 @@ n_arms = 4
 p = np.array([ 0.15, 0.1, 0.1, 0.35])
 opt = p[3]
 
-T = 300
+T = 3000
 
 # number of exp to perform
 n_experiments = 1000
