@@ -97,5 +97,5 @@ if __name__ == '__main__':
     for _ in range(T):
         pulled_arm = learner.pull_arm()
         print("pulled_arm =", pulled_arm)
-        #reward = env.round(pulled_arm)
-        #learner.update_observations(pulled_arm, reward) 
+        reward = env.round(pulled_arm)
+        learner.update_observations(pulled_arm, reward) 

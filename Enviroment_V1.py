@@ -30,13 +30,17 @@ class Environment():
         sd = (Na*p*p0*(1-p0))**0.5
         return np.random.normal(mean,sd)
 
+    #def round(self, pulled_arm):
+    #    print(self._lambda)
+    #    X = 2.21
+    #    N = 10000*0.01*(1-(0.44/(2*0.5)))
+    #    c = self.bid[5] * np.random.beta(self.alpha, np.sqrt(self.bid[5]), 1)
+    #    p = self.prices[pulled_arm]
+    #    reward = (X + 1)*self.conv_rate(float(p))* p * N  - N * c
+    #    return reward
+
     def round(self, pulled_arm):
-        print(self._lambda)
-        X = 2.21
-        N = 10000*0.01*(1-(0.44/(2*0.5)))
-        c = self.bid[5] * np.random.beta(self.alpha, np.sqrt(self.bid[5]), 1)
-        p = self.prices[pulled_arm]
-        reward = (X + 1)*self.conv_rate(float(p))* p * N  - N * c
+        reward = np.random.binomial(1, self.probabilities[pulled_arm])
         return reward
 
 

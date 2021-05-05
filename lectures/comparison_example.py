@@ -35,6 +35,7 @@ for e in tqdm(range(0, n_experiments)):
     ts_reward_per_experiments.append(ts_learner.collected_rewards)
     gr_reward_per_experiments.append(gr_learner.collected_rewards)
 
+
 plt.figure(0)
 plt.xlabel("t")
 plt.ylabel("Regret")
