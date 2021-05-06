@@ -8,9 +8,9 @@ def cost_per_click(bid, alpha):
     beta = np.sqrt(bid)
     return bid * np.random.beta(alpha, beta, 1)
 
-
-def return_probability(_lambda, size=100000):
-    return np.random.poisson(_lambda, size=size)
+def return_probability(_lambda, size=1):
+    samples = np.random.poisson(_lambda, size=size)
+    return samples if size > 1 else samples[0]
 
 def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
     p = 1-(cc/(2*bid))

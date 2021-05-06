@@ -59,3 +59,52 @@ class TS_Learner(Learner):
         self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
         self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - reward
+
+
+class Greedy_Learner(Learner):
+    def __init__(self, n_arms):
+        super().__init__(n_arms)
+        self.expected_rewards = np.zeros(n_arms)
+    
+    def pull_arm(self):
+        if (self.t < self.n_arms):
+            return self.t
+        idxs = np.argwhere(self.expected_rewards == self.expected_rewards.max()).reshape(-1)
+        pulled_arm = np.random.choice(idxs)
+        return pulled_arm
+
+    def update(self, pulled_arm, reward):
+        self.t+=1
+        self.update_observations(pulled_arm, reward)
+        self.expected_rewards[pulled_arm] = (self.expected_rewards[pulled_arm] * (self.t - 1) + reward) / self.t
+
+
+
+
+class UCB1(Learner):
+    def __init__(self, n_arms, prices):
+        super().__init__(n_arms)
+        self.empirical_means = np.zeros(n_arms)
+        self.confidence = np.zeros(n_arms)
+        self.prices = prices
+
+    def pull_arm(self):
+        # All'inizio devo provare una volta tutti gli arm 
+        if self.t < self.n_arms:
+            arm = self.t
+        else:
+            upper_bound = (self.empirical_means + self.confidence)*self.prices
+            arm = np.random.choice(np.where(upper_bound == upper_bound.max())[0])
+        return arm
+
+    def update(self, pulled_arm, reward):
+        self.t += 1
+        self.rewards_per_arm[pulled_arm] = np.append(self.rewards_per_arm[pulled_arm], reward)
+        self.collected_rewards = np.append(self.collected_rewards, reward)
+        self.empirical_means[pulled_arm] = (self.empirical_means[pulled_arm]*(self.t) + reward) / self.t
+
+        # I need to update for all the arms because i have t at the denominator
+        for a in range(self.n_arms):
+            number_pulled = max(1, len(self.rewards_per_arm[a]))
+            self.confidence[a] = (2*np.log(self.t)/ number_pulled)**0.5
+        np.append(self.rewards_per_arm[pulled_arm], reward)
