@@ -30,3 +30,11 @@ per fare una commit
 
     # inviare la commit
     git push
+
+per fare un branch:
+
+    # git branch "nome del branch"
+
+    # git checkout "nome del branch"
+
+
