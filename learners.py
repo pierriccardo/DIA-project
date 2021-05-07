@@ -39,14 +39,6 @@ class TS_Learner(Learner):
         self.beta_parameters = np.ones((n_arms, 2))
 
     def pull_arm(self):
-        """
-        select which is the arm to pull at 
-        each time t, by sampling a value from
-        a beta distr. for each arm, then selects
-        the arm associated to the beta 
-        distribution that generated the sample
-        with the maximum value
-        """
         idx = np.argmax(np.random.beta(
             self.beta_parameters[:,0],
             self.beta_parameters[:,1]
@@ -108,3 +100,23 @@ class UCB1(Learner):
             number_pulled = max(1, len(self.rewards_per_arm[a]))
             self.confidence[a] = (2*np.log(self.t)/ number_pulled)**0.5
         np.append(self.rewards_per_arm[pulled_arm], reward)
+
+class TS_Learner_Prices(TS_Learner):
+
+    def __init__(self, n_arms):
+        super().__init__(n_arms)
+        self.beta_parameters = np.ones((n_arms, 2))
+
+    def pull_arm(self, prices):
+
+        beta_samples = np.random.beta(self.beta_parameters[:,0], self.beta_parameters[:,1])
+        expected_rewards = np.multiply(beta_samples, prices)
+
+        idx = np.argmax(expected_rewards)
+        return idx
+
+    def update(self, pulled_arm, reward):
+        self.t+=1
+        self.update_observations(pulled_arm, reward)
+        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
+        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - reward
