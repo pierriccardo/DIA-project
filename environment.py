@@ -1,5 +1,6 @@
 import numpy as np
-
+import yaml
+import random 
 '''
 environment class is defined by:
 - a number of arms
@@ -13,12 +14,13 @@ a stochastic reward depending on the pulled arm
 class Environment():
     def __init__(self, n_arms, probabilities):
 
+        with open('config.yml', 'r') as file:
+            self.config = yaml.safe_load(file)
+
         self.n_arms = n_arms
-        
-        # specifies the probability dist. of the 
-        # arm reward
         self.probabilities = probabilities
 
-    def round(self, pulled_arm):
+    def round(self, pulled_arm): 
+        
         reward = np.random.binomial(1, self.probabilities[pulled_arm])
         return reward

@@ -116,9 +116,6 @@ class TS_Learner_Prices(TS_Learner):
         return idx
 
     def update(self, pulled_arm, reward):
-
-        
-
         self.t+=1
         self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
