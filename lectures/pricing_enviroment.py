@@ -4,13 +4,13 @@ import numpy as np
 class PricingEnvironment:
     '''Pricing Environment class.'''
     
-    def __init__(self, n_arms, prices, p):
+    def __init__(self, n_arms, prices):
         '''Initialize the Pricing Environment class with a number of arms, a list of prices, 
         a list of conversion rate curves for each subcampaign and the current subcampaign.'''
         
         # Assignments and Initializations
         self.n_arms = n_arms
-        self.probabilities = self.conv_rate(prices)
+        self.probabilities = [self.conv_rate(price) for price in prices]
         self.prices = prices
         
     def round(self, pulled_arm):
