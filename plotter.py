@@ -162,7 +162,7 @@ class Plotter:
             ax[index].set_xlabel("Number of comebacks")
 
             ax[index].hist(
-                return_probability(_lambda),
+                return_probability(_lambda, size = 10000),
                 14,
                 density=True,
                 color=color,

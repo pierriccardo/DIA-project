@@ -3,7 +3,7 @@ imgpath: "img"
 
 avg_price: 6
 avg_cc: 0.42 # avg cost per click
-prices: [4, 4.5, 5.5, 6, 6.5, 7, 8, 9, 10, 12]
+prices: [2, 3, 3.5, 4, 4.5, 5.5, 6, 6.5, 7, 8]
 bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]   
 
 classes: ["class1", "class2", "class3", "class4"]
@@ -19,11 +19,12 @@ feature2: ["interested", "disinterested"]
 
 conv_rate:
   young:
-    interested: [1.26, 0.6, 0.45]
-    disinterested: [1.44, 1.04, 0.65]
+    interested: [1.26, 1.2, 0.25]
+    disinterested: [1.44, 1.54, 0.30]
   adult:
-    interested: [2.17, 0.86, 0.45]
-    disinterested: [0.53, 0.3, 0.65]
+    interested: [2.17, 1.46, 0.25]
+    disinterested: [0.53, 0.9, 0.30]
+
 #'''          bisogna convertirlo
 #
 #
@@ -33,6 +34,7 @@ conv_rate:
 #  class3: [2.17, 0.86, 0.45]
 #  class4: [0.53, 0.3, 0.65]
 #'''
+
 features_colors:
   young:
     interested: 'r'
@@ -70,9 +72,3 @@ frequencies:
   class3: 0.25
   class4: 0.25
 
-# aggregated data
-aggregated:
-  conv_rate: [1.26, 0.6, 0.45]
-  cost_per_click: 4.4
-  new_clicks: [10000, 0.03]
-  return_probability: 0.1
