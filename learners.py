@@ -30,8 +30,6 @@ class Learner:
         self.rewards_per_arm[pulled_arm].append(reward)
         self.collected_rewards = np.append(self.collected_rewards, reward)
 
-
-
 class TS_Learner(Learner):
 
     def __init__(self, n_arms):
@@ -70,9 +68,6 @@ class Greedy_Learner(Learner):
         self.update_observations(pulled_arm, reward)
         self.expected_rewards[pulled_arm] = (self.expected_rewards[pulled_arm] * (self.t - 1) + reward) / self.t
 
-
-
-
 class UCB1(Learner):
     def __init__(self, n_arms, prices):
         super().__init__(n_arms)
@@ -101,7 +96,7 @@ class UCB1(Learner):
             self.confidence[a] = (2*np.log(self.t)/ number_pulled)**0.5
         np.append(self.rewards_per_arm[pulled_arm], reward)
 
-class TS_Learner_Prices(TS_Learner):
+class TS_Learner(Learner):
 
     def __init__(self, n_arms):
         super().__init__(n_arms)
@@ -117,6 +112,9 @@ class TS_Learner_Prices(TS_Learner):
 
     def update(self, pulled_arm, reward):
         self.t+=1
+
+        binary_reward = 1.0 if reward > 0 else 0.0
+
         self.update_observations(pulled_arm, reward)
-        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
-        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - reward
+        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + binary_reward
+        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - binary_reward
