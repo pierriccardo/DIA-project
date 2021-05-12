@@ -6,9 +6,12 @@ with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
 
-print(config["seed"])
-print(config["conv_rate"]['young']['interested'])
 
+a = [1,2,3]
+b = [3,2,5]
+c = np.add(a,b)
+print(np.add(a,b))
+print(np.divide(c, 2))
 
 
 

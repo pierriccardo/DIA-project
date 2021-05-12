@@ -1,5 +1,6 @@
 import numpy as np
 import yaml
+
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
@@ -30,4 +31,22 @@ def aggregated_new_cliks(bid, Na=10000, cc=0.44):
 def aggregated_return_proba(bid):
     return config["frequencies"]["class1"]*return_probability[0]+config["frequencies"]["class2"]*return_probability[1]+config["frequencies"]["class3"]*return_probability[2]+config["frequencies"]["class4"]*return_probability[3]
 
+def aggregated_conv_rates(prices, num_classes=4, num_candidates=10):    
+
+    aggr_conv_rate = np.zeros(num_candidates)
+
+    for user_class in config["classes"]:
+        a,b,c = tuple(config["conv_rate"][user_class])
+        conv_rates = []
+
+        for price in prices:
+            conv_rates = [i for i in conv_rate(price, a, b, c)]
+        
+        aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
+    
+    return np.divide(aggr_conv_rate, num_classes)
+        
+
+
+        
 
