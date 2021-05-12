@@ -7,39 +7,26 @@ prices: [4, 4.5, 5.5, 6, 6.5, 7, 8, 9, 10, 12]
 bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]   
 
 classes: ["class1", "class2", "class3", "class4"]
-class_color: ['r', 'g', 'b', 'y']
+class_colors: 
+  class1: 'r'
+  class2: 'g' 
+  class3: 'b'
+  class4: 'y'
 
 feature1: ["young", "adult"]
 feature2: ["interested", "disinterested"]
 
-# class1 = young interested
-# class2 = young disinterested
-# class3 = adult interested
-# class4 = adult disinterested
+class_labels:
+  class1: "young-interested"
+  class2: "young-disinterested"
+  class3: "adult-interested"
+  class4: "adult-disinterested"
 
 conv_rate:
-  young:
-    interested: [1.26, 0.6, 0.45]
-    disinterested: [1.44, 1.04, 0.65]
-  adult:
-    interested: [2.17, 0.86, 0.45]
-    disinterested: [0.53, 0.3, 0.65]
-#'''          bisogna convertirlo
-#
-#
-#conv_rate:
-#  class1: [1.26, 0.6, 0.45]
-#  class2: [1.44, 1.04, 0.65]
-#  class3: [2.17, 0.86, 0.45]
-#  class4: [0.53, 0.3, 0.65]
-#'''
-features_colors:
-  young:
-    interested: 'r'
-    disinterested: 'g'
-  adult:
-    interested: 'b'
-    disinterested: 'y'
+  class1: [1.26, 0.6, 0.45] # class 1
+  class2: [1.44, 1.04, 0.65]
+  class3: [2.17, 0.86, 0.45]
+  class4: [0.53, 0.3, 0.65]
 
 cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe, ma non avendo informazioni conviene tenere così
   class1:

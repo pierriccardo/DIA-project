@@ -13,9 +13,10 @@ class Plotter:
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
 
-    def plot_conv_rate(self, feature1="young", feature2="interested"):
-        a, b, c = tuple(self.config["conv_rate"][feature1][feature2])
-        color = self.config["features_colors"][feature1][feature2]
+    def plot_conv_rate(self, user_class="class1"):
+
+        a, b, c = tuple(self.config["conv_rate"][user_class])
+        color = self.config["class_colors"][user_class]
 
         x = np.linspace(0, 8, 20)
         y = conv_rate(x, a, b, c)
@@ -24,10 +25,10 @@ class Plotter:
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
         ax.set_xlabel('Price(€)')
         ax.set_ylabel('Conversion Rate')
-        ax.set_title(f'{feature1}-{feature2}')
+        ax.set_title(f'{self.config["class_labels"][user_class]}')
         ax.plot(x, y,
                 color,
-                label=f'{feature1}-{feature2}',
+                label=f'{self.config["class_labels"][user_class]}',
                 marker='o',
                 markersize=3,
                 markerfacecolor=color,
@@ -38,40 +39,39 @@ class Plotter:
         ax.grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
-        filename = f'conv_rate_{feature1}_{feature2}.png'
+        filename = f'conv_rate_{self.config["class_labels"][user_class]}.png'
         savepath = os.path.join(self.config["imgpath"], filename)
         fig.savefig(savepath)
 
     def plot_all_conv_rate(self):
 
-        fig, ax = plt.subplots(figsize=(8, 6.5), nrows=2, ncols=2)
+        fig, ax = plt.subplots(figsize=(25, 6.5), nrows=1, ncols=4)
         # plt.tight_layout()
         fig.suptitle('Conversion Rates', fontsize=20)
 
-        for i, feature1 in enumerate(self.config["feature1"]):
-            for j, feature2 in enumerate(self.config["feature2"]):
+        for i, user_class in enumerate(self.config["classes"]):
+            
+            #ax[i].set_title(f'{feature1}-{feature2}')
+            ax[i].set_xlabel('Price(€)')
+            ax[i].set_ylabel('Conversion Rate')
 
-                #ax[i, j].set_title(f'{feature1}-{feature2}')
-                ax[i, j].set_xlabel('Price(€)')
-                ax[i, j].set_ylabel('Conversion Rate')
+            a, b, c = tuple(self.config["conv_rate"][user_class])
+            color = self.config["class_colors"][user_class]
 
-                a, b, c = tuple(self.config["conv_rate"][feature1][feature2])
-                color = self.config["features_colors"][feature1][feature2]
+            x = np.linspace(0, 10, 20)
+            y = conv_rate(x, a, b, c)
 
-                x = np.linspace(0, 10, 20)
-                y = conv_rate(x, a, b, c)
+            ax[i].plot(x, y,
+                            color,
+                            label=self.config["class_labels"][user_class],
+                            marker='o',
+                            markersize=3,
+                            markerfacecolor=color,
+                            markeredgecolor=color,
+                            markeredgewidth=4)
 
-                ax[i, j].plot(x, y,
-                              color,
-                              label=f'{feature1}-{feature2}',
-                              marker='o',
-                              markersize=3,
-                              markerfacecolor=color,
-                              markeredgecolor=color,
-                              markeredgewidth=4)
-
-                ax[i, j].legend(loc=0)
-                ax[i, j].grid(True, color='0.6', dashes=(5, 2, 1, 2))
+            ax[i].legend(loc=0)
+            ax[i].grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
         filename = 'conv_rate_all.png'
@@ -215,14 +215,12 @@ class Plotter:
 
 if __name__ == "__main__":
     p = Plotter()
+    
+    for i, c in enumerate(p.config["classes"]):
+        p.plot_conv_rate(user_class=c)
 
     p.plot_all_conv_rate()
-    p.plot_merged_conv_rate()
-    p.plot_all_new_clicks()
-
-    for f1 in p.config["feature1"]:
-        for f2 in p.config["feature2"]:
-            p.plot_conv_rate(f1, f2)
-
-    p.plot_all_cost_per_click()
-    p.plot_all_return_probability()
+    #p.plot_merged_conv_rate()
+    #p.plot_all_new_clicks()
+    #p.plot_all_cost_per_click()
+    #p.plot_all_return_probability()

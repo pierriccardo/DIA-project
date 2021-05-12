@@ -29,7 +29,7 @@ class Learner:
 
         self.rewards_per_arm[pulled_arm].append(reward)
         self.collected_rewards = np.append(self.collected_rewards, reward)
-
+'''
 class TS_Learner(Learner):
 
     def __init__(self, n_arms):
@@ -49,7 +49,7 @@ class TS_Learner(Learner):
         self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
         self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - reward
-
+'''
 
 class Greedy_Learner(Learner):
     def __init__(self, n_arms):
