@@ -1,0 +1,65 @@
+seed: 1234
+imgpath: "img"
+
+avg_price: 6
+avg_cc: 0.42 # avg cost per click
+prices: [2, 3, 3.5, 4, 4.5, 5.5, 6, 6.5, 7, 8]
+bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]   
+
+classes: ["class1", "class2", "class3", "class4"]
+
+feature1: ["young", "adult"]
+feature2: ["interested", "disinterested"]
+
+class_labels:
+  class1: young-interested
+  class2: young-disinterested
+  class3: adult-interested
+  class4: adult-disinterested
+
+# class1 = young interested
+# class2 = young disinterested
+# class3 = adult interested
+# class4 = adult disinterested
+
+conv_rate:
+  class1: [1.26, 0.6, 0.45]
+  class2: [1.44, 1.04, 0.65]
+  class3: [2.17, 0.86, 0.45]
+  class4: [0.53, 0.3, 0.65]
+
+
+class_colors:
+  class1: 'r'
+  class2: 'g'
+  class3: 'b'
+  class4: 'y'
+
+cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe, ma non avendo informazioni conviene tenere così
+  class1:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class2:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class3:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+  class4:
+    alpha: 4.4
+    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
+
+
+return_probability: [0.1, 2.21, 6.64, 0.5]
+
+new_clicks:
+  class1: [10000, 0.03]
+  class2: [10000, 0.005]
+  class3: [10000, 0.02]
+  class4: [10000, 0.003]
+
+frequencies:
+  class1: 0.25
+  class2: 0.25
+  class3: 0.25
+  class4: 0.25
