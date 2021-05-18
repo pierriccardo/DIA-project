@@ -3,7 +3,7 @@ import yaml
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pricing import *
+from configmanager import *
 
 
 class Plotter:
@@ -15,13 +15,16 @@ class Plotter:
 
         self.imgpath = self.config["env_imgpath"]
 
+        self.cm = ConfigManager() 
+        
+
     def plot_conv_rate(self, user_class="class1"):
 
         a, b, c = tuple(self.config["conv_rate"][user_class])
         color = self.config["class_colors"][user_class]
 
         x = np.linspace(0, 8, 20)
-        y = conv_rate(x, a, b, c)
+        y = self.cm.conv_rate(x, a, b, c)
 
         fig = plt.figure(figsize=(6, 5))
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
@@ -60,7 +63,7 @@ class Plotter:
             color = self.config["class_colors"][user_class]
 
             x = np.linspace(0, 10, 20)
-            y = conv_rate(x, a, b, c)
+            y = self.cm.conv_rate(x, a, b, c)
 
             ax[i].plot(x, y,
                             color,
@@ -93,7 +96,7 @@ class Plotter:
             color = self.config["class_colors"][user_class]
 
             x = np.linspace(0, 8, 20)
-            y = conv_rate(x, a, b, c)
+            y = self.cm.conv_rate(x, a, b, c)
             ax.plot(x, y,
                     color,
                     label=self.config["class_labels"][user_class],
@@ -127,7 +130,7 @@ class Plotter:
             ax[index].set_xlabel('Bid')
 
             x = self.config["bids"]
-            y = [cost_per_click(i, alpha) for i in x]
+            y = [self.cm.cost_per_click(i, alpha) for i in x]
             ax[index].plot(x, y,
                            color,
                            label=self.config["class_labels"][user_class],

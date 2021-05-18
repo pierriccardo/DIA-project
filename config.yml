@@ -22,10 +22,10 @@ class_labels:
   class4: "adult_disinterested"
 
 conv_rate:
-  class1: [1.26, 0.6, 0.45]
-  class2: [1.44, 1.04, 0.65]
-  class3: [2.17, 0.86, 0.45]
-  class4: [0.53, 0.3, 0.65]
+  class1: [1.26, 0.9, 0.25]
+  class2: [1.44, 1.34, 0.35]
+  class3: [2.17, 1.16, 0.25]
+  class4: [0.53, 0.6, 0.35]
 
 cost_per_click: 
   class1: 4.4 

@@ -12,7 +12,7 @@ prices = cm.prices # candidates
 
 #p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06]
 p = cm.aggr_conv_rates()
-print(p)
+
 n_arms = len(prices)
 opt = np.max(np.multiply(p, prices)) 
 
