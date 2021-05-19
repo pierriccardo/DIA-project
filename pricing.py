@@ -1,5 +1,7 @@
 import numpy as np
 import yaml
+
+
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
 
@@ -31,3 +33,14 @@ def aggregated_return_proba(bid):
     return config["frequencies"]["class1"]*return_probability[0]+config["frequencies"]["class2"]*return_probability[1]+config["frequencies"]["class3"]*return_probability[2]+config["frequencies"]["class4"]*return_probability[3]
 
 
+def fun(x):
+  return 100*(1.0-np.exp(-4*x+3*x**3))
+
+class BiddingEvironment():
+  def __init__(self,bids,sigma):
+    self.bids = bids
+    self.means = fun(bids)
+    self.sigmas = sigma*np.ones(len(bids))
+
+  def round(self, pulled_arm):    # pulled arm is the index of one of the bids
+    return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
