@@ -124,7 +124,6 @@ class TS_Learner(Learner):
 
 
 
-
 # GPTS modificato in modo da tener conto delle restrizioni del prof
 
 class GPTS_learner_positive(Learner):
@@ -136,8 +135,8 @@ class GPTS_learner_positive(Learner):
     self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
     self.threshold = threshold
     alpha = 10.0
-    kernel = C(1.0, (1e-3, 1e3)) * RBF(1.0, (1e-3, 1e3))
-    self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, normalize_y = True, n_restarts_optimizer = 9)
+    kernel = C(1.0, (1e-1, 1e1)) * RBF(1.0, (1e-1, 1e1  ))
+    self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
 
 
   def UpdateObservation(self, idx, reward):
@@ -147,8 +146,6 @@ class GPTS_learner_positive(Learner):
   def update_model(self):
     x = np.atleast_2d(self.pulled_arms).T
     y = self.collected_rewards
-    print(x)
-    print(y)
     self.gp.fit(x,y)
     self.means, self.sigmas = self.gp.predict(np.atleast_2d(self.arms).T, return_std = True)
     self.sigmas = np.maximum(self.sigmas, 1e-2)
@@ -167,13 +164,15 @@ class GPTS_learner_positive(Learner):
     
   def pull_arm(self):
     if (len(self.pulled_arms) < 10):
-      return np.random.choice(self.n_arms)   # scelta uniforme nei primi 10 round   
+      return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
     sample = np.random.normal(self.means,self.sigmas)
+    neg = []
     for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
       idx = np.argmax(sample)
       if self.is_eligible(idx):
         return idx
       else:
+        print(idx)
         sample[idx] = -10000.0    # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio 
     print('errore, nessun braccio eligible, ne restituisco uno a caso')    
     return np.argmax(np.random.normal(self.means,self.sigmas))

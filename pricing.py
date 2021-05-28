@@ -26,7 +26,7 @@ def aggregated_new_cliks(bid, Na=10000, cc=0.44):
     return config["frequencies"]["class1"]*new_clicks(bid, Na, new_clicks["class1"][1])+config["frequencies"]["class2"]*new_clicks(bid, Na, new_clicks["class2"][1])+config["frequencies"]["class3"]*new_clicks(bid, Na, new_clicks["class3"][1])+config["frequencies"]["class4"]*new_clicks(bid, Na, new_clicks["class4"][1])
 
 
-# def aggregated_conv_rate(x): BISOGNA CAMBIARE CONFIG PER FARLA ANDARE
+#def aggregated_conv_rate(x): BISOGNA CAMBIARE CONFIG PER FARLA ANDARE
 #    return config["frequencies"]["class1"]*conv_rate(x,conv_rate["class1"][0],conv_rate["class1"][1],conv_rate["class1"][2])+config["frequencies"]["class2"]*conv_rate(x,conv_rate["class2"][0],conv_rate["class2"][1],conv_rate["class2"][2])+frequencies["class3"]*conv_rate(x,conv_rate["class3"][0],conv_rate["class3"][1],conv_rate["class3"][2])+frequencies["class4"]*conv_rate(x,conv_rate["class4"][0],conv_rate["class4"][1],conv_rate["class4"][2])
 
 def aggregated_return_proba(bid):
@@ -37,10 +37,11 @@ def fun(x):
   return 100*(1.0-np.exp(-4*x+3*x**3))
 
 class BiddingEvironment():
-  def __init__(self,bids,sigma):
+  def __init__(self,bids,sigma, opt_pricing):
     self.bids = bids
     self.means = fun(bids)
     self.sigmas = sigma*np.ones(len(bids))
+    self.opt_pricing = opt_pricing
 
   def round(self, pulled_arm):    # pulled arm is the index of one of the bids
-    return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
+    return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm]) * (self.opt_pricing - self.bids[pulled_arm])

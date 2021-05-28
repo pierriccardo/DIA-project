@@ -1,22 +1,35 @@
 from learners import GPTS_learner_positive
-from pricing import BiddingEvironment
+from pricing import BiddingEvironment, conv_rate
 import numpy as np
 import matplotlib.pyplot as plt
+import yaml
+#import seaborn as sns
 
-n_arms = 20
-min_bid = 0.0
-max_bid = 1.0
-bids = np.linspace(min_bid, max_bid, n_arms)
+with open('config.yml', 'r') as file:
+    config = yaml.safe_load(file)
+
+n_arms = 10
+bids = config["bids"]
+bids = np.array(bids)
+#bids = [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48] 
+#min_bid = 0.0
+#max_bid = 1.0
+#bids = np.linspace(min_bid, max_bid, n_arms)
 sigma = 10
+prices = config["prices"]
+prices = np.array(prices)
+p = conv_rate(prices)
+opt_pricing = np.max(np.multiply(p, prices)) 
+print(opt_pricing)
 
 T = 40
 n_experiments = 10
 
-gts_reward_per_experiment = []
 gpts_reward_per_experiment = []
+p_arms = []
 
 for e in range(n_experiments):
-  env = BiddingEvironment(bids, sigma)
+  env = BiddingEvironment(bids, sigma, opt_pricing)
   gpts_learner = GPTS_learner_positive(n_arms=n_arms, arms=bids, threshold=0.2) # qui metto anche bid perchè per implementare GP serve sapere le distanze tra i dati
 
   for t in range(T):
@@ -24,11 +37,18 @@ for e in range(n_experiments):
     pulled_arm = gpts_learner.pull_arm()
     reward = env.round(pulled_arm)
     gpts_learner.update(pulled_arm, reward)
-    print(pulled_arm)
+    p_arms.append(pulled_arm)
+    #print(pulled_arm)
 
   gpts_reward_per_experiment.append(gpts_learner.collected_rewards)
+  print(gpts_learner.means)
 
-opt = np.max(env.means)
+print(p_arms)
+#sns.distplot(np.array(p_arms))
+
+plt.hist(p_arms)
+
+opt = np.max(env.means) * (opt_pricing - bids[np.where(env.means == np.max(env.means))])
 plt.figure(0)
 plt.ylabel('Regret')
 plt.xlabel('t')
