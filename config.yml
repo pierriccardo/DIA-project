@@ -1,5 +1,6 @@
 seed: 1234
-imgpath: "img"
+env_imgpath: "img/environment"
+exp_imgpath: "img/experiments"
 
 avg_price: 6
 avg_cc: 0.42 # avg cost per click
@@ -8,19 +9,17 @@ bids: [.30, .32, .34, .36, .38, .40, .42, .44, .46, .48]
 
 classes: ["class1", "class2", "class3", "class4"]
 
-feature1: ["young", "adult"]
-feature2: ["interested", "disinterested"]
+class_colors: 
+  class1: 'r' 
+  class2: 'g' 
+  class3: 'b' 
+  class4: 'y'
 
 class_labels:
-  class1: young-interested
-  class2: young-disinterested
-  class3: adult-interested
-  class4: adult-disinterested
-
-# class1 = young interested
-# class2 = young disinterested
-# class3 = adult interested
-# class4 = adult disinterested
+  class1: "young_interested"
+  class2: "young_disinterested"
+  class3: "adult_interested"
+  class4: "adult_disinterested"
 
 conv_rate:
   class1: [1.26, 0.9, 0.25]
@@ -28,29 +27,17 @@ conv_rate:
   class3: [2.17, 1.16, 0.25]
   class4: [0.53, 0.6, 0.35]
 
+cost_per_click: 
+  class1: 4.4 
+  class2: 4.4 
+  class3: 4.4 
+  class4: 4.4
 
-class_colors:
-  class1: 'r'
-  class2: 'g'
-  class3: 'b'
-  class4: 'y'
-
-cost_per_click: # In teoria il second price potrebbe cambiare da classe a classe, ma non avendo informazioni conviene tenere così
-  class1:
-    alpha: 4.4
-    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-  class2:
-    alpha: 4.4
-    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-  class3:
-    alpha: 4.4
-    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-  class4:
-    alpha: 4.4
-    beta: 1 # sarebbe sqrt(bid) ma non possiamo selezionarlo qui
-
-
-return_probability: [0.1, 2.21, 6.64, 0.5]
+return_probability: 
+  class1: 0.1 
+  class2: 2.21
+  class3: 6.64 
+  class4: 0.5
 
 new_clicks:
   class1: [10000, 0.03]

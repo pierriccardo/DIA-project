@@ -32,27 +32,6 @@ class Learner:
 
         self.rewards_per_arm[pulled_arm].append(reward)
         self.collected_rewards = np.append(self.collected_rewards, reward)
-'''
-class TS_Learner(Learner):
-
-    def __init__(self, n_arms):
-        super().__init__(n_arms)
-        self.beta_parameters = np.ones((n_arms, 2))
-
-    def pull_arm(self):
-        idx = np.argmax(np.random.beta(
-            self.beta_parameters[:,0],
-            self.beta_parameters[:,1]
-            )
-        )
-        return idx
-
-    def update(self, pulled_arm, reward):
-        self.t+=1
-        self.update_observations(pulled_arm, reward)
-        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + reward
-        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - reward
-'''
 
 class Greedy_Learner(Learner):
     def __init__(self, n_arms):
@@ -101,9 +80,10 @@ class UCB1(Learner):
 
 class TS_Learner(Learner):
 
-    def __init__(self, n_arms):
+    def __init__(self, n_arms, candidates):
         super().__init__(n_arms)
         self.beta_parameters = np.ones((n_arms, 2))
+        self.candidates = candidates
 
     def pull_arm(self, prices):
 
@@ -124,6 +104,41 @@ class TS_Learner(Learner):
 
 
 
+
+    def success_prob(self, arm):
+        # alpha: successes of the arm
+        # beta: failures of the arm 
+        a_arm = self.beta_parameters[arm, 0]
+        b_arm = self.beta_parameters[arm, 1]
+
+        # alpha + beta = total attempts
+        # success probability is given by
+        # successes / total attempts
+        return a_arm / (a_arm + b_arm)
+
+    def optimal_arm(self):
+        # returns the optimal arm
+
+        # values array store the expected value of each arm
+        values = []
+        for arm in range(self.n_arms):
+            values.append(self.expected_value(arm))
+
+        #print(f'opt value: {np.max(values)}')
+        #print(f'opt arm  : {opt_arm}')
+
+        # values array has length n_arms
+        # taking the array index of the highest expected
+        # value we return the optimal arm
+        return values.index(max(values))
+        
+
+    def expected_value(self, arm):
+        # returns the expected value of the arm 
+        # that is its success probability multiplied
+        # by its candidate value (price in our case)
+
+        return self.success_prob(arm) * self.candidates[arm]
 # GPTS modificato in modo da tener conto delle restrizioni del prof
 
 class GPTS_learner_positive(Learner):
@@ -176,3 +191,4 @@ class GPTS_learner_positive(Learner):
         sample[idx] = -10000.0    # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio 
     print('errore, nessun braccio eligible, ne restituisco uno a caso')    
     return np.argmax(np.random.normal(self.means,self.sigmas))
+
