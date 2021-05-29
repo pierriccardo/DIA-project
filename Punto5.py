@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import yaml
 #import seaborn as sns
+from tqdm import tqdm
 
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
@@ -22,13 +23,13 @@ p = conv_rate(prices)
 opt_pricing = np.max(np.multiply(p, prices)) 
 print(opt_pricing)
 
-T = 40
+T = 360
 n_experiments = 10
 
 gpts_reward_per_experiment = []
 p_arms = []
 
-for e in range(n_experiments):
+for e in tqdm(range(n_experiments)):
   env = BiddingEvironment(bids, sigma, opt_pricing)
   gpts_learner = GPTS_learner_positive(n_arms=n_arms, arms=bids, threshold=0.2) # qui metto anche bid perchè per implementare GP serve sapere le distanze tra i dati
 
@@ -48,7 +49,7 @@ print(p_arms)
 
 plt.hist(p_arms)
 
-opt = np.max(env.means) * (opt_pricing - bids[np.where(env.means == np.max(env.means))])
+opt = np.max(env.means * (opt_pricing - bids))
 plt.figure(0)
 plt.ylabel('Regret')
 plt.xlabel('t')
