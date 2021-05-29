@@ -133,5 +133,19 @@ class TS_Learner(Learner):
         # by its candidate value (price in our case)
 
         return self.success_prob(arm) * self.candidates[arm]
+    
+    def optimal_arm_lower_bound(self):
+
+        opt_arm = self.optimal_arm()
+        exp_val = self.expected_value(opt_arm)
+
+        succ_prob_opt_arm = self.success_prob(opt_arm)
+
+        confidence = succ_prob_opt_arm / (1 - succ_prob_opt_arm)
+
+        # Hoeffding bound
+
+        return exp_val - np.sqrt(-np.log(confidence) / (2 * len(self.obs)))
+
 
 

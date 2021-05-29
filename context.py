@@ -1,5 +1,6 @@
 import numpy as np
 from learners import TS_Learner
+from utils import *
 
 class Context():
     """
@@ -37,4 +38,22 @@ class Context():
 
         return learner
 
-        
+    def split_evaluation(self, feature):
+        """
+        return the value obtained by splitting 
+        for the feature
+        """
+        obs_1 = self.retrieve_obs(feature)
+        obs_2 = 
+
+    def retrieve_obs(self, feature):
+
+        #for i, o in enumerate(self.obs):
+        #    if feature 
+
+
+
+class ContextGenerator():
+
+    def __init__(self, n_arms, features, candidates):
+        pass
