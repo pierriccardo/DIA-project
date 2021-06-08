@@ -1,3 +1,5 @@
-- creazione persone:
- - numero random di persone giornaliere
- - probabilità delle classi (overleaf)
+# TODO
+- [x] creazione persone
+- [] numero random di persone giornaliere
+- [] probabilità delle classi (overleaf)
+- [] check perchè esplode il context gen (fai debug memoria)

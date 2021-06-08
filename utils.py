@@ -1,5 +1,3 @@
-
-
 def complement_feature(feature):
     """
     given a feature, return the complement
@@ -16,3 +14,4 @@ def complement_feature(feature):
             f_set.remove(feature)
             return f_set[0]
     return 0
+

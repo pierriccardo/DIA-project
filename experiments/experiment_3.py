@@ -10,8 +10,8 @@ cm = ConfigManager()
 bid = 0.42
 prices = cm.prices # candidates
 
-#p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06]
-p = cm.aggr_conv_rates()
+p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06]
+#p = cm.aggr_conv_rates()
 print(p)
 n_arms = len(prices)
 opt = np.max(np.multiply(p, prices)) 
@@ -41,7 +41,7 @@ for e in tqdm(range(0, n_experiments)):
         uc_learner.update(pulled_arm, reward)
 
         # TS 
-        pulled_arm = ts_learner.pull_arm(prices)
+        pulled_arm = ts_learner.pull_arm()
         reward = env.round(pulled_arm)
         ts_learner.update(pulled_arm, reward)
 

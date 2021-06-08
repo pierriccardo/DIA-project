@@ -1,3 +1,4 @@
+import logging
 import numpy as np
 
 class Learner:
@@ -82,10 +83,10 @@ class TS_Learner(Learner):
         self.beta_parameters = np.ones((n_arms, 2))
         self.candidates = candidates
 
-    def pull_arm(self, prices):
+    def pull_arm(self):
 
         beta_samples = np.random.beta(self.beta_parameters[:,0], self.beta_parameters[:,1])
-        expected_rewards = np.multiply(beta_samples, prices)
+        expected_rewards = np.multiply(beta_samples, self.candidates)
 
         idx = np.argmax(expected_rewards)
         return idx
@@ -134,18 +135,31 @@ class TS_Learner(Learner):
 
         return self.success_prob(arm) * self.candidates[arm]
     
-    def optimal_arm_lower_bound(self):
+    def expected_value_lower_bound(self, n_obs):
 
         opt_arm = self.optimal_arm()
         exp_val = self.expected_value(opt_arm)
+
 
         succ_prob_opt_arm = self.success_prob(opt_arm)
 
         confidence = succ_prob_opt_arm / (1 - succ_prob_opt_arm)
 
-        # Hoeffding bound
+        msg = f'|exp_val:{exp_val}|confidence:{confidence}|:{n_obs}|'
+        logging.info(f'TS_Learner.expected_value_lower_bound() -> {msg}')       
 
-        return exp_val - np.sqrt(-np.log(confidence) / (2 * len(self.obs)))
+        # Hoeffding bound
+        # TODO: NB: change self.t with len(obs) if we want to use
+        # more observations per day
+        
+
+        # TODO: fix the lower bound, it doesn't work
+        #lb = exp_val - np.sqrt(-np.log(confidence) / (2 * n_obs + 1))
+        #logging.error(f'TS_Learner.expected_value_lower_bound() -> error in lower bound computation: {lb}')
+        #lb = lb if lb is not np.nan else 0 
+        lb = exp_val
+
+        return lb 
 
 
 

@@ -1,7 +1,10 @@
 import numpy as np
 import yaml
+import itertools
+from utils import *
+import logging
 
-class ConfigManager:
+class ConfigManager():
 
     def __init__(self):
 
@@ -12,6 +15,9 @@ class ConfigManager:
         self.num_classes = len(self.classes)
         self.prices = self.config["prices"] # price candidates
         self.avg_cc = self.config["avg_cc"] # avg cost per click
+
+        self.features = self.config["features"]
+        self.class_distribution = self.config["class_distribution"]
     
     #------------------------------
     # ENVIRONMENT FUNCTIONS
@@ -60,6 +66,21 @@ class ConfigManager:
             aggr_cc += self.cost_per_click(bid, alpha)
         return aggr_cc / self.num_classes
     
+    #------------------------------
+    # GENERIC FUNCTIONS
+    #------------------------------
+    def get_classes(self):
+
+        classes = []
+        features = self.config["features"]
+        for f in itertools.product(features[0], features[1]):
+            classes.append([f[0], f[1]])
+        
+        return classes
+    
+
+
+
     
 
 def conv_rate(x, a=1, b=1, c=1):
