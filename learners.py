@@ -146,7 +146,7 @@ class TS_Learner(Learner):
         confidence = succ_prob_opt_arm / (1 - succ_prob_opt_arm)
 
         msg = f'|exp_val:{exp_val}|confidence:{confidence}|:{n_obs}|'
-        logging.info(f'TS_Learner.expected_value_lower_bound() -> {msg}')       
+        logging.debug(f'TS_Learner.expected_value_lower_bound() -> {msg}')       
 
         # Hoeffding bound
         # TODO: NB: change self.t with len(obs) if we want to use

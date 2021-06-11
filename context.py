@@ -36,7 +36,7 @@ class Context():
         # update context observations
         self.obs.append(new_obs)
 
-        logging.info(f'Context.update()|id: {self.id}|class: {new_obs[0]}|pulled_arm: {new_obs[1]}|reward: {new_obs[2]}')
+        logging.debug(f'Context.update()|id: {self.id}|class: {new_obs[0]}|pulled_arm: {new_obs[1]}|reward: {new_obs[2]}')
 
     def train_sub_learner(self, obs):
         # train a new learner, using observations
@@ -96,7 +96,7 @@ class Context():
         mu_0 = self.learner.expected_value_lower_bound(len(self.context_obs) + 1)
 
         msg = f'[p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}]'
-        logging.info(f'Context.split_evaluation() {msg}')
+        logging.debug(f'Context.split_evaluation() {msg}')
 
         return p_1 * mu_1 + p_2 * mu_2 >= mu_0, learner_1, learner_2
 
@@ -137,7 +137,7 @@ class ContextGenerator():
         init_context = Context(0, ts_learner, classes, self.obs)
         init_context.train_learner()
 
-        logging.info(f'ContextGenerator.__init__() created context c_{init_context.id}->{init_context.classes}')
+        logging.debug(f'ContextGenerator.__init__() created context c_{init_context.id}->{init_context.classes}')
         
         self.contexts.append(init_context)
 
@@ -170,7 +170,7 @@ class ContextGenerator():
                     c2 = Context(c.id+2, learner_2, classes_2)
                     c2.train_learner() 
 
-                    logging.info(f'ContextGenerator.generate() created context c_{c.id+1}->{classes_1},c_{c.id+2}->{classes_2}')
+                    logging.debug(f'ContextGenerator.generate() created context c_{c.id+1}->{classes_1},c_{c.id+2}->{classes_2}')
 
                     self.contexts.append(c1)
                     self.contexts.append(c2)
