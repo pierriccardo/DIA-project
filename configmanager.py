@@ -83,3 +83,16 @@ def aggregated_new_cliks(bid, Na=10000, cc=0.44):
     return self.config["frequencies"]["class1"]*new_clicks(bid, Na, new_clicks["class1"][1])+self.config["frequencies"]["class2"]*new_clicks(bid, Na, new_clicks["class2"][1])+self.config["frequencies"]["class3"]*new_clicks(bid, Na, new_clicks["class3"][1])+self.config["frequencies"]["class4"]*new_clicks(bid, Na, new_clicks["class4"][1])
 
 
+def fun(x):
+  return 100*(1.0-np.exp(-4*x+3*x**3))
+
+class BiddingEvironment():
+  def __init__(self,bids,sigma, opt_pricing):
+    self.bids = bids
+    self.means = fun(bids)
+    self.sigmas = sigma*np.ones(len(bids))
+    self.opt_pricing = opt_pricing
+
+  def round(self, pulled_arm):    # pulled arm is the index of one of the bids
+    return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm]) * (self.opt_pricing - self.bids[pulled_arm])
+

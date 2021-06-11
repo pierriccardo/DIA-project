@@ -5,9 +5,12 @@ import matplotlib.pyplot as plt
 import yaml
 #import seaborn as sns
 from tqdm import tqdm
+from configmanager import *
 
 with open('config.yml', 'r') as file:
     config = yaml.safe_load(file)
+
+cm = ConfigManager()
 
 n_arms = 10
 bids = config["bids"]
@@ -19,7 +22,7 @@ bids = np.array(bids)
 sigma = 10
 prices = config["prices"]
 prices = np.array(prices)
-p = conv_rate(prices)
+p = cm.aggr_conv_rates()
 opt_pricing = np.max(np.multiply(p, prices)) 
 print(opt_pricing)
 
