@@ -45,8 +45,8 @@ class Experiment4():
             for t in range(0,self.T): # 1 round is one day
 
                 # perform the offline context splitting, if needed
-                
-                context_gen.generate() 
+                if t>20:
+                    context_gen.generate() 
 
                 num_people = 1
                 for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class

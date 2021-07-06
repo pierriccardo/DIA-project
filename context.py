@@ -133,14 +133,16 @@ class ContextGenerator():
         self.classes = classes 
         self.features = features 
         self.candidates = candidates
-        self.obs = obs  # [['Y', 'I'], pulled_arm, reward]           
+        self.obs = obs  # [['Y', 'I'], pulled_arm, reward]      
+        self.current_id = 0     
 
         self.contexts = []
 
         # generate first context with all the classes
         
         init_context_learner = self.train_learner(self.obs)
-        init_context = Context(0, init_context_learner, classes, self.obs)
+        init_context = Context(self.current_id, init_context_learner, classes, self.obs)
+        
         
 
         logging.debug(f'ContextGenerator.__init__() created context c_{init_context.id}->{init_context.classes}')
@@ -197,14 +199,16 @@ class ContextGenerator():
                     # split the classes of context c
                     classes_1 = [c for c in c.classes if f[0] in c]
                     classes_2 = [c for c in c.classes if f[1] in c]
-
-                    c1 = Context(c.id+1, learner_1, classes_1)
+                    self.current_id += 1
+                    c1 = Context(self.current_id, learner_1, classes_1)
                     c1.train_learner()
-
-                    c2 = Context(c.id+2, learner_2, classes_2)
+                    
+                    self.current_id += 1
+                    c2 = Context(self.current_id, learner_2, classes_2)
                     c2.train_learner() 
+                    
 
-                    logging.debug(f'ContextGenerator.generate() created context c_{c.id+1}->{classes_1},c_{c.id+2}->{classes_2}')
+                    logging.debug(f'ContextGenerator.generate() c_{c.id} splitted in: c_{c1.id}({classes_1}),c_{c2.id}({classes_2})')
 
                     self.contexts.append(c1)
                     self.contexts.append(c2)

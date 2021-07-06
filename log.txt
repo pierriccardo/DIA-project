@@ -11,749 +11,752 @@ DEBUG:matplotlib.font_manager:Using fontManager instance from C:\Users\pierr\.ma
 DEBUG:matplotlib.pyplot:Loaded backend tkagg version unknown.
 DEBUG:matplotlib.pyplot:Loaded backend TkAgg version unknown.
 DEBUG:root:ContextGenerator.__init__() created context c_0->[['Y', 'I'], ['Y', 'D'], ['A', 'I'], ['A', 'D']]
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0|p2 = 0|mu0 = nan|mu1 = nan| mu2 = nan
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0|p2 = 0|mu0 = nan|mu1 = nan| mu2 = nan
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 3.087129070824723|mu1 = nan| mu2 = 3.042572892243662
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 3.087129070824723|mu1 = nan| mu2 = 3.042572892243662
+DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['Y', 'D']|pulled_arm: 3|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
 DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.292572892243662|mu1 = nan| mu2 = 2.271054989627439
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.5|p2 = 0.5|mu0 = 2.292572892243662|mu1 = 2.542572892243662| mu2 = 3.042572892243662
-DEBUG:root:ContextGenerator.generate() created context c_1->[['Y', 'I'], ['A', 'I']],c_2->[['Y', 'D'], ['A', 'D']]
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 1.0|p2 = 0.0|mu0 = 2.542572892243662|mu1 = 2.587129070824723| mu2 = nan
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 1.0|p2 = 0.0|mu0 = 2.27817468419245|mu1 = 2.587129070824723| mu2 = nan
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 2|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.5|p2 = 0.5|mu0 = 2.542572892243662|mu1 = 2.587129070824723| mu2 = 3.087129070824723
-DEBUG:root:ContextGenerator.generate() created context c_2->[['Y', 'I']],c_3->[['A', 'I']]
+DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 0|class: ['A', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.42857142857142855|p2 = 0.5714285714285714|mu0 = 1.7539761588880052|mu1 = 2.0046403962683934| mu2 = 2.2534782714082167
+DEBUG:root:ContextGenerator.generate() c_0 splitted in: c_1([['Y', 'I'], ['Y', 'D']]),c_2([['A', 'I'], ['A', 'D']])
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0|p2 = 0|mu0 = 2.0046403962683934|mu1 = nan| mu2 = nan
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0|p2 = 0|mu0 = 2.2534782714082167|mu1 = nan| mu2 = nan
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 2|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.0046403962683934|mu1 = nan| mu2 = 3.087129070824723
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.2533389074849297|mu1 = nan| mu2 = 3.087129070824723
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
 DEBUG:root:Context.update()|id: 2|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.3333333333333333|p2 = 0.6666666666666666|mu0 = 2.686870769553395|mu1 = 2.587129070824723| mu2 = 3.042572892243662
-DEBUG:root:ContextGenerator.generate() created context c_3->[['Y', 'D']],c_4->[['A', 'D']]
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.0046403962683934|mu1 = nan| mu2 = 3.042572892243662
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 1.753210281157684|mu1 = nan| mu2 = 3.042572892243662
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 2|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.0046403962683934|mu1 = nan| mu2 = 3.02817468419245
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 1.753091197504091|mu1 = nan| mu2 = 3.02817468419245
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 8
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 1|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 2.0043956256748174|mu1 = nan| mu2 = 3.021054989627439
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.0|p2 = 1.0|mu0 = 1.753091197504091|mu1 = nan| mu2 = 3.021054989627439
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 2|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.2|p2 = 0.8|mu0 = 2.0043956256748174|mu1 = 3.087129070824723| mu2 = 3.021054989627439
+DEBUG:root:ContextGenerator.generate() c_1 splitted in: c_3([['Y', 'I']]),c_4([['Y', 'D']])
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 6.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.split_evaluation() Context.split_evaluation() -> p1 = 0.16666666666666666|p2 = 0.8333333333333334|mu0 = 2.0031562414341972|mu1 = 3.087129070824723| mu2 = 3.0168079197498248
+DEBUG:root:ContextGenerator.generate() c_2 splitted in: c_5([['A', 'I']]),c_6([['A', 'D']])
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 8
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 8
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 1|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 3
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 0|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 7
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 0|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 2|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 3
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 4|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 2|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 8
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 3
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 4
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 4
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 0|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 7
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 3|reward: 4
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 6|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 1|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 6|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 2|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 2|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 2|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 4|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 8|reward: 7
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 6|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 3|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 7
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 2|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 9|reward: 0
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 1|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 0|reward: 0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 8|reward: 7
 DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 3|class: ['Y', 'I']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 7|reward: 0.0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
 DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 5|class: ['A', 'I']|pulled_arm: 2|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 3|reward: 4
+DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
+DEBUG:root:Context.update()|id: 6|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 8|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 4
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 1|reward: 3
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 3|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 0|labels: ['Y', 'I']
-DEBUG:root:Context.update()|id: 2|class: ['Y', 'I']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 7|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 4|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 9|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 1|reward: 0
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 8|reward: 7
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 3|labels: ['A', 'D']
-DEBUG:root:Context.update()|id: 4|class: ['A', 'D']|pulled_arm: 5|reward: 0.0
-DEBUG:root:PersonGenerator.generate_person() class: 1|labels: ['Y', 'D']
-DEBUG:root:Context.update()|id: 3|class: ['Y', 'D']|pulled_arm: 5|reward: 5.5
-DEBUG:root:PersonGenerator.generate_person() class: 2|labels: ['A', 'I']
-DEBUG:root:Context.update()|id: 3|class: ['A', 'I']|pulled_arm: 5|reward: 0.0
+DEBUG:root:Context.update()|id: 4|class: ['Y', 'D']|pulled_arm: 5|reward: 0.0
 DEBUG:matplotlib.font_manager:findfont: Matching sans\-serif:style=normal:variant=normal:weight=normal:stretch=normal:size=10.0.
 DEBUG:matplotlib.font_manager:findfont: score(<Font 'DejaVu Sans' (DejaVuSans-Oblique.ttf) oblique normal 400 normal>) = 1.05
 DEBUG:matplotlib.font_manager:findfont: score(<Font 'DejaVu Serif Display' (DejaVuSerifDisplay.ttf) normal normal 400 normal>) = 10.05
