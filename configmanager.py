@@ -40,6 +40,11 @@ class ConfigManager():
     # AGGREGATED FUNCTIONS
     #------------------------------
 
+    def class_conv_rate(self, c):
+        # c is the class
+        a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
+        conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
+        
     def aggr_conv_rates(self, num_candidates=10):    
 
         aggr_conv_rate = np.zeros(num_candidates)
@@ -50,6 +55,17 @@ class ConfigManager():
             aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
         
         return np.divide(aggr_conv_rate, self.num_classes)
+    
+    def class_aggr_conv_rates(self, classes):
+        aggr_conv_rate = np.zeros(len(self.prices))
+
+        for c in classes:
+            a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
+            conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
+            aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
+        
+        return np.divide(aggr_conv_rate, len(classes))
+
     
     def aggr_return_probability(self):
         ret_prob = 0

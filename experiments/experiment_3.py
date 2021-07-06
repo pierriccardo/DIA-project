@@ -52,7 +52,7 @@ class Experiment3():
             self.gr_reward_per_experiments.append(gr_learner.collected_rewards)
             self.uc_reward_per_experiments.append(uc_learner.collected_rewards)
             self.ts_reward_per_experiments.append(ts_learner.collected_rewards)
-    
+            
     def plot(self):
 
         plt.figure(0)

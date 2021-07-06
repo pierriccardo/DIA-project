@@ -9,7 +9,7 @@ class Context():
     - an ID to identify it 
     - a learner algorithm
     - one or more subspaces of features 
-    subspace is expressed as an array of tuple [('Y', 'I'),...]
+    subspace is expressed as an array of tuple [['Y', 'I'],...]
     """
 
     # TODO: domanda, se io ho 3 context, al round x pullo i 3 context, quindi devo 
@@ -28,6 +28,7 @@ class Context():
         self.obs = obs
         self.context_obs = []
         self.classes = classes
+        self.reward_per_experiments = []
 
     def update(self, new_obs):
         # updates context learner
@@ -81,26 +82,30 @@ class Context():
 
         learner_1 = self.train_sub_learner(obs_1)
         learner_2 = self.train_sub_learner(obs_2)
+        if len(self.obs) > 0:
+            p_1 = len(obs_1) / len(self.obs)
+            p_2 = len(obs_2) / len(self.obs) 
+        else:
+            p_1 = p_2 = 0
 
-        p_1 = len(obs_1) / len(self.obs) if len(self.obs) != 0 else 0
-        p_2 = len(obs_2) / len(self.obs) if len(self.obs) != 0 else 0
+        mu_1 = learner_1.expected_value_lower_bound()
+        mu_2 = learner_2.expected_value_lower_bound()
 
+        #mu_1 = mu_1 #if mu_1 is not np.nan else 0
+        #mu_2 = mu_2 #if mu_2 is not np.nan else 0    
         
-        mu_1 = learner_1.expected_value_lower_bound(len(obs_1) + 1)
-        mu_2 = learner_2.expected_value_lower_bound(len(obs_2) + 1)
 
-        mu_1 = mu_1 if mu_1 is not np.nan else 0
-        mu_2 = mu_2 if mu_2 is not np.nan else 0    
-        
+        mu_0 = self.learner.expected_value_lower_bound()
 
-        mu_0 = self.learner.expected_value_lower_bound(len(self.context_obs) + 1)
-
-        msg = f'[p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}]'
+        msg = f'Context.split_evaluation() -> p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}'
         logging.debug(f'Context.split_evaluation() {msg}')
 
         return p_1 * mu_1 + p_2 * mu_2 >= mu_0, learner_1, learner_2
 
     def retrieve_obs(self, feature):
+        """
+        Should take 
+        """
         selected_obs = []
         for o in self.obs:
             if feature in o[0]:
@@ -128,37 +133,66 @@ class ContextGenerator():
         self.classes = classes 
         self.features = features 
         self.candidates = candidates
-        self.obs = obs
+        self.obs = obs  # [['Y', 'I'], pulled_arm, reward]           
 
         self.contexts = []
 
         # generate first context with all the classes
-        ts_learner = TS_Learner(n_arms, candidates)
-        init_context = Context(0, ts_learner, classes, self.obs)
-        init_context.train_learner()
+        
+        init_context_learner = self.train_learner(self.obs)
+        init_context = Context(0, init_context_learner, classes, self.obs)
+        
 
         logging.debug(f'ContextGenerator.__init__() created context c_{init_context.id}->{init_context.classes}')
         
         self.contexts.append(init_context)
 
+    def train_learner(self, obs):
+        learner = TS_Learner(self.n_arms, self.candidates)
+        for o in obs:
+            learner.update(o[1], o[2])
+
+        return learner
+
+    
+    def retrieve_obs(self, classes):
+        """
+        classes is a vector of type: 
+        [['Y', 'I'], ['Y', 'D']...]
+        
+        obs is a vector of type: 
+        [['Y', 'I'], pulled_arm, reward]
+
+        we need to retrieve the observation 
+        if the classes vector contains the 
+        class of the observation
+        """
+        selected_obs = []
+        for o in self.obs:
+            for c in classes:
+                if c[0] in o[0] and c[1] in o[0]:
+                    selected_obs.append(o)
+        return selected_obs 
+
+
+    
     def generate(self):
 
         for f in self.features:
             for c in self.contexts:
 
-                # TODO: check if context has the two features already splitted
                 if not c.has_features(f):
                     continue
 
                 # evaluate wheter it is worth to 
                 # split the context for the feature "f" 
-                 
-                if c.split_evaluation(f):
+                split_condition, learner_1, learner_2 = c.split_evaluation(f)
+                if split_condition:
 
                     # if split_evaluation is true, then is worth splitting
                     # so we create the 2 contexts
-                    learner_1 = TS_Learner(self.n_arms, self.candidates)
-                    learner_2 = TS_Learner(self.n_arms, self.candidates)
+                    #learner_1 = TS_Learner(self.n_arms, self.candidates)
+                    #learner_2 = TS_Learner(self.n_arms, self.candidates)
 
                     # split the classes of context c
                     classes_1 = [c for c in c.classes if f[0] in c]
@@ -174,6 +208,7 @@ class ContextGenerator():
 
                     self.contexts.append(c1)
                     self.contexts.append(c2)
+                    self.contexts.remove(c)
     
     def update(self, new_obs):
         self.obs.append(new_obs)
@@ -198,10 +233,14 @@ class ContextGenerator():
 
         context = self.find_context(user_class)
         return context.learner.expected_value(pulled_arm)
+    
+    def update_reward_per_experiments(self):
+        for c in self.contexts:
+            c.reward_per_experiments.append(c.learner.collected_rewards)
 
+    
 
-
-
+        
 
     
 

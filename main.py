@@ -25,7 +25,7 @@ import logging
 # INFO    = 20
 # WARNING = 30
 # ERROR   = 40
-# e.g. python main.py -e 4 -l 10 (to activate DEBUG level)
+# e.g. python main.py -e 4 -l 10 (to activate DEBUG)
 
 parser = argparse.ArgumentParser(description='Expriments launcher')
 parser.add_argument('--experiment', '-e',  type=str,  default=3, help='experiment number')
@@ -68,10 +68,16 @@ exps["6"] = e6
 exps["7"] = e7
 exps["all"] = all_exp
 
+exp = None
+
 try:
     exp = exps[args.experiment]
-    exp.run()   
-    exp.plot()
 
 except Exception:
+    logging.error("Experiment selected doesn't exists")
+
+if exp is not None:
+    exp.run()   
+    exp.plot()
+else:
     logging.error("Experiment selected doesn't exists")

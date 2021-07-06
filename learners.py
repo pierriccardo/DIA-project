@@ -135,29 +135,25 @@ class TS_Learner(Learner):
 
         return self.success_prob(arm) * self.candidates[arm]
     
-    def expected_value_lower_bound(self, n_obs):
+    def expected_value_lower_bound(self):
 
         opt_arm = self.optimal_arm()
-        exp_val = self.expected_value(opt_arm)
+        exp_val = self.expected_value(opt_arm)   
 
-
-        succ_prob_opt_arm = self.success_prob(opt_arm)
-
-        confidence = succ_prob_opt_arm / (1 - succ_prob_opt_arm)
-
-        msg = f'|exp_val:{exp_val}|confidence:{confidence}|:{n_obs}|'
-        logging.debug(f'TS_Learner.expected_value_lower_bound() -> {msg}')       
+        #logging.debug(f'TS_Learner.expected_value_lowerbound() -> opt arm: {opt_arm}, exp_val: {exp_val}')
 
         # Hoeffding bound
         # TODO: NB: change self.t with len(obs) if we want to use
+        # TODO: chenage n_obs with n_obs of the optimal arm only
         # more observations per day
         
+        #alpha = 0.05
 
         # TODO: fix the lower bound, it doesn't work
-        #lb = exp_val - np.sqrt(-np.log(confidence) / (2 * n_obs + 1))
+        #lb = exp_val - np.sqrt(-np.log(alpha) / (self.t + 1))
         #logging.error(f'TS_Learner.expected_value_lower_bound() -> error in lower bound computation: {lb}')
-        #lb = lb if lb is not np.nan else 0 
-        lb = exp_val
+        confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm)) 
+        lb = exp_val - np.sqrt(- confidence / (2*self.t) + 1)
 
         return lb 
 
