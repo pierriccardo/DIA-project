@@ -1,5 +1,8 @@
 import logging
 import numpy as np
+from sklearn.gaussian_process import GaussianProcessRegressor
+from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
+from scipy.stats import norm
 
 class Learner:
     
@@ -138,7 +141,7 @@ class TS_Learner(Learner):
     def expected_value_lower_bound(self):
 
         opt_arm = self.optimal_arm()
-        exp_val = self.expected_value(opt_arm)   
+        exp_val = self.success_prob(opt_arm)   
 
         #logging.debug(f'TS_Learner.expected_value_lowerbound() -> opt arm: {opt_arm}, exp_val: {exp_val}')
 
@@ -147,15 +150,67 @@ class TS_Learner(Learner):
         # TODO: chenage n_obs with n_obs of the optimal arm only
         # more observations per day
         
-        #alpha = 0.05
+        confidence = np.log(0.005)
 
         # TODO: fix the lower bound, it doesn't work
         #lb = exp_val - np.sqrt(-np.log(alpha) / (self.t + 1))
         #logging.error(f'TS_Learner.expected_value_lower_bound() -> error in lower bound computation: {lb}')
-        confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm)) 
-        lb = exp_val - np.sqrt(- confidence / (2*self.t) + 1)
+        #confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm)) 
+        lb = exp_val - np.sqrt(- confidence / (2*self.t) + 0.001)
+        logging.debug(f'TS_learner.expected_value_lowerbound() -> lb: {lb}, self.t {self.t}')
 
-        return lb 
+        return lb * self.candidates[opt_arm]
+    
+class GPTS_learner_positive(Learner):
+
+    def __init__(self, n_arms, arms, threshold):
+        super().__init__(n_arms)
+        self.arms = arms
+        self.means = np.zeros(n_arms)
+        self.sigmas = np.ones(n_arms)*10
+        self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
+        self.threshold = threshold
+        alpha = 10.0
+        kernel = C(0.1, (1e-1, 1e1)) * RBF(0.1, (1e-1, 1e1  ))
+        self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
+
+
+    def UpdateObservation(self, idx, reward):
+        self.update_observations(idx, reward)
+        self.pulled_arms.append(self.arms[idx])
+
+    def update_model(self):
+        x = np.atleast_2d(self.pulled_arms).T
+        y = self.collected_rewards
+        self.gp.fit(x,y)
+        self.means, self.sigmas = self.gp.predict(np.atleast_2d(self.arms).T, return_std = True)
+        self.sigmas = np.maximum(self.sigmas, 1e-2)
+
+    def update(self, pulled_arm, reward):
+        self.t += 1
+        self.UpdateObservation(pulled_arm, reward)
+        self.update_model()
+
+    def is_eligible(self, idx):
+        proba = norm(loc = self.means[idx], scale = self.sigmas[idx]).cdf(0.0)
+        if (proba < self.threshold):
+            return True
+        return False
+
+    def pull_arm(self):
+        if (len(self.pulled_arms) < 10):
+            return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
+        sample = np.random.normal(self.means,self.sigmas)
+        neg = []
+        for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
+            idx = np.argmax(sample)
+            if self.is_eligible(idx):
+                return idx
+            else:
+                print(idx)
+                sample[idx] = -10000.0    # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio 
+            print('errore, nessun braccio eligible, ne restituisco uno a caso')    
+        return np.argmax(np.random.normal(self.means,self.sigmas))
 
 
 
