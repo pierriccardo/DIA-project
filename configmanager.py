@@ -16,6 +16,7 @@ class ConfigManager():
         self.n_arms = len(self.prices)
 
         self.class_distribution = self.config['class_distribution']
+        self.new_clicks = self.config["new_clicks"]
         
         self.classes = self.get_classes()
         self.num_classes = len(self.classes)
@@ -41,8 +42,26 @@ class ConfigManager():
         beta = np.sqrt(bid)
         return bid * np.random.beta(alpha, beta, 1)
     
-    def new_clicks(self, bids):
-        return 100*(1.0-np.exp(-4*bids+3*bids**3))
+    #def new_clicks(self, bids):
+    #    return 100*(1.0-np.exp(-4*bids+3*bids**3))
+
+    def new_clicks_function_mean(self, bid, classe, num_people):
+        return (1-0.40/(2*bid))*num_people*self.new_clicks[classe]
+    
+    def aggregated_new_clicks_function_mean(self, bid, num_people):
+        v = 0
+        for i in range(4):
+            v += self.new_clicks_function_mean(bid, i, num_people[i])
+        return v
+
+    def new_clicks_function_sigma(self, bid, classe, num_people):
+        return (1-0.40/(2*bid))**2*num_people*self.new_clicks[classe]**2
+
+    def aggregated_new_clicks_function_sigma(self, bid, num_people):
+        v = 0
+        for i in range(4):
+            v += self.new_clicks_function_sigma(bid, i, num_people[i])
+        return v
     
     #------------------------------
     # AGGREGATED FUNCTIONS

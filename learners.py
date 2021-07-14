@@ -166,7 +166,7 @@ class GPTS_learner_positive(Learner):
     def __init__(self, n_arms, arms, threshold):
         super().__init__(n_arms)
         self.arms = arms
-        self.means = np.zeros(n_arms)
+        self.means = np.ones(n_arms) #np.zeros(n_arms)
         self.sigmas = np.ones(n_arms)*10
         self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
         self.threshold = threshold

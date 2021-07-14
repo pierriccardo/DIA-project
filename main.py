@@ -29,7 +29,7 @@ import logging
 
 parser = argparse.ArgumentParser(description='Expriments launcher')
 parser.add_argument('--experiment', '-e',  type=str,  default=3, help='experiment number')
-#sparser.add_argument('--logfile', '-lf',  type=bool,  action=argparse.BooleanOptionalAction, default=False, help='wheter to output in a logfile or not')
+parser.add_argument('--logfile', '-lf',  type=str, help='wheter to output in a logfile or not')
 parser.add_argument('--log', '-l',  type=int,  default=40, help='wheter to output in a logfile or not')
 args = parser.parse_args()
 
@@ -37,9 +37,11 @@ args = parser.parse_args()
 # LOGGER
 #------------------------------
 filename = None
-if args.logfile:
-    filename =  "./log.txt"
-logging.basicConfig(level=args.log, filename=filename)
+if args.logfile is not None:
+    filename = args.logfile
+    logging.basicConfig(level=args.log, filename=filename)
+else:
+    logging.basicConfig(level=args.log)
 logging.debug('Started')
 
 

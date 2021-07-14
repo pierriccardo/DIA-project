@@ -38,14 +38,12 @@ class SpecificEnvironment():
         return reward
 
 class BiddingEvironment():
+  def __init__(self, bids, means, sigmas):
+    self.bids = bids
+    self.means = means
+    self.sigmas = sigmas
 
-    def __init__(self, bids, means, sigma, opt_pricing):
-        self.bids = bids
-        self.means = means
-        self.sigmas = sigma*np.ones(len(bids))
-        self.opt_pricing = opt_pricing
-
-    def round(self, pulled_arm):    # pulled arm is the index of one of the bids
-        return np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm]) * (self.opt_pricing - self.bids[pulled_arm])
-        
+  def round(self, pulled_arm, value):    # pulled arm is the index of one of the bids
+    news = np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
+    return news*(value - self.bids[pulled_arm])
    
