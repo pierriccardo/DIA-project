@@ -11,6 +11,8 @@ class ConfigManager():
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
         
+        self.bids = self.config['bids']
+        
         self.classes = self.config["classes"]
         self.num_classes = len(self.classes)
         self.prices = self.config["prices"] # price candidates
@@ -36,10 +38,19 @@ class ConfigManager():
         beta = np.sqrt(bid)
         return bid * np.random.beta(alpha, beta, 1)
     
+    def new_clicks(self, bids):
+        return 100*(1.0-np.exp(-4*bids+3*bids**3))
+    
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------
 
+    def class_conv_rate(self, c):
+        # c is the class
+        a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
+        conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
+        return conv_rates
+        
     def aggr_conv_rates(self, num_candidates=10):    
 
         aggr_conv_rate = np.zeros(num_candidates)
@@ -50,6 +61,17 @@ class ConfigManager():
             aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
         
         return np.divide(aggr_conv_rate, self.num_classes)
+    
+    def class_aggr_conv_rates(self, classes):
+        aggr_conv_rate = np.zeros(len(self.prices))
+
+        for c in classes:
+            a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
+            conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
+            aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
+        
+        return np.divide(aggr_conv_rate, len(classes))
+
     
     def aggr_return_probability(self):
         ret_prob = 0
@@ -77,6 +99,9 @@ class ConfigManager():
             classes.append([f[0], f[1]])
         
         return classes
+    
+    def get_features(self):
+        return self.config["features"]
     
 
 

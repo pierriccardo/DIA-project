@@ -1,6 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
-from environment import Environment, SpecificEnvironment
+from environment import Environment
 from learners import TS_Learner, Greedy_Learner, UCB1
 from tqdm import tqdm
 from configmanager import *
@@ -28,7 +28,7 @@ class Experiment3():
     def run(self):
 
         for e in tqdm(range(0, self.n_experiments)):
-            env = SpecificEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
+            env = Environment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
             gr_learner = Greedy_Learner(n_arms=self.n_arms)
             uc_learner = UCB1(n_arms=self.n_arms, prices=self.prices)
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
@@ -52,7 +52,7 @@ class Experiment3():
             self.gr_reward_per_experiments.append(gr_learner.collected_rewards)
             self.uc_reward_per_experiments.append(uc_learner.collected_rewards)
             self.ts_reward_per_experiments.append(ts_learner.collected_rewards)
-    
+            
     def plot(self):
 
         plt.figure(0)
