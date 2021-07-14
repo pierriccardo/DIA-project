@@ -52,29 +52,19 @@ from experiments.experiment_5 import Experiment5
 from experiments.experiment_6 import Experiment6
 from experiments.experiment_7 import Experiment7
 
-e3 = Experiment3()
-e4 = Experiment4()
-e5 = Experiment5()
-e6 = Experiment6()
-e7 = Experiment7()
-
-all_exp = [e3, e4, e5, e6, e7]
-
-exps = {}
-exps["3"] = e3
-exps["4"] = e4
-exps["5"] = e5
-exps["6"] = e6
-exps["7"] = e7
-exps["all"] = all_exp
-
 exp = None
-
-try:
-    exp = exps[args.experiment]
-
-except Exception:
-    logging.error("Experiment selected doesn't exists")
+if args.experiment == '3':
+    exp = Experiment3()
+elif args.experiment == '4':
+    exp = Experiment4()
+elif args.experiment == '5':
+    exp = Experiment5()
+elif args.experiment == '6':
+    exp = Experiment6()
+elif args.experiment == '7':
+    exp = Experiment7()
+else:
+    print(f'Error Experiment {args.experiment} does not exist')
 
 if exp is not None:
     exp.run()   

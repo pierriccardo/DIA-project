@@ -12,21 +12,24 @@ class ConfigManager():
             self.config = yaml.safe_load(file)
         
         self.bids = self.config['bids']
+        self.prices = self.config["prices"] # candidates
+        self.n_arms = len(self.prices)
+
+        self.class_distribution = self.config['class_distribution']
         
-        self.classes = self.config["classes"]
+        self.classes = self.get_classes()
         self.num_classes = len(self.classes)
-        self.prices = self.config["prices"] # price candidates
+        
         self.avg_cc = self.config["avg_cc"] # avg cost per click
 
-        self.features = self.config["features"]
-        self.class_distribution = self.config["class_distribution"]
+        self.features = self.config["features"] # ["Y", "A"], ["I", "D"]
+
+        self.conv_rates = self.config['conv_rates']
+        self.colors = self.config['colors']
     
     #------------------------------
     # ENVIRONMENT FUNCTIONS
     #------------------------------
-
-    def conv_rate(self, x, a=1, b=1, c=1):
-        return ((c*x) ** a) * np.exp(-b * c * x)
 
     def return_probability(_lambda, size=1):
         samples = np.random.poisson(_lambda, size=size)
@@ -44,34 +47,18 @@ class ConfigManager():
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------
-
-    def class_conv_rate(self, c):
-        # c is the class
-        a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
-        conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
-        return conv_rates
         
-    def aggr_conv_rates(self, num_candidates=10):    
-
-        aggr_conv_rate = np.zeros(num_candidates)
-
-        for user_class in self.classes:
-            a,b,c = tuple(self.config["conv_rate"][user_class])          
-            conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
-            aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
-        
-        return np.divide(aggr_conv_rate, self.num_classes)
-    
-    def class_aggr_conv_rates(self, classes):
-        aggr_conv_rate = np.zeros(len(self.prices))
-
+    def aggr_conv_rates(self, classes=[0,1,2,3]):    
+        '''
+        return the aggregated conversion rate of the specified classes
+        classes is a vector of type [0, 1, 2, 3]
+        if we want to aggregate just 2 classes [0, 3]
+        '''
+        aggr_cr = np.zeros(self.n_arms)
         for c in classes:
-            a,b,c = tuple(self.config["conv_rate"][c[0]+c[1]])          
-            conv_rates = [self.conv_rate(p, a, b, c) for p in self.prices]
-            aggr_conv_rate = np.add(aggr_conv_rate, conv_rates)
+            aggr_cr = np.add(aggr_cr, self.conv_rates[c])
         
-        return np.divide(aggr_conv_rate, len(classes))
-
+        return np.divide(aggr_cr, len(classes))
     
     def aggr_return_probability(self):
         ret_prob = 0

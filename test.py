@@ -1,7 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from configmanager import ConfigManager
 
-"""
+'''
 classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
 
 f = ["Y", "A"]
@@ -11,7 +12,7 @@ classes_2 = [c for c in classes if f[1] in c]
 
 print(classes_1)
 print(classes_2)
-"""
+
 
 classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
 prova = ["Y", "I"]
@@ -26,3 +27,12 @@ fig = plt.figure(constrained_layout=True)
 ax_array = fig.subplots(1, 1, squeeze=False)
 
 ax_array[0, 0].imshow([[1, 1], [2, 1]])
+'''
+
+cm = ConfigManager()
+print(cm.get_classes())
+print(cm.conv_rate)
+print(cm.conv_rate[0])
+print(cm.aggr_conv_rates([0,1]))
+
+

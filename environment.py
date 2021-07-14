@@ -25,20 +25,17 @@ class Environment():
         return reward
 
 class SpecificEnvironment():
-    def __init__(self, n_arms, probabilities, candidates):
+    def __init__(self, n_arms, candidates):
 
         self.candidates = candidates
         self.n_arms = n_arms
-        self.probabilities = probabilities
         self.cm = ConfigManager()
 
     def round(self, pulled_arm, user_class):
-        probabilities = self.cm.class_conv_rate(user_class)
+        probabilities = self.cm.conv_rates[user_class]
 
         reward = np.random.binomial(1, probabilities[pulled_arm]) * self.candidates[pulled_arm]
         return reward
-
-
 
 class BiddingEvironment():
 

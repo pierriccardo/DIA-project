@@ -3,17 +3,17 @@ import logging
 
 class PersonGenerator():
 
-    def __init__(self, classes, probabilities):
+    def __init__(self, classes, distribution):
         self.classes = classes
-        self.probabilities = probabilities
+        self.distribution = distribution
   
     def generate_person(self):
         # generate 1 person belonging to a random class
         
-        n = np.random.choice(4, size=1, p=self.probabilities)[0]
+        n = np.random.choice(4, size=1, p=self.distribution)[0]
         logging.debug(f'PersonGenerator.generate_person() class: {n}|labels: {self.classes[n]}')
 
-        return self.classes[n]
+        return n, self.classes[n]
 
     def generate_people(self, num=8):
         # TODO: make it random ? or pass as argument a random generated number?

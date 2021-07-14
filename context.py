@@ -128,8 +128,6 @@ class ContextGenerator():
         init_context_learner = self.train_learner(self.obs)
         init_context = Context(self.current_id, init_context_learner, classes, self.obs)
         
-        
-
         logging.debug(f'ContextGenerator.__init__() created context c_{init_context.id}->{init_context.classes}')
         
         self.contexts.append(init_context)
