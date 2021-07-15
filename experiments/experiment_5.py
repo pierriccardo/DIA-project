@@ -15,7 +15,7 @@ class Experiment5():
         self.n_arms = 10
         self.bids = np.array(cm.bids)
         self.prices = cm.prices
-        self.num_people = 100000*np.array(cm.class_distribution)
+        self.num_people = 10000*np.array(cm.class_distribution)
         self.p = cm.aggr_conv_rates()
         self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
         self.means = cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
@@ -23,7 +23,7 @@ class Experiment5():
         self.opt = np.max(self.means * (self.opt_pricing - cm.cc(self.bids)))
         self.optimal_bid = np.argmax(self.means * (self.opt_pricing - cm.cc(self.bids)))
         self.T = 300
-        self.n_experiments = 5
+        self.n_experiments = 10
         self.gpts_reward_per_experiment = []
         self.p_arms = []
 
@@ -57,7 +57,7 @@ class Experiment5():
         plt.hist(self.p_arms)
         plt.savefig("img/experiments/experiment_5_hist.png")
         
-        plt.figure(0)
+        plt.figure(1)
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.gpts_reward_per_experiment, axis = 0)),'g')
