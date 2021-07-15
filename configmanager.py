@@ -55,13 +55,16 @@ class ConfigManager():
         return v
 
     def new_clicks_function_sigma(self, bid, classe, num_people):
-        return (1-0.40/(2*bid))**2*num_people*self.new_clicks[classe]**2
+        return (1-0.40/(2*bid))*num_people**0.5*self.new_clicks[classe]
 
     def aggregated_new_clicks_function_sigma(self, bid, num_people):
         v = 0
         for i in range(4):
             v += self.new_clicks_function_sigma(bid, i, num_people[i])
         return v
+
+    def cc(self, bid):
+        return bid/(1+bid**0.5)
     
     #------------------------------
     # AGGREGATED FUNCTIONS

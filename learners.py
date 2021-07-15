@@ -171,7 +171,7 @@ class GPTS_learner_positive(Learner):
         self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
         self.threshold = threshold
         alpha = 10.0
-        kernel = C(0.1, (1e-1, 1e1)) * RBF(0.1, (1e-1, 1e1  ))
+        kernel = C(0.0001, (1e-6, 2e1)) * RBF(0.01, (1e-6, 1e1  ))
         self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
 
 
