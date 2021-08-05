@@ -42,11 +42,28 @@ class BiddingEvironment():
     self.bids = bids
     self.means = means
     self.sigmas = sigmas
+    self.cm = ConfigManager()
   
   def cc(self, bid):
-    return bid/(1+bid**0.5)
+    return self.cm.cc(bid)         #(bid/(1+bid**0.5))
 
-  def round(self, pulled_arm, value):    # pulled arm is the index of one of the bids
+  def round(self, pulled_arm):    # pulled arm is the index of one of the bids
     news = np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
-    return news*(value - self.cc(self.bids[pulled_arm]))
+    cost = news*self.cc(self.bids[pulled_arm])
+    return news, cost
+    # return news*(value - self.cc(self.bids[pulled_arm]))
+
+
+class PricingEnvironment():
+    def __init__(self, n_arms, probabilities, candidates):
+
+        self.candidates = candidates
+        self.n_arms = n_arms
+        self.probabilities = probabilities
+
+    def round(self, pulled_arm, num_clicks): # this time the number of people that click is determined by the bidding part,
+        # thus, we cannot simply take one as before
+
+        buyer = np.random.binomial(num_clicks, self.probabilities[pulled_arm])
+        return buyer
    

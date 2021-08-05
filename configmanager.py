@@ -64,8 +64,10 @@ class ConfigManager():
         return v
 
     def cc(self, bid):
-        return bid/(1+bid**0.5)
+        return bid*np.random.beta(4.4,bid**0.5)
     
+    def mean_cc(self, bid):
+        return bid*(4.4/(4.4+bid**0.5))
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------

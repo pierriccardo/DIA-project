@@ -2,7 +2,7 @@ import logging
 import numpy as np
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
-from scipy.stats import norm
+from scipy.stats import norm, beta
 
 class Learner:
     
@@ -79,6 +79,8 @@ class UCB1(Learner):
             self.confidence[a] = (2*np.log(self.t)/ number_pulled)**0.5
         np.append(self.rewards_per_arm[pulled_arm], reward)
 
+        
+
 class TS_Learner(Learner):
 
     def __init__(self, n_arms, candidates):
@@ -92,7 +94,7 @@ class TS_Learner(Learner):
         expected_rewards = np.multiply(beta_samples, self.candidates)
 
         idx = np.argmax(expected_rewards)
-        return idx
+        return idx, max(expected_rewards)
 
     def update(self, pulled_arm, reward):
         self.t+=1
@@ -102,6 +104,14 @@ class TS_Learner(Learner):
         self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + binary_reward
         self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + 1.0 - binary_reward
+
+    def update_more(self, pulled_arm, reward, buyer, not_buyer):
+        self.t+=1
+
+        self.update_observations(pulled_arm, reward)
+        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + buyer
+        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + not_buyer
+
 
     def success_prob(self, arm):
         # alpha: successes of the arm
@@ -170,7 +180,7 @@ class GPTS_learner_positive(Learner):
         self.sigmas = np.ones(n_arms)*10000
         self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
         self.threshold = threshold
-        alpha = 10.0
+        alpha = 3.0 #10.0
         kernel = C(0.0001, (1e-6, 2e1)) * RBF(0.01, (1e-6, 1e1  ))
         self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
 
@@ -191,20 +201,23 @@ class GPTS_learner_positive(Learner):
         self.UpdateObservation(pulled_arm, reward)
         self.update_model()
 
-    def is_eligible(self, idx):
+    def is_eligible(self, idx, price_value):
         proba = norm(loc = self.means[idx], scale = self.sigmas[idx]).cdf(0.0)
-        if (proba < self.threshold):
-            return True
-        return False
+        if (proba > self.threshold):
+            return False
+        if (price_value-self.arms[idx]*beta.ppf(1-self.threshold, 4.4, self.arms[idx]**0.5) < 0):
+            return False
+        return True
 
-    def pull_arm(self):
+    def pull_arm(self, price_value):
         if (len(self.pulled_arms) < 10):
             return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
         sample = np.random.normal(self.means,self.sigmas)
+        sample = sample*(price_value - self.arms*4.44/(4.4 + self.arms**0.5)) # adjust sample wrt price value
         neg = []
         for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
             idx = np.argmax(sample)
-            if self.is_eligible(idx):
+            if self.is_eligible(idx, price_value):
                 return idx
             else:
                 print(idx)
@@ -212,5 +225,8 @@ class GPTS_learner_positive(Learner):
             print('errore, nessun braccio eligible, ne restituisco uno a caso')    
         return np.argmax(np.random.normal(self.means,self.sigmas))
 
+
+
+####### experiment 6 #########
 
 
