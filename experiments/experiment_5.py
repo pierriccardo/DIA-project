@@ -53,6 +53,8 @@ class Experiment5():
         self.T = 200 # number of days
         self.n_experiments = 8
 
+        np.random.seed(123)
+
     def run(self):
 
         self.rewards_full = []
