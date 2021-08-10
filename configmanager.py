@@ -62,7 +62,11 @@ class ConfigManager():
         for i in range(4):
             v += self.new_clicks_function_sigma(bid, i, num_people[i])
         return v
+    def cc(self, bid):
+        return bid*np.random.beta(4.4,bid**0.5)
     
+    def mean_cc(self, bid):
+        return bid*(4.4/(4.4+bid**0.5))
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------
