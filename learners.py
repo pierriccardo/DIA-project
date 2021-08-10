@@ -43,6 +43,7 @@ class Greedy_Learner(Learner):
         if (self.t < self.n_arms):
             return self.t
         idxs = np.argwhere(self.expected_rewards == self.expected_rewards.max()).reshape(-1)
+        np.random.seed(123)
         pulled_arm = np.random.choice(idxs)
         return pulled_arm
 
@@ -64,6 +65,7 @@ class UCB1(Learner):
             arm = self.t
         else:
             upper_bound = (self.empirical_means + self.confidence)*self.prices
+            np.random.seed(123)
             arm = np.random.choice(np.where(upper_bound == upper_bound.max())[0])
         return arm
 
@@ -87,7 +89,8 @@ class TS_Learner(Learner):
         self.candidates = candidates
 
     def pull_arm(self):
-
+        
+        np.random.seed(123)
         beta_samples = np.random.beta(self.beta_parameters[:,0], self.beta_parameters[:,1])
         expected_rewards = np.multiply(beta_samples, self.candidates)
 
@@ -199,7 +202,9 @@ class GPTS_learner_positive(Learner):
 
     def pull_arm(self):
         if (len(self.pulled_arms) < 10):
+            np.random.seed(123)
             return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
+        np.random.seed(123)
         sample = np.random.normal(self.means,self.sigmas)
         neg = []
         for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
