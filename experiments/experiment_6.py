@@ -29,3 +29,5 @@ class Experiment6():
 
         self.T = 365 # number of days
         self.n_experiments = 100
+
+        np.random.seed(123)

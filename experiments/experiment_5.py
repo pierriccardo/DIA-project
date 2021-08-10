@@ -25,6 +25,7 @@ class Experiment5():
         self.n_experiments = 1
         self.gpts_reward_per_experiment = []
         self.p_arms = []
+        np.random.seed(123)
 
     def run(self):
         for e in tqdm(range(self.n_experiments)):

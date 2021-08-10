@@ -25,6 +25,8 @@ class Experiment3():
         self.gr_reward_per_experiments = []
         self.uc_reward_per_experiments = []
         self.ts_reward_per_experiments = []
+
+        np.random.seed(123)
     
     def run(self):
 

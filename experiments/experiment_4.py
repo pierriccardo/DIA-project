@@ -35,6 +35,8 @@ class Experiment4():
 
         self.colors = self.cm.colors
 
+        np.random.seed(123)
+
     def run(self):
         pg = PersonGenerator(self.classes, self.class_distribution)
 
