@@ -43,8 +43,7 @@ class Experiment3():
 
             
             
-            Greedy_learner = UCB1(n_arms=self.n_arms, prices=self.prices, alpha=0.)
-            print(Greedy_learner.empirical_means)
+            Greedy_learner = Greedy_Learner(n_arms=self.n_arms)
             UCB1_learner = UCB1(n_arms=self.n_arms, prices=self.prices, alpha=1.)
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
 
@@ -62,7 +61,7 @@ class Experiment3():
                 
                 not_buyer = self.news - buyer
                 
-                Greedy_learner.update_more(pulled_price, reward, buyer, not_buyer)
+                Greedy_learner.update(pulled_price, reward)
 
                 rewards_this_greedy.append(reward)
             
@@ -133,14 +132,9 @@ class Experiment3():
         plt.xlabel('t')
         
         plt.plot(np.cumsum(np.mean(self.opt_pricing*self.news - self.rewards_full_greedy, axis = 0)),'r' , label="Greedy")
-        
         plt.plot(np.cumsum(np.mean(self.opt_pricing*self.news - self.rewards_full_UCB1, axis = 0)), 'g' , label="UCB1")
-        
         plt.plot(np.cumsum(np.mean(self.opt_pricing*self.news - self.rewards_full_TS, axis = 0)), 'b', label="TS")
         
-        # plt.legend(loc=0)
-        # plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-
         plt.savefig("img/experiments/experiment_3.png")
         
 
