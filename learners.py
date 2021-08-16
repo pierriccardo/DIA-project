@@ -52,18 +52,23 @@ class Greedy_Learner(Learner):
         self.expected_rewards[pulled_arm] = (self.expected_rewards[pulled_arm] * (self.t - 1) + reward) / self.t
 
 class UCB1(Learner):
-    def __init__(self, n_arms, prices):
+    def __init__(self, n_arms, prices, alpha):
         super().__init__(n_arms)
+        self.alpha = alpha
         self.empirical_means = np.zeros(n_arms)
-        self.confidence = np.zeros(n_arms)
+        self.buyer = np.zeros(n_arms)
+        self.not_buyer = np.zeros(n_arms)
+        self.times_pulled = np.zeros(n_arms)
         self.prices = prices
+        self.t = 0
 
     def pull_arm(self):
         # All'inizio devo provare una volta tutti gli arm 
         if self.t < self.n_arms:
             arm = self.t
         else:
-            upper_bound = (self.empirical_means + self.confidence)*self.prices
+            confidence = self.alpha*(2*np.log(sum(self.buyer+self.not_buyer))/ (self.buyer+self.not_buyer))**0.5
+            upper_bound = (self.empirical_means + confidence)*self.prices
             arm = np.random.choice(np.where(upper_bound == upper_bound.max())[0])
         return arm
 
@@ -78,6 +83,15 @@ class UCB1(Learner):
             number_pulled = max(1, len(self.rewards_per_arm[a]))
             self.confidence[a] = (2*np.log(self.t)/ number_pulled)**0.5
         np.append(self.rewards_per_arm[pulled_arm], reward)
+
+    def update_more(self, pulled_arm, reward, buyer, not_buyer):
+        self.t+=1
+
+        self.buyer[pulled_arm] += buyer
+        self.not_buyer[pulled_arm] += not_buyer
+        self.empirical_means = self.buyer/(self.buyer + self.not_buyer)
+
+        self.times_pulled[pulled_arm] += 1
 
         
 
