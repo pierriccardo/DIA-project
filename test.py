@@ -27,7 +27,7 @@ fig = plt.figure(constrained_layout=True)
 ax_array = fig.subplots(1, 1, squeeze=False)
 
 ax_array[0, 0].imshow([[1, 1], [2, 1]])
-'''
+
 
 cm = ConfigManager()
 print(cm.get_classes())
@@ -35,4 +35,7 @@ print(cm.conv_rate)
 print(cm.conv_rate[0])
 print(cm.aggr_conv_rates([0,1]))
 
-
+'''
+arr1 = [10, 23, 30]
+arr2 = [20, 40, 90]
+print(np.cumsum(np.mean(100 - arr1)))

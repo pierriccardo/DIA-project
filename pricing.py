@@ -1,11 +1,14 @@
 import numpy as np
 import logging
+from configmanager import ConfigManager
 
 class PersonGenerator():
 
-    def __init__(self, classes, distribution):
-        self.classes = classes
-        self.distribution = distribution
+    def __init__(self):
+        self.config = ConfigManager()
+
+        self.classes = self.config.get_classes()
+        self.distribution = self.config.class_distribution
   
     def generate_person(self):
         # generate 1 person belonging to a random class
@@ -15,9 +18,9 @@ class PersonGenerator():
 
         return n, self.classes[n]
 
-    def generate_people(self, num=8):
-        # TODO: make it random ? or pass as argument a random generated number?
-        # generate a random number of people
+    def generate_people(self):
+
+        num = np.random.binomial(n=500, p=0.6)
         people = []
         for _ in range(num):
             people.append(self.generate_person())

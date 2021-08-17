@@ -2,6 +2,7 @@ import numpy as np
 from learners import Learner, TS_Learner
 from utils import *
 import logging
+import itertools
 
 class Context():
     """
@@ -113,13 +114,15 @@ class Context():
 class ContextGenerator():
 
     def __init__(self, n_arms, classes, features, candidates):
-        
+
         self.n_arms = n_arms 
         self.classes = classes 
         self.features = features 
         self.candidates = candidates
         self.obs = []  # [['Y', 'I'], pulled_arm, reward]      
-        self.current_id = 0     
+        self.current_id = 0   
+
+        self.context_color_matrix = []  
 
         self.contexts = []
 
@@ -139,7 +142,6 @@ class ContextGenerator():
 
         return learner
 
-    
     def retrieve_obs(self, classes):
         """
         classes is a vector of type: 
@@ -158,8 +160,6 @@ class ContextGenerator():
                 if c[0] in o[0] and c[1] in o[0]:
                     selected_obs.append(o)
         return selected_obs 
-
-
     
     def generate(self):
 
@@ -199,6 +199,7 @@ class ContextGenerator():
                     self.contexts.append(c1)
                     self.contexts.append(c2)
                     self.contexts.remove(c)
+                    self.add_context_color_matrix()
     
     def update(self, new_obs):
         self.obs.append(new_obs)
@@ -241,6 +242,24 @@ class ContextGenerator():
                 if o[0] in c:
                     new_obs.append(o)
         return new_obs
+    
+    def add_context_color_matrix(self):
+        color = 0
+        class_colors = {}
+        for c in self.contexts:
+            ctx_classes = [c[0]+c[1] for c in c.classes]
+            for f in itertools.product(self.features[0], self.features[1]):
+                if f[0]+f[1] in ctx_classes:
+                    class_colors[f[0]+f[1]] = {}
+                    class_colors[f[0]+f[1]] = color
+            color += 1
+        class_colors['obs'] = len(self.obs)
+        self.context_color_matrix.append(class_colors)
+    
+    def get_context_color_matrices(self):
+        return self.context_color_matrix
+
+
 
     
 

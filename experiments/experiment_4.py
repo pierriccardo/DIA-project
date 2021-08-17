@@ -27,16 +27,17 @@ class Experiment4():
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
         self.T = 360 # number of days
-        self.n_experiments = 10
+        self.n_experiments = 100
 
         self.reward_log = []
         self.reward_per_experiments = []
         self.regret_per_experiments = []
 
         self.colors = self.cm.colors
+        self.splits = None
 
     def run(self):
-        pg = PersonGenerator(self.classes, self.class_distribution)
+        pg = PersonGenerator()
 
         for e in tqdm(range(0, self.n_experiments)):
             env = SpecificEnvironment(n_arms=self.n_arms, candidates=self.prices)
@@ -50,13 +51,13 @@ class Experiment4():
                 #if t>20:
                 context_gen.generate() 
 
-                num_people = 20
+                people = pg.generate_people()
                 daily_reward = 0
                 daily_regret = 0
 
-                for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class
+                for person in people: # p is a class e.g. ["Y", "I"], usually called user_class
                     
-                    p_class, p_labels = pg.generate_person()
+                    p_class, p_labels = person
                 
                     pulled_arm = context_gen.pull_arm(p_labels)
                     reward = env.round(pulled_arm, p_class)
@@ -74,8 +75,33 @@ class Experiment4():
   
             self.reward_per_experiments.append(rewards)
             self.regret_per_experiments.append(regrets)
+
+            self.splits = context_gen.get_context_color_matrices()
+
+    def _plot_splits(self):
+        if self.splits is not None:
+            fig, axes = plt.subplots(figsize=(8,4), ncols=len(self.splits))
+            for i, s in enumerate(self.splits):
+                split_matrix = np.ndarray(shape=(2,2))
+                for idx1, f1 in enumerate(self.features[0]):
+                    for idx2, f2 in enumerate(self.features[1]):
+                        split_matrix[idx1, idx2] = s[f1+f2]                
+                axes[i].imshow(split_matrix, alpha=0.8, cmap='magma')
+
+                axes[i].set_xticks([0, 1])
+                axes[i].set_xticklabels(self.features[0])
+                axes[i].set_yticks([0, 1])
+                axes[i].set_yticklabels(self.features[1])
+                axes[i].set_xlabel('Feature 1')
+                if i == 0:
+                    axes[i].set_ylabel('Feature 2')
+                axes[i].set_title(f"{s['obs']} obs")
+            fig.suptitle('Context splits after')
+            plt.savefig(f'img/experiments/experiment_4_splits.png')
+
     
     def plot(self):
+        self._plot_splits()
 
         plt.figure(0)
         plt.xlabel("t")
@@ -84,4 +110,3 @@ class Experiment4():
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_4.png")
-

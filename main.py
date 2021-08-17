@@ -1,4 +1,5 @@
 from os import name
+from numpy.random import seed
 import yaml
 import numpy as np
 from utils import *
@@ -7,6 +8,9 @@ from pricing import PersonGenerator
 from context import *
 import argparse
 import logging
+
+SEED = 1
+np.random.seed(seed=SEED)
 
 #------------------------------
 # ARGUMENTS PARSER

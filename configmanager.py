@@ -63,6 +63,12 @@ class ConfigManager():
             v += self.new_clicks_function_sigma(bid, i, num_people[i])
         return v
     
+    def cc(self, bid):
+        return bid*np.random.beta(4.4,bid**0.5)
+    
+    def mean_cc(self, bid):
+        return bid*(4.4/(4.4+bid**0.5))
+    
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------
@@ -89,9 +95,8 @@ class ConfigManager():
     
     def aggr_cost_per_click(self, bid):
         aggr_cc = 0
-        for user_class in self.classes:
-            alpha = self.config["cost_per_click"][user_class]
-            aggr_cc += self.cost_per_click(bid, alpha)
+        for _ in self.classes:
+            aggr_cc += self.cost_per_click(bid)
         return aggr_cc / self.num_classes
     
     #------------------------------
@@ -108,11 +113,6 @@ class ConfigManager():
     
     def get_features(self):
         return self.config["features"]
-    
-
-
-
-    
 
 def conv_rate(x, a=1, b=1, c=1):
         return ((c*x) ** a) * np.exp(-b * c * x)
