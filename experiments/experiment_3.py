@@ -29,16 +29,12 @@ class Experiment3():
         self.uc_reward_per_experiments = []
         self.ts_reward_per_experiments = []
 
-<<<<<<< HEAD
         self.gr_regret_per_experiment = []
         self.uc_regret_per_experiment = []
         self.ts_regret_per_experiment = []
 
         self.opt_per_experiment = []
-=======
-        np.random.seed(123)
->>>>>>> 56378b640dbbf847fb9b1f1a409afd09c520f24d
-    
+
     def run(self):
         
         pg = PersonGenerator()
@@ -47,7 +43,7 @@ class Experiment3():
             env = Environment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
 
             gr_learner = Greedy_Learner(n_arms=self.n_arms)
-            uc_learner = UCB1(n_arms=self.n_arms, prices=self.prices)
+            uc_learner = UCB1(n_arms=self.n_arms, prices=self.prices, alpha=1)
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
 
             gr_regret = []
@@ -65,8 +61,10 @@ class Experiment3():
 
                 gr_pulled_arm = gr_learner.pull_arm()
                 uc_pulled_arm = uc_learner.pull_arm()
-                ts_pulled_arm = ts_learner.pull_arm()
-                
+                ts_pulled_arm, _ = ts_learner.pull_arm()
+
+                uc_buyers = 0
+                ts_buyers = 0
                 for _ in range(people):
                     gr_reward = env.round(gr_pulled_arm)
                     uc_reward = env.round(uc_pulled_arm)
@@ -75,10 +73,13 @@ class Experiment3():
                     gr_daily_reward += gr_reward
                     uc_daily_reward += uc_reward
                     ts_daily_reward += ts_reward
+
+                    if uc_reward > 0: uc_buyers += 1
+                    if ts_reward > 0: ts_buyers += 1
                 
-                    gr_learner.update(gr_pulled_arm, gr_reward)
-                    uc_learner.update(uc_pulled_arm, uc_reward)
-                    ts_learner.update(ts_pulled_arm, ts_reward) 
+                gr_learner.update(gr_pulled_arm, gr_reward)
+                uc_learner.update_more(uc_pulled_arm, uc_reward, uc_buyers, people - uc_buyers)
+                ts_learner.update_more(ts_pulled_arm, ts_reward, ts_buyers, people - ts_buyers) 
 
                 gr_regret.append(daily_opt - gr_daily_reward)
                 uc_regret.append(daily_opt - uc_daily_reward)
