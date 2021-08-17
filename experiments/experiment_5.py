@@ -7,8 +7,6 @@ from environment import BiddingEnvironment, PricingEnvironment
 from learners import *
 from scipy.stats import norm, beta
 
-
-
 class Experiment5():
     
     def __init__(self):
@@ -35,9 +33,6 @@ class Experiment5():
         self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
         self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
 
-
-        
-
         self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
         indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
 
@@ -53,7 +48,6 @@ class Experiment5():
 
         self.T = 200 # number of days
         self.n_experiments = 8
-
     def run(self):
 
         self.rewards_full = []
@@ -61,7 +55,6 @@ class Experiment5():
         for e in tqdm(range(0, self.n_experiments)):
 
             Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
-            
 
             gpts_learner = GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
 
@@ -93,12 +86,10 @@ class Experiment5():
 
     def plot(self):
         #sns.distplot(np.array(p_arms))
-        
         plt.figure(0)
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g')
         plt.legend(["GPTS"])
         plt.savefig("img/experiments/experiment_5.png")
-    
         #plt.show()

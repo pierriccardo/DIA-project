@@ -36,6 +36,8 @@ class Experiment4():
         self.colors = self.cm.colors
         self.splits = None
 
+        np.random.seed(123)
+
     def run(self):
         pg = PersonGenerator()
 

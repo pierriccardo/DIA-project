@@ -1,10 +1,12 @@
 import numpy as np
+import matplotlib.pyplot as plt
+
 from configmanager import ConfigManager
 from tqdm import tqdm
 from environment import PricingEnvironment, BiddingEnvironment
 from learners import *
 from scipy.stats import norm, beta
-import matplotlib.pyplot as plt
+
 
 
 class Experiment6():
@@ -58,7 +60,9 @@ class Experiment6():
         for e in tqdm(range(0, self.n_experiments)):
 
             Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
+
             Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
+
             
 
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
@@ -103,6 +107,6 @@ class Experiment6():
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g')
         plt.legend(["GPTS"])
         plt.savefig("img/experiments/experiment_6.png")
-        
 
         #plt.show()
+

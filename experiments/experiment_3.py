@@ -29,11 +29,15 @@ class Experiment3():
         self.uc_reward_per_experiments = []
         self.ts_reward_per_experiments = []
 
+<<<<<<< HEAD
         self.gr_regret_per_experiment = []
         self.uc_regret_per_experiment = []
         self.ts_regret_per_experiment = []
 
         self.opt_per_experiment = []
+=======
+        np.random.seed(123)
+>>>>>>> 56378b640dbbf847fb9b1f1a409afd09c520f24d
     
     def run(self):
         

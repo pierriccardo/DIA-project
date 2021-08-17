@@ -50,9 +50,11 @@ class BiddingEnvironment():
 
   def round(self, pulled_arm):    # pulled arm is the index of one of the bids
     news = np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
+
     cost = news*self.cc(self.bids[pulled_arm])
     return news, cost
     # return news*(value - self.cc(self.bids[pulled_arm]))
+    # return news*(value - self.bids[pulled_arm])
 
 
 class PricingEnvironment():
