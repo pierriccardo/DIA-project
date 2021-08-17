@@ -17,10 +17,13 @@ class PersonGenerator():
         logging.debug(f'PersonGenerator.generate_person() class: {n}|labels: {self.classes[n]}')
 
         return n, self.classes[n]
+    
+    def generate_people_num(self, n=500):
+        return np.random.binomial(n=n, p=0.6)
 
-    def generate_people(self):
+    def generate_people(self, n=500):
 
-        num = np.random.binomial(n=500, p=0.6)
+        num = self.generate_people_num(n=n)
         people = []
         for _ in range(num):
             people.append(self.generate_person())

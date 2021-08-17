@@ -21,7 +21,7 @@ class Experiment3():
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
         self.T = 365 # number of days
-        self.n_experiments = 10
+        self.n_experiments = 100
 
         self.colors = cm.colors
 
@@ -56,7 +56,7 @@ class Experiment3():
                 uc_daily_reward = 0
                 ts_daily_reward = 0
 
-                people = 100
+                people = pg.generate_people_num(50)
                 daily_opt = self.opt * people
 
                 gr_pulled_arm = gr_learner.pull_arm()
