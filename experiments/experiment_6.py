@@ -99,13 +99,12 @@ class Experiment6():
     def plot(self):
         #sns.distplot(np.array(p_arms))
 
-        
-        
         plt.figure(0)
         plt.ylabel('Regret')
         plt.xlabel('t')
-        plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g')
-        plt.legend(["GPTS"])
+        plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
+        plt.legend(loc=0)
+        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_6.png")
 
         #plt.show()

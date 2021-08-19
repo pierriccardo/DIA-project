@@ -223,9 +223,7 @@ class GPTS_learner_positive(Learner):
 
     def pull_arm(self, price_value):
         if (len(self.pulled_arms) < 10):
-            np.random.seed(123)
             return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
-        np.random.seed(123)
         sample = np.random.normal(self.means,self.sigmas)
         sample = sample*(price_value - self.arms*4.44/(4.4 + self.arms**0.5)) # adjust sample wrt price value
         neg = []
