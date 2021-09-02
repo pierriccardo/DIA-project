@@ -124,14 +124,6 @@ class TS_Learner(Learner):
         self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + buyer
         self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + not_buyer
 
-    def update_more(self, pulled_arm, reward, buyer, not_buyer):
-        self.t+=1
-
-        self.update_observations(pulled_arm, reward)
-        self.beta_parameters[pulled_arm, 0] = self.beta_parameters[pulled_arm, 0] + buyer
-        self.beta_parameters[pulled_arm, 1] = self.beta_parameters[pulled_arm, 1] + not_buyer
-
-
     def success_prob(self, arm):
         # alpha: successes of the arm
         # beta: failures of the arm 

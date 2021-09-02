@@ -27,7 +27,7 @@ class Experiment4():
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
         self.T = 360 # number of days
-        self.n_experiments = 100
+        self.n_experiments = 10
 
         self.reward_log = []
         self.reward_per_experiments = []
@@ -61,7 +61,7 @@ class Experiment4():
                     
                     p_class, p_labels = person
                 
-                    pulled_arm = context_gen.pull_arm(p_labels)
+                    pulled_arm, _ = context_gen.pull_arm(p_labels)
                     reward = env.round(pulled_arm, p_class)
 
                     current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))
