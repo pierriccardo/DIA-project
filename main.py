@@ -57,6 +57,7 @@ from experiments.experiment_4 import Experiment4
 from experiments.experiment_5 import Experiment5
 from experiments.experiment_6 import Experiment6
 from experiments.experiment_7 import Experiment7
+from experiments.experiment_6_return_time import Experiment6_b
 
 exp = None
 if args.experiment == '3':
@@ -69,6 +70,8 @@ elif args.experiment == '6':
     exp = Experiment6()
 elif args.experiment == '7':
     exp = Experiment7()
+elif args.experiment == '6b':
+    exp = Experiment6_b()
 else:
     print(f'Error Experiment {args.experiment} does not exist')
 

@@ -34,9 +34,6 @@ class Experiment6():
         self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
         self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
 
-
-        
-
         self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
         indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
 
@@ -62,8 +59,6 @@ class Experiment6():
             Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
 
             Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
-
-            
 
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
             gpts_learner = GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
