@@ -58,7 +58,7 @@ class Experiment4():
                     
                     p_class, p_labels = pg.generate_person()
                 
-                    pulled_arm = context_gen.pull_arm(p_labels)
+                    pulled_arm, _ = context_gen.pull_arm(p_labels)
                     reward = env.round(pulled_arm, p_class)
 
                     current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))

@@ -71,6 +71,9 @@ class Experiment6_b():
             return_times = np.ones(1)
             # qui collezioniamo i tempi di ritorno di ogni cliente
 
+            ### mettiamo i round a vuoto dovuti al ritardo
+
+
             for t in range(0,self.T):
                  
                 pulled_price, price_value = ts_learner.pull_arm()
@@ -96,12 +99,14 @@ class Experiment6_b():
 
                 not_buyer = news-buyer
                 
-                ts_learner.update_more(pulled_price, pricing_rew, buyer, not_buyer)
-                gpts_learner.update(pulled_bid, news)
+                # RITARDO: per i primi 30 round non aggiorniamo nulla
+                if (t > 30):
+                    ts_learner.update_more(pulled_price, pricing_rew, buyer, not_buyer)
+                    gpts_learner.update(pulled_bid, news)
 
+                    return_times = np.append(return_times, new_returns)
+                
                 rewards_this.append(reward)
-
-                return_times = np.append(return_times, new_returns)
             
             self.rewards_full.append(rewards_this)
 
@@ -114,6 +119,10 @@ class Experiment6_b():
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g')
+
+        ## dove inizia l'apprendimento?
+        plt.axvline(x=30, ymin=0, ymax=10000., color='r', linestyle=':', linewidth=3)
+
         plt.legend(["GPTS"])
         plt.savefig("img/experiments/experiment_6_return_time.png")
         

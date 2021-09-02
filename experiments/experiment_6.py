@@ -37,7 +37,7 @@ class Experiment6():
         # return prob
         self.ret = self.cm.avg_ret
 
-        self.opt = np.max(self.means * (self.opt_pricing*self.ret - self.cm.mean_cc(self.bids)))
+        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
         indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
 
         print(self.means[indice])
@@ -50,8 +50,8 @@ class Experiment6():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 10 # number of days
-        self.n_experiments = 1
+        self.T = 180 # number of days
+        self.n_experiments = 10
 
     def run(self):
         self.rewards_full = []
@@ -72,6 +72,7 @@ class Experiment6():
                 pulled_price, price_value = ts_learner.pull_arm()
                 price = self.prices[pulled_price]
 
+                
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
                 # problema: il braccio tirato dal learner di bidding
