@@ -2,7 +2,7 @@ import numpy as np
 from configmanager import ConfigManager
 from tqdm import tqdm
 from environment import PricingEnvironment
-from environment import BiddingEvironment
+from environment import BiddingEnvironment
 from learners import *
 from scipy.stats import norm, beta
 import matplotlib.pyplot as plt
@@ -58,7 +58,7 @@ class Experiment6_b():
         for e in tqdm(range(0, self.n_experiments)):
 
             Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
-            Benv = BiddingEvironment(self.bids, self.means, self.sigmas)
+            Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
             
 
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
