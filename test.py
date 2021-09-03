@@ -35,7 +35,14 @@ print(cm.conv_rate)
 print(cm.conv_rate[0])
 print(cm.aggr_conv_rates([0,1]))
 
-'''
+
 arr1 = [10, 23, 30]
 arr2 = [20, 40, 90]
 print(np.cumsum(np.mean(100 - arr1)))
+
+'''
+
+classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
+prova = ["Y", "I"]
+if prova in classes:
+    print('ok')

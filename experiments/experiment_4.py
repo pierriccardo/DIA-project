@@ -27,7 +27,7 @@ class Experiment4():
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
         self.T = 360 # number of days
-        self.n_experiments = 10
+        self.n_experiments = 15
 
         self.reward_log = []
         self.reward_per_experiments = []
@@ -50,16 +50,15 @@ class Experiment4():
             for t in range(0,self.T): # 1 round is one day
                 logging.debug(f'Experiment4.run() -> step {t} / {self.T}')
 
-                #if t>20:
                 context_gen.generate() 
-
-                people = pg.generate_people()
+                num_people = pg.generate_people_num()
+                #people = pg.generate_people()
                 daily_reward = 0
                 daily_regret = 0
 
-                for person in people: # p is a class e.g. ["Y", "I"], usually called user_class
+                for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class
                     
-                    p_class, p_labels = person
+                    p_class, p_labels = pg.generate_person()
                 
                     pulled_arm, _ = context_gen.pull_arm(p_labels)
                     reward = env.round(pulled_arm, p_class)

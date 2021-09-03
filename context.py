@@ -13,9 +13,6 @@ class Context():
     subspace is expressed as an array of tuple [['Y', 'I'],...]
     """
 
-    # TODO: domanda, se io ho 3 context, al round x pullo i 3 context, quindi devo 
-    # mandare all'arm pullato (il prezzo) tutte le persone appartenenti alla classe del context?
-
     def __init__(self, id, learner, classes, obs):
         """
         id: is the context identifier
@@ -156,9 +153,14 @@ class ContextGenerator():
         """
         selected_obs = []
         for o in self.obs:
-            for c in classes:
-                if c[0] in o[0] and c[1] in o[0]:
-                    selected_obs.append(o)
+            if o[0] in classes:
+                selected_obs.append(o)
+            #for c in classes:
+            #    # if one of the classes is equal to the observed class
+            #    if (c[0] in o[0]) and (c[1] in o[0]):
+            #        #print(f'o[0] = {o[0]}')
+            #        #print(f'c = {c}')
+            #        selected_obs.append(o) 
         return selected_obs 
     
     def generate(self):
@@ -234,15 +236,8 @@ class ContextGenerator():
         for c in self.contexts:
             reward += c.learner.collected_rewards
         return reward
-
-    def retrieve_obs(self, classes):
-        new_obs = []
-        for o in self.obs:
-            for c in classes:
-                if o[0] in c:
-                    new_obs.append(o)
-        return new_obs
     
+    # function to plot the contexts 
     def add_context_color_matrix(self):
         color = 0
         class_colors = {}
