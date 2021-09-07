@@ -164,14 +164,14 @@ class TS_Learner(Learner):
         opt_arm = self.optimal_arm()
         exp_val = self.success_prob(opt_arm)   
         # Hoeffding bound
-        # TODO: chenage n_obs with n_obs of the optimal arm only
-        # more observations per day
-        
+                
         confidence = np.log(0.005)
         #confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm))
 
-        # TODO: fix the lower bound, it doesn't work
-        lb = exp_val - np.sqrt(- confidence / 2*self.t)
+        #pulled_times = (self.beta_parameters[opt_arm, 0] + self.beta_parameters[opt_arm, 1])
+        #tot_pulled_times_opt = pulled_times if pulled_times > 0 else 1 
+
+        lb = exp_val - np.sqrt(- confidence / 2* self.t)
         logging.debug(f'TS_learner.expected_value_lowerbound() -> lb: {lb}, self.t {self.t}')
 
         return lb * self.candidates[opt_arm]

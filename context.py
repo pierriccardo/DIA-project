@@ -88,6 +88,10 @@ class Context():
             if feature in o[0]:
                 selected_obs.append(o)
         return selected_obs 
+    
+    def train_learner(self):
+        for o in self.obs:
+            self.learner.update(o[1], o[2])
 
     def has_features(self, features):
         # check if the context has in its classes
@@ -126,12 +130,7 @@ class ContextGenerator():
         
         self.contexts.append(init_context)
 
-    def train_learner(self, obs):
-        learner = TS_Learner(self.n_arms, self.candidates)
-        for o in obs:
-            learner.update(o[1], o[2])
-
-        return learner
+    
 
     def retrieve_obs(self, classes):
         """
@@ -150,6 +149,13 @@ class ContextGenerator():
             if o[0] in classes:
                 selected_obs.append(o)
         return selected_obs 
+    
+    def train_learner(self, obs):
+        learner = TS_Learner(self.n_arms, self.candidates)
+        for o in obs:
+            learner.update(o[1], o[2])
+
+        return learner
     
     def generate(self):
 
