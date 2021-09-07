@@ -225,7 +225,82 @@ class GPTS_learner_positive(Learner):
             if self.is_eligible(idx, price_value):
                 return idx
             else:
-                print(idx)
                 sample[idx] = -10000.0    # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio 
-            print('errore, nessun braccio eligible, ne restituisco uno a caso')    
+        print('errore, nessun braccio eligible, ne restituisco uno a caso')   
         return np.argmax(np.random.normal(self.means,self.sigmas))
+
+
+
+#######################
+
+###### classi per il 7
+
+#######################
+
+class multi_TS_Learner(Learner):
+
+    def __init__(self, num, n_arms, candidates):
+        super().__init__(n_arms)
+        self.learners = []
+        self.num = num
+        for i in range(num):
+            self.learners.append(TS_Learner(n_arms, candidates))
+
+    def pull_arm(self):
+        
+        idxes = []
+        maxes = []
+        for i in range(self.num):
+            res = self.learners[i].pull_arm()
+            idxes.append(res[0])
+            maxes.append(res[1])   
+        return idxes, maxes
+
+    def update(self, pulled_arm, reward):
+        
+        for i in range(self.num):
+            self.learners[i].update(pulled_arm[i], reward[i])
+
+    
+    def update_more(self, pulled_arm, reward, buyer, not_buyer):
+        
+        for i in range(self.num):
+            self.learners[i].update(pulled_arm[i], reward[i], buyer[i], not_buyer[i])
+
+    def update_more_single(self, idx, pulled_arm, reward, buyer, not_buyer):
+        self.learners[idx].update_more(pulled_arm, reward, buyer, not_buyer)
+
+
+class multi_GPTS(Learner):
+
+    def __init__(self, num, n_arms, arms, threshold):
+        super().__init__(n_arms)
+        self.learners = []
+        self.num = num
+        for i in range(num):
+            self.learners.append(GPTS_learner_positive(n_arms, arms, threshold))
+
+
+    def UpdateObservation(self, idx, reward):
+        
+        for i in range(self.num):
+            self.learners[i].UpdateObservation(idx[i], reward[i])
+        
+
+    def update(self, pulled_arm, reward):
+        
+        for i in range(self.num):
+            self.learners[i].update(pulled_arm[i], reward[i])
+
+    def update_single(self, idx, pulled_arm, reward):
+        self.learners[idx].update(pulled_arm, reward)
+
+
+    def pull_arm(self, price_value):
+
+        ret = []
+        for i in range(self.num):
+            ret.append(self.learners[i].pull_arm(price_value[i]))
+
+        return ret
+

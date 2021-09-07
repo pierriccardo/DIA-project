@@ -59,16 +59,20 @@ class Experiment7():
             penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
             benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
             
-            context_gen = ContextGenerator(self.n_arms, self.classes, self.features, self.prices)
-
-            ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
-            gpts_learner = GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
-
+            
+            ts_learners = []
+            gpts_learners = []
             rewards_this = []
+            for macros in range(3):
+                ts_learners.append(TS_Learner(n_arms=self.n_arms, candidates=self.prices))
+                gpts_learners.append(GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2))
+                rewards_this.append([])
+            
+
 
             for t in range(0,self.T): # 1 round is one day
 
-                context_gen.generate() 
+                
                 num_people = pg.generate_people_num()
 
                 for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class
