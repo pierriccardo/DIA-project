@@ -39,16 +39,10 @@ class Context():
     def train_sub_learner(self, obs):
         # train a new learner, using observations
         learner = TS_Learner(self.learner.n_arms, self.learner.candidates)
-        
         # train the learner
         for o in obs:
             learner.update(o[1], o[2])
-
         return learner
-    
-    def train_learner(self):
-        for o in self.obs:
-            self.learner.update(o[1], o[2])
 
 
     def split_evaluation(self, feature):
@@ -155,12 +149,6 @@ class ContextGenerator():
         for o in self.obs:
             if o[0] in classes:
                 selected_obs.append(o)
-            #for c in classes:
-            #    # if one of the classes is equal to the observed class
-            #    if (c[0] in o[0]) and (c[1] in o[0]):
-            #        #print(f'o[0] = {o[0]}')
-            #        #print(f'c = {c}')
-            #        selected_obs.append(o) 
         return selected_obs 
     
     def generate(self):

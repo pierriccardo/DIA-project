@@ -27,7 +27,7 @@ class Experiment4():
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
         self.T = 360 # number of days
-        self.n_experiments = 15
+        self.n_experiments = 1
 
         self.reward_log = []
         self.reward_per_experiments = []
