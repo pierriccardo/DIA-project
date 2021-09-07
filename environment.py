@@ -69,3 +69,53 @@ class PricingEnvironment():
 
         buyer = np.random.binomial(num_clicks, self.probabilities[pulled_arm])
         return buyer
+
+
+##################################
+
+########### materiale per Exp 7
+
+##################################
+
+class MultiBidding():
+  def __init__(self, num, bids = 0, means = 0, sigmas = 0):
+
+    self.num = num
+    self.envs = []
+
+    for i in range(num):
+        self.envs.append(BiddingEnvironment(bids[i], means[i], sigmas[i]))
+    
+    self.cm = ConfigManager()
+
+  def add(self, env):
+      self.envs.append(env)
+      self.num += 1
+  
+  def round(self, pulled_arm):    # pulled arm is the index of one of the bids
+    news = []
+    cost = []
+    for i in range(self.num):
+        ret = self.envs[i].round(pulled_arm[i])
+        news.append(ret[0])
+        cost.append(ret[1])
+    return news, cost
+
+class MultiPricing():
+    def __init__(self, num, n_arms = 0, probabilities = 0, candidates = 0):
+
+        self.num = num
+        self.envs = []
+
+        for i in range(num):
+            self.envs.append(BiddingEnvironment(n_arms[i], probabilities[i], candidates[i]))
+
+    def add(self, env):
+       self.envs.append(env)
+       self.num += 1
+
+    def round(self, pulled_arm, num_clicks): # this time the number of people that click is determined by the bidding part,
+        ret = []
+        for i in range(self.num):
+            ret.append(self.envs[i].round(pulled_arm[i], num_clicks[i]))
+        return ret

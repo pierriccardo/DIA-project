@@ -23,6 +23,8 @@ class ConfigManager():
         
         self.avg_cc = self.config["avg_cc"] # avg cost per click
 
+        self.ret = self.config['return_probability']
+
         self.avg_ret = np.mean(self.config['return_probability'])
 
         self.features = self.config["features"] # ["Y", "A"], ["I", "D"]

@@ -37,9 +37,11 @@ class Experiment6():
         self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
         indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
 
-        print(self.means[indice])
+        print(self.means)
+        # print(self.means[indice])
         print(self.opt_pricing)
-        print(self.cm.mean_cc(self.bids)[indice])
+        # print(self.cm.mean_cc(self.bids)[indice])
+        print(self.opt)
         
     
         self.gpts_reward_per_experiment = []
@@ -47,8 +49,8 @@ class Experiment6():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 200 # number of days
-        self.n_experiments = 8
+        self.T = 2 # number of days
+        self.n_experiments = 1
 
     def run(self):
 
