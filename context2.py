@@ -71,6 +71,9 @@ class ContextGenerator():
         return [o for o in self.obs if o[0] in classes]
     
     def generate(self):
+        #for c in self.contexts:
+        #    mu_0 = c.learner.expected_value_lower_bound()
+
         for f in self.features: # [Y, A], [I, D]
             for c in self.contexts:
                 if c.has_feature(f):
@@ -92,11 +95,11 @@ class ContextGenerator():
                     mu_2 = learner_2.expected_value_lower_bound()
                     mu_0 = c.learner.expected_value_lower_bound()
 
-                    mu_1 = mu_1 if mu_1 > 0 else 0
-                    mu_2 = mu_2 if mu_2 > 0 else 0
-                    mu_0 = mu_0 if mu_0 > 0 else 0
+                    #mu_1 = mu_1 if mu_1 > 0 else 0
+                    #mu_2 = mu_2 if mu_2 > 0 else 0
+                    #mu_0 = mu_0 if mu_0 > 0 else 0
 
-                    if p_1 * mu_1 + p_2 * mu_2 > mu_0: # do the split
+                    if p_1 * mu_1 + p_2 * mu_2 >= mu_0: # do the split
 
                         msg = f'Context.split_evaluation() -> p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}'
                         logging.debug(f'Context.split_evaluation() {msg}')

@@ -14,7 +14,7 @@ class PersonGenerator():
         # generate 1 person belonging to a random class
         
         n = np.random.choice(4, size=1, p=self.distribution)[0]
-        logging.debug(f'PersonGenerator.generate_person() class: {n}|labels: {self.classes[n]}')
+        #logging.debug(f'PersonGenerator.generate_person() class: {n}|labels: {self.classes[n]}')
 
         return n, self.classes[n]
     

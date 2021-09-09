@@ -80,25 +80,26 @@ class Experiment4():
             self.splits = context_gen.get_context_color_matrices()
 
     def _plot_splits(self):
-        if self.splits is not None:
-            fig, axes = plt.subplots(figsize=(8,4), ncols=len(self.splits))
-            for i, s in enumerate(self.splits):
-                split_matrix = np.ndarray(shape=(2,2))
-                for idx1, f1 in enumerate(self.features[0]):
-                    for idx2, f2 in enumerate(self.features[1]):
-                        split_matrix[idx1, idx2] = s[f1+f2]                
-                axes[i].imshow(split_matrix, alpha=0.8, cmap='magma')
+        if len(self.splits) > 0:
+            if self.splits is not None:
+                fig, axes = plt.subplots(figsize=(8,4), ncols=len(self.splits))
+                for i, s in enumerate(self.splits):
+                    split_matrix = np.ndarray(shape=(2,2))
+                    for idx1, f1 in enumerate(self.features[0]):
+                        for idx2, f2 in enumerate(self.features[1]):
+                            split_matrix[idx1, idx2] = s[f1+f2]                
+                    axes[i].imshow(split_matrix, alpha=0.8, cmap='magma')
 
-                axes[i].set_xticks([0, 1])
-                axes[i].set_xticklabels(self.features[0])
-                axes[i].set_yticks([0, 1])
-                axes[i].set_yticklabels(self.features[1])
-                axes[i].set_xlabel('Feature 1')
-                if i == 0:
-                    axes[i].set_ylabel('Feature 2')
-                axes[i].set_title(f"{s['obs']} obs")
-            fig.suptitle('Context splits after')
-            plt.savefig(f'img/experiments/experiment_4_splits.png')
+                    axes[i].set_xticks([0, 1])
+                    axes[i].set_xticklabels(self.features[0])
+                    axes[i].set_yticks([0, 1])
+                    axes[i].set_yticklabels(self.features[1])
+                    axes[i].set_xlabel('Feature 1')
+                    if i == 0:
+                        axes[i].set_ylabel('Feature 2')
+                    axes[i].set_title(f"{s['obs']} obs")
+                fig.suptitle('Context splits after')
+                plt.savefig(f'img/experiments/experiment_4_splits.png')
 
     
     def plot(self):
