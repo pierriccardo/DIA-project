@@ -7,7 +7,7 @@ from tqdm import tqdm
 from configmanager import *
 import logging
 
-from context import ContextGenerator
+from context2 import ContextGenerator
 
 class Experiment4():
 
@@ -26,7 +26,7 @@ class Experiment4():
         self.n_arms = len(self.prices)
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
-        self.T = 360 # number of days
+        self.T = 100 # number of days
         self.n_experiments = 1
 
         self.reward_log = []
@@ -43,7 +43,7 @@ class Experiment4():
 
         for e in tqdm(range(0, self.n_experiments)):
             env = SpecificEnvironment(n_arms=self.n_arms, candidates=self.prices)
-            context_gen = ContextGenerator(self.n_arms, self.classes, self.features, self.prices)
+            context_gen = ContextGenerator([], self.n_arms, self.classes, self.features, self.prices)
             rewards = np.array([])
             regrets = np.array([])
 

@@ -165,7 +165,7 @@ class TS_Learner(Learner):
         exp_val = self.success_prob(opt_arm)   
         # Hoeffding bound
                 
-        confidence = np.log(0.005)
+        confidence = np.log(0.05)
         #confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm))
 
         #pulled_times = (self.beta_parameters[opt_arm, 0] + self.beta_parameters[opt_arm, 1])
