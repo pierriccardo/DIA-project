@@ -28,10 +28,11 @@ class ContextGenerator():
         self.features = features # [Y, A], [I, D]
         self.contexts = []
         self.context_color_matrix = []  
+        self.current_id = 0
 
-        self._init_context()
+        self.init_context()
 
-    def _init_context(self):
+    def init_context(self):
         ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.candidates)
         # we train the learner since observations may be not empty at the 
         # beginning e.g. if some delay are applied
@@ -49,7 +50,6 @@ class ContextGenerator():
             ts_learner.update(o[1], o[2])
         return ts_learner
             
-    
     def update(self, o):
         self.obs.append(o)
         for c in self.contexts:
@@ -69,6 +69,7 @@ class ContextGenerator():
     def extract_obs(self, classes):
         # extract obs which belongs to the classes passed as argument
         return [o for o in self.obs if o[0] in classes]
+        
     
     def generate(self):
         #for c in self.contexts:
@@ -99,21 +100,22 @@ class ContextGenerator():
                     #mu_2 = mu_2 if mu_2 > 0 else 0
                     #mu_0 = mu_0 if mu_0 > 0 else 0
 
+                    msg = f'Context.split_evaluation() -> p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}'
+                    logging.debug(f'Context.split_evaluation() {msg}')
+
                     if p_1 * mu_1 + p_2 * mu_2 >= mu_0: # do the split
 
-                        msg = f'Context.split_evaluation() -> p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}'
-                        logging.debug(f'Context.split_evaluation() {msg}')
-
-                        c1 = Context(c.id + 1, classes_1, learner_1)
-                        c2 = Context(c.id + 2, classes_2, learner_2)
+                        self.current_id += 1
+                        c1 = Context(self.current_id, classes_1, learner_1)
+                        self.current_id += 1
+                        c2 = Context(self.current_id, classes_2, learner_2)
                     
                         self.contexts.append(c1)
                         self.contexts.append(c2)
                         self.contexts.remove(c)
-                        self.add_context_color_matrix()
 
-                        return True
-        return False
+                        logging.debug(f'ContextGenerator.generate() c_{c.id} splitted in: c_{c1.id}({classes_1}),c_{c2.id}({classes_2})')
+                        self.add_context_color_matrix()
                         
     def separate_classes(self, classes, feature):
         classes1, classes2 = [], []

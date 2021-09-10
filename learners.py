@@ -165,13 +165,16 @@ class TS_Learner(Learner):
         exp_val = self.success_prob(opt_arm)   
         # Hoeffding bound
                 
-        confidence = np.log(0.01)
+        confidence = np.log(0.005)
         #confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm))
 
         #pulled_times = (self.beta_parameters[opt_arm, 0] + self.beta_parameters[opt_arm, 1])
         #tot_pulled_times_opt = pulled_times if pulled_times > 0 else 1 
 
-        lb = exp_val - np.sqrt(- confidence / (2* self.t))
+        alpha = self.beta_parameters[opt_arm, 0]
+        beta = self.beta_parameters[opt_arm, 1]
+
+        lb = exp_val - np.sqrt(- confidence / (2* (alpha + beta)))
         logging.debug(f'TS_learner.expected_value_lowerbound() -> lb: {lb}, self.t {self.t}')
 
         return lb * self.candidates[opt_arm]

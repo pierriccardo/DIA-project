@@ -26,8 +26,8 @@ class Experiment4():
         self.n_arms = len(self.prices)
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
-        self.T = 100 # number of days
-        self.n_experiments = 1
+        self.T = 360 # number of days
+        self.n_experiments = 5
 
         self.reward_log = []
         self.reward_per_experiments = []
@@ -50,8 +50,10 @@ class Experiment4():
             for t in range(0,self.T): # 1 round is one day
                 logging.debug(f'Experiment4.run() -> step {t} / {self.T}')
 
-                context_gen.generate() 
-                num_people = pg.generate_people_num()
+                if t%7 == 0:
+                    context_gen.generate() 
+
+                num_people = pg.generate_people_num(n=50)
                 #people = pg.generate_people()
                 daily_reward = 0
                 daily_regret = 0
