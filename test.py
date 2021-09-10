@@ -40,9 +40,24 @@ arr1 = [10, 23, 30]
 arr2 = [20, 40, 90]
 print(np.cumsum(np.mean(100 - arr1)))
 
-'''
+
 
 classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
 prova = ["Y", "I"]
 if prova in classes:
     print('ok')
+
+
+a = [[['Y', 'A'], 0.2], [['Y', 'A'], 0.5]]
+best_feature = a[0]
+for e in a:
+    if e[1] > best_feature[1]:
+        best_feature = e
+print(best_feature)
+
+'''
+
+a = ['aaa']
+for e in a:
+    print(e)
+    a.append("bbb")
