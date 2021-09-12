@@ -9,6 +9,8 @@ import logging
 
 from context2 import ContextGenerator
 
+
+
 class Experiment4():
 
     def __init__(self):
@@ -17,18 +19,19 @@ class Experiment4():
         self.features = self.cm.features
         self.classes = self.cm.get_classes()
         self.class_distribution = self.cm.class_distribution
-        
-        self.bid = 0.42
+     
         self.prices = self.cm.prices
-
-        self.p = self.cm.aggr_conv_rates()
-
         self.n_arms = len(self.prices)
-        self.opt = np.max(np.multiply(self.p, self.prices)) 
 
-        self.T = 360 # number of days
-        self.n_experiments = 1
-
+        current_opt_0 = np.max(np.multiply(self.cm.conv_rates[0], self.prices))
+        current_opt_1 = np.max(np.multiply(self.cm.conv_rates[1], self.prices))
+        current_opt_2 = np.max(np.multiply(self.cm.conv_rates[2], self.prices))
+        current_opt_3 = np.max(np.multiply(self.cm.conv_rates[3], self.prices))
+        print(f'current_opt_0 {current_opt_0}')
+        print(f'current_opt_1 {current_opt_1}')
+        print(f'current_opt_2 {current_opt_2}')
+        print(f'current_opt_3 {current_opt_3}')
+        
         self.reward_log = []
         self.reward_per_experiments = []
         self.regret_per_experiments = []
@@ -36,7 +39,8 @@ class Experiment4():
         self.colors = self.cm.colors
         self.splits = None
 
-        np.random.seed(123)
+        self.T = 360 # number of days
+        self.n_experiments = 1
 
     def run(self):
         pg = PersonGenerator()
@@ -50,29 +54,39 @@ class Experiment4():
             for t in range(0,self.T): # 1 round is one day
                 logging.debug(f'Experiment4.run() -> step {t} / {self.T}')
 
-                if t%14 == 0 and t > 0:
+                if t%7 == 0 and t > 0:
                     context_gen.init_context()
                     context_gen.generate() 
 
-                num_people = pg.generate_people_num(n=100)
-                #people = pg.generate_people()
+                num_people = pg.generate_people_num(n=500)
+               
                 daily_reward = 0
                 daily_regret = 0
 
-                for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class
+                pulled_arms = context_gen.pull_arm()
+
+                for _ in range(num_people):     
                     
+                    # we generate a new customer where
+                    # p_class is a number in [0,1,2,3] i.e. the class
+                    # p_labels is the correspondent class e.g. ['Y', 'I']
                     p_class, p_labels = pg.generate_person()
-                
-                    pulled_arm, _ = context_gen.pull_arm(p_labels)
+                    
+                    pulled_arm = None
+                    for pulled in pulled_arms:
+                        if p_labels in pulled[0]:
+                            pulled_arm = pulled[1]
+
                     reward = env.round(pulled_arm, p_class)
 
                     current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))
+                    
 
                     new_obs = [p_labels, pulled_arm, reward]
                     context_gen.update(new_obs)
                     
                     daily_reward += reward
-                    daily_regret += current_opt - reward
+                    daily_regret += (current_opt - reward)
 
                 rewards = np.append(rewards, daily_reward)
                 regrets = np.append(regrets, daily_regret)
@@ -80,7 +94,7 @@ class Experiment4():
             self.reward_per_experiments.append(rewards)
             self.regret_per_experiments.append(regrets)
 
-            self.splits = context_gen.get_context_color_matrices()
+            self.splits = context_gen.get_split_matrices()
 
     def _plot_splits(self):
         if len(self.splits) > 0:
@@ -100,13 +114,12 @@ class Experiment4():
                     axes[i].set_xlabel('Feature 1')
                     if i == 0:
                         axes[i].set_ylabel('Feature 2')
-                    axes[i].set_title(f"{s['obs']} obs")
-                fig.suptitle('Context splits after')
+                fig.suptitle('Context splits')
                 plt.savefig(f'img/experiments/experiment_4_splits.png')
 
     
     def plot(self):
-        self._plot_splits()
+        #self._plot_splits()
 
         plt.figure(0)
         plt.xlabel("t")

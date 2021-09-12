@@ -1,3 +1,4 @@
+from numpy import split
 from learners import Learner, TS_Learner
 import logging
 import itertools
@@ -27,10 +28,13 @@ class ContextGenerator():
         self.classes = classes # [Y, I], [Y, D], [A, I], [A, D]
         self.features = features # [Y, A], [I, D]
         self.contexts = []
-        self.context_color_matrix = []  
+        self.split_color_matrices = []  
         self.current_id = 0
 
-        self.init_context()
+
+        ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.candidates)
+        init_context = Context(0, self.classes, ts_learner)
+        self.contexts.append(init_context)
 
     def init_context(self):
         self.current_id = 0
@@ -58,15 +62,18 @@ class ContextGenerator():
             if o[0] in c.classes:
                 c.learner.update(o[1], o[2])
 
-    def pull_arm(self, user_class):
-        context = self.find_context(user_class)
-        return context.learner.pull_arm()
+    def pull_arm(self):
+        # ad ogni round (giorno) vengono tirati gli arm di ogni context
+        # questi vengono salvati in pulled_arms nel seguente formato:
+        # [classi_del_context, pulled_arm], ...
+        # così che ad ogni nuova persona che arriva verrà selezionato
+        # l'arm che ha tra le sue classi quella del cliente 
+        pulled_arms = [] 
 
-    def find_context(self, user_class):
         for c in self.contexts:
-            if user_class in c.classes:
-                return c
-        logging.error("ContextGenerator.find_context() no context with class {user_class}")
+            pulled_arm, _ = c.learner.pull_arm()
+            pulled_arms.append([c.classes, pulled_arm])
+        return pulled_arms      
 
     def extract_obs(self, classes):
         # extract obs which belongs to the classes passed as argument
@@ -89,23 +96,23 @@ class ContextGenerator():
         mu_1 = learner_1.expected_value_lower_bound()
         mu_2 = learner_2.expected_value_lower_bound()
         mu_0 = context.learner.expected_value_lower_bound()
+        
+        logging.debug(f'Context.split_evaluation() -> evaluating split context id {context.id} | feature {feature}')
 
-        msg = f'Context.split_evaluation() -> id=c{context.id} p1 = {p_1}|p2 = {p_2}|mu0 = {mu_0}|mu1 = {mu_1}| mu2 = {mu_2}'
-        logging.debug(f'Context.split_evaluation() {msg}')
+        msg = f'Context.split_evaluation() -> id=c{context.id} p1 = {p_1:.2f}|p2 = {p_2:.2f}|mu1 = {mu_1:.2f}| mu2 = {mu_2:.2f}|mu0 = {mu_0:.2f}|'
+        logging.debug(f'{msg}')
 
-        return p_1 * mu_1 + p_2 * mu_2 - mu_0
+        return (p_1 * mu_1 + p_2 * mu_2) - mu_0
     
     def generate(self):
-        #for c in self.contexts:
-        #    mu_0 = c.learner.expected_value_lower_bound()
 
         for c in self.contexts:
             split_conditions = []
 
             for f in self.features: # [Y, A], [I, D]
                 if c.has_feature(f): 
-                    split_cond = self.evaluate_split(c, f)
-                    if split_cond > 0:
+                    split_cond = self.evaluate_split(c, f) 
+                    if split_cond >= 0:
                         split_conditions.append([f, split_cond]) # [[Y, A], 0.3345]
             
             if len(split_conditions) > 0:
@@ -115,7 +122,7 @@ class ContextGenerator():
                     if e[1] > best_split[1]:
                         best_split = e
                 best_feature = best_split[0]
-
+                
                 classes_1, classes_2 = self.separate_classes(c.classes, best_feature)
                 obs_1 = self.extract_obs(classes_1)
                 obs_2 = self.extract_obs(classes_2)
@@ -134,7 +141,6 @@ class ContextGenerator():
 
                 logging.debug(f'ContextGenerator.generate() c_{c.id} splitted in: c_{c1.id}({classes_1}),c_{c2.id}({classes_2})')                
             
-                        
     def separate_classes(self, classes, feature):
         classes1, classes2 = [], []
         for c in classes:
@@ -143,9 +149,9 @@ class ContextGenerator():
         return classes1, classes2
 
     def expected_value_arm(self, user_class, pulled_arm):
-
-        context = self.find_context(user_class)
-        return context.learner.expected_value(pulled_arm)
+        for c in self.contexts:
+            if user_class in c.classes:
+                return c.learner.expected_value(pulled_arm)
     
     def update_reward_per_experiments(self):
         for c in self.contexts:
@@ -156,9 +162,9 @@ class ContextGenerator():
         for c in self.contexts:
             reward += c.learner.collected_rewards
         return reward
-
+    
     # function to plot the contexts 
-    def add_context_color_matrix(self):
+    def add_split_matrix(self):
         color = 0
         class_colors = {}
         for c in self.contexts:
@@ -168,10 +174,9 @@ class ContextGenerator():
                     class_colors[f[0]+f[1]] = {}
                     class_colors[f[0]+f[1]] = color
             color += 1
-        class_colors['obs'] = len(self.obs)
-        self.context_color_matrix.append(class_colors)
+        self.split_color_matrices.append(class_colors)
     
-    def get_context_color_matrices(self):
-        return self.context_color_matrix
+    def get_split_matrices(self):
+        return self.split_color_matrices
                 
     
