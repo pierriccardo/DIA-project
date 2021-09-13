@@ -55,9 +55,24 @@ for e in a:
         best_feature = e
 print(best_feature)
 
-'''
 
 a = ['aaa']
 for e in a:
     print(e)
     a.append("bbb")
+
+def extract_obs(obs, classes):
+    # extract obs which belongs to the classes passed as argument
+    return [o for o in obs if o[0] in classes]
+
+obs = [[["A", "D"], 0, 1],
+[["Y", "I"], 0, 0],
+[["Y", "D"], 0, 3],
+[["A", "D"], 0, 2]]
+
+classes = [["A", "D"], ["Y", "D"]]
+
+a = extract_obs(obs, classes)
+print(a)
+'''
+
