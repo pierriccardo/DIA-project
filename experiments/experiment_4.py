@@ -9,8 +9,6 @@ import logging
 
 from context2 import ContextGenerator
 
-
-
 class Experiment4():
 
     def __init__(self):
@@ -23,15 +21,9 @@ class Experiment4():
         self.prices = self.cm.prices
         self.n_arms = len(self.prices)
 
-        current_opt_0 = np.max(np.multiply(self.cm.conv_rates[0], self.prices))
-        current_opt_1 = np.max(np.multiply(self.cm.conv_rates[1], self.prices))
-        current_opt_2 = np.max(np.multiply(self.cm.conv_rates[2], self.prices))
-        current_opt_3 = np.max(np.multiply(self.cm.conv_rates[3], self.prices))
-        print(f'current_opt_0 {current_opt_0}')
-        print(f'current_opt_1 {current_opt_1}')
-        print(f'current_opt_2 {current_opt_2}')
-        print(f'current_opt_3 {current_opt_3}')
-        
+        for i in range(4):
+            logging.debug(f'experiment_4().__init__() -> current_opt_{i} {np.max(np.multiply(self.cm.conv_rates[i], self.prices))}')
+
         self.reward_log = []
         self.reward_per_experiments = []
         self.regret_per_experiments = []
@@ -44,6 +36,7 @@ class Experiment4():
 
     def run(self):
         pg = PersonGenerator()
+        observed_class = [0, 0, 0, 0]
 
         for e in tqdm(range(0, self.n_experiments)):
             env = SpecificEnvironment(n_arms=self.n_arms, candidates=self.prices)
@@ -63,6 +56,11 @@ class Experiment4():
                 daily_reward = 0
                 daily_regret = 0
 
+                # pull arms from context, for each context we pull
+                # the arm, then according to the class of the generated
+                # person we select the arm of the context containing
+                # that class, pulled arms is an array with elements like:
+                # [[classi_del_context, pulled_arm] , ...]
                 pulled_arms = context_gen.pull_arm()
 
                 for _ in range(num_people):     
@@ -71,6 +69,10 @@ class Experiment4():
                     # p_class is a number in [0,1,2,3] i.e. the class
                     # p_labels is the correspondent class e.g. ['Y', 'I']
                     p_class, p_labels = pg.generate_person()
+
+                    # this is just for debugging purpose, we store for each
+                    # class the number of people that come
+                    observed_class[p_class] += 1
                     
                     pulled_arm = None
                     for pulled in pulled_arms:
@@ -95,6 +97,9 @@ class Experiment4():
             self.regret_per_experiments.append(regrets)
 
             self.splits = context_gen.get_split_matrices()
+
+            for index, label in zip(range(4), self.classes):
+                logging.debug(f'experiment_4().run() -> class {label} : people {observed_class[index]}')
 
     def _plot_splits(self):
         if len(self.splits) > 0:
