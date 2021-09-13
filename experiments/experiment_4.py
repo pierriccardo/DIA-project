@@ -28,11 +28,13 @@ class Experiment4():
         self.reward_per_experiments = []
         self.regret_per_experiments = []
 
+        self.comulative_regret_per_experiment = []
+
         self.colors = self.cm.colors
         self.splits = None
 
-        self.T = 360 # number of days
-        self.n_experiments = 1
+        self.T = 365 # number of days
+        self.n_experiments = 20
 
     def run(self):
         pg = PersonGenerator()
@@ -51,7 +53,7 @@ class Experiment4():
                     context_gen.init_context()
                     context_gen.generate() 
 
-                num_people = pg.generate_people_num(n=500)
+                num_people = pg.generate_people_num(n=100)
                
                 daily_reward = 0
                 daily_regret = 0
@@ -96,6 +98,8 @@ class Experiment4():
             self.reward_per_experiments.append(rewards)
             self.regret_per_experiments.append(regrets)
 
+            self.comulative_regret_per_experiment.append(np.cumsum(regrets))
+
             self.splits = context_gen.get_split_matrices()
 
             for index, label in zip(range(4), self.classes):
@@ -130,6 +134,8 @@ class Experiment4():
         plt.xlabel("t")
         plt.ylabel("Regret")
         plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[1])
+        plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+        plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_4.png")
