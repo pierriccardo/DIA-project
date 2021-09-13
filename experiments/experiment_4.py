@@ -54,7 +54,7 @@ class Experiment4():
                     context_gen.init_context()
                     context_gen.generate() 
 
-                num_people = pg.generate_people_num(n=100)
+                num_people = pg.generate_people_num(n=500)
                 #people = pg.generate_people()
                 daily_reward = 0
                 daily_regret = 0
