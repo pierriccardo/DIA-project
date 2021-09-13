@@ -60,7 +60,7 @@ class Experiment4():
                 # the arm, then according to the class of the generated
                 # person we select the arm of the context containing
                 # that class, pulled arms is an array with elements like:
-                # [[classi_del_context, pulled_arm] , ...]
+                # [[context classes, pulled_arm] , ...]
                 pulled_arms = context_gen.pull_arm()
 
                 for _ in range(num_people):     
