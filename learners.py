@@ -70,7 +70,8 @@ class UCB1(Learner):
             #confidence = self.alpha*(2*np.log(sum(self.buyer+self.not_buyer))/ (self.buyer+self.not_buyer))**0.5
             #confidence = np.sqrt(2*np.log(self.t)/(self.times_pulled*(self.t-1)))
             #confidence = np.sqrt(2*np.log((self.buyer+self.not_buyer))/(self.times_pulled*(self.buyer+self.not_buyer-1)))
-            confidence = np.sqrt(2*np.log((self.t))/((self.buyer+self.not_buyer)))
+            confidence = np.sqrt(2*np.log(self.t)/(self.buyer+self.not_buyer))
+            
             upper_bound = (self.empirical_means + confidence)*self.prices
             arm = np.random.choice(np.where(upper_bound == upper_bound.max())[0])
         return arm

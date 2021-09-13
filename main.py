@@ -9,6 +9,8 @@ from context import *
 import argparse
 import logging
 
+logging.getLogger(__name__)
+
 SEED = 1
 np.random.seed(seed=SEED)
 
