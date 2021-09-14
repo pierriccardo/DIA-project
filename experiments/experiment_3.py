@@ -48,7 +48,13 @@ class Experiment3():
         self.uc_comulative_regret_per_experiment = []
         self.ts_comulative_regret_per_experiment = []
 
-        self.opt_per_experiment = []
+        self.gr_reward_per_experiment = []
+        self.uc_reward_per_experiment = []
+        self.ts_reward_per_experiment = []
+
+        #self.opt_per_experiment = []
+
+        self.opt_per_exp = []
 
     def run(self):
         
@@ -69,7 +75,13 @@ class Experiment3():
             uc_regret_2 = []
             ts_regret_2 = []
 
-            observed_class = [0, 0, 0, 0]## per il grafico 2
+            gr_reward_2 = []
+            uc_reward_2 = []
+            ts_reward_2 = []
+
+            opt_days = []
+
+            observed_class = [0, 0, 0, 0] ## per il grafico 2
 
             for t in range(0,self.T):
 
@@ -81,7 +93,7 @@ class Experiment3():
                 daily_regret_uc = 0 ## per il grafico 2
                 daily_regret_ts = 0 ## per il grafico 2
 
-                people = pg.generate_people_num(500)
+                people = pg.generate_people_num(50)
                 daily_opt = self.opt * people
 
                 gr_pulled_arm = gr_learner.pull_arm()
@@ -123,6 +135,13 @@ class Experiment3():
                 uc_regret_2.append(daily_regret_uc) ## per il grafico 2
                 ts_regret_2.append(daily_regret_ts) ## per il grafico 2
 
+                gr_reward_2.append(gr_daily_reward) ## per il grafico 3
+                uc_reward_2.append(uc_daily_reward) ## per il grafico 3
+                ts_reward_2.append(ts_daily_reward) ## per il grafico 3
+
+                opt_days.append(daily_opt)
+
+
             self.gr_regret_per_experiment.append(gr_regret)
             self.uc_regret_per_experiment.append(uc_regret)
             self.ts_regret_per_experiment.append(ts_regret)
@@ -131,10 +150,18 @@ class Experiment3():
             self.uc_regret_per_experiment_2.append(uc_regret_2) ## per il grafico 2
             self.ts_regret_per_experiment_2.append(ts_regret_2) ## per il grafico 2
 
+            self.gr_reward_per_experiment.append(gr_reward_2)
+            self.uc_reward_per_experiment.append(uc_reward_2)
+            self.ts_reward_per_experiment.append(ts_reward_2)
+
             self.gr_comulative_regret_per_experiment.append(np.cumsum(gr_regret))
             self.uc_comulative_regret_per_experiment.append(np.cumsum(uc_regret))
             self.ts_comulative_regret_per_experiment.append(np.cumsum(ts_regret)) 
-            #print(self.gr_comulative_regret_per_experiment)   
+            #print(self.gr_comulative_regret_per_experiment)  
+            # 
+            self.opt_per_exp.append(opt_days) 
+
+            
             
 
 
@@ -144,13 +171,13 @@ class Experiment3():
         plt.xlabel("t")
         plt.ylabel("Regret")
         plt.plot(np.cumsum(np.mean(self.gr_regret_per_experiment, axis=0)), self.colors[0], label="Greedy")
-        plt.plot(1.96*np.std(self.gr_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.gr_regret_per_experiment, axis=0)), self.colors[0],linestyle='dashed')
+        plt.plot(1.96*np.std(self.gr_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.gr_regret_per_experiment, axis=0)), self.colors[0],linestyle='dashed',label="Greedy Confidence Interval 95%")
         plt.plot(-1.96*np.std(self.gr_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.gr_regret_per_experiment, axis=0)), self.colors[0],linestyle='dashed')
         plt.plot(np.cumsum(np.mean(self.uc_regret_per_experiment, axis=0)), self.colors[1], label="UCB1")
-        plt.plot(1.96*np.std(self.uc_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.uc_regret_per_experiment, axis=0)),self.colors[1],linestyle='dashed')
+        plt.plot(1.96*np.std(self.uc_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.uc_regret_per_experiment, axis=0)),self.colors[1],linestyle='dashed',label="UCB1 Confidence Interval 95%")
         plt.plot(-1.96*np.std(self.uc_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.uc_regret_per_experiment, axis=0)),self.colors[1],linestyle='dashed')
         plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)), self.colors[3], label="TS")
-        plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
+        plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed',label="TS Confidence Interval 95%")
         plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
@@ -165,3 +192,14 @@ class Experiment3():
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_3_1.png")
+
+        plt.figure(2)
+        plt.xlabel("t")
+        plt.ylabel("Reward")
+        plt.plot(np.mean(self.gr_reward_per_experiment, axis=0), self.colors[0], label="Greedy")
+        plt.plot(np.mean(self.uc_reward_per_experiment, axis=0), self.colors[1], label="UCB1")
+        plt.plot(np.mean(self.ts_reward_per_experiment, axis=0), self.colors[3], label="TS")
+        plt.plot(np.mean(self.opt_per_exp, axis=0), self.colors[2], label="Opt")
+        plt.legend(loc=0)
+        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        plt.savefig("img/experiments/experiment_3_2.png")
