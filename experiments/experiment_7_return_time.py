@@ -38,8 +38,8 @@ class Experiment7_c():
 
         self.num_people = 10000*np.array(self.cm.class_distribution)
 
-        self.T = 100 # number of days
-        self.n_experiments = 5
+        self.T = 180 # number of days
+        self.n_experiments = 10
 
         self.ret = self.cm.ret
 

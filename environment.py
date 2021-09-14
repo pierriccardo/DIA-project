@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 import random 
-from configmanager import ConfigManager
+from configmanager import ConfigManager, new_clicks
 '''
 environment class is defined by:
 - a number of arms
@@ -119,3 +119,76 @@ class MultiPricing():
         for i in range(self.num):
             ret.append(self.envs[i].round(pulled_arm[i], num_clicks[i]))
         return ret
+
+
+###############################
+# Nuovi environment con correzioni after gatti
+###############################
+
+
+class BidEnv2():
+  def __init__(self, bids, num_people, classes = [0,1,2,3]):
+    self.bids = bids
+    self.cm = ConfigManager()
+    self.classes = classes
+    self.num_people = num_people
+
+  def round(self, pulled_arm):
+    total_news = 0
+    costs = np.zeros(1)
+    for c in self.classes:
+      mean = self.cm.new_clicks_function_mean(self.bids[pulled_arm], c, self.num_people[c])
+      std = self.cm.new_clicks_function_sigma(self.bids[pulled_arm], c, self.num_people[c])## per ulteriori test posso renderla 0
+      news = np.random.normal(mean, std)
+      #print(news)
+      cost = self.cm.cost_per_click(self.bids[pulled_arm], c, size = int(news+0.5))
+      total_news += news
+      costs = np.append(costs, cost)
+    return total_news, costs
+
+
+  def compute_optimum(self, price_value):
+    best = -10000
+    best_arm = 0
+    for pulled_arm in range(len(self.bids)):
+      rew = 0
+      for c in self.classes:
+
+        mean = self.cm.new_clicks_function_mean(self.bids[pulled_arm], c, self.num_people[c])
+
+        beta = np.sqrt(self.bids[pulled_arm])
+        alpha = self.cm.cc[c]
+        cost = self.bids[pulled_arm] * alpha /( beta + alpha )
+
+        rew += mean*(price_value-cost)
+
+      if(rew > best):
+        best = rew
+        best_arm = pulled_arm
+    
+    return best, best_arm
+
+
+
+class PriEnv():
+    def __init__(self, n_arms, candidates, classes = [0,1,2,3]):
+
+        self.candidates = candidates
+        self.n_arms = n_arms
+        self.classes = classes
+        self.cm = ConfigManager()
+
+        # self.probabilities = self.cm.conv_rates
+
+
+    def round(self, pulled_arm, num_clicks):
+
+      for c in self.classes:
+        clicks = num_clicks*self.cm.class_distribution[c]
+        buyer = np.random.binomial(clicks, self.cm.conv_rates[c][pulled_arm])
+      
+      return buyer
+
+    def compute_optimum():
+      return
+
