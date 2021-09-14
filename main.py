@@ -5,9 +5,10 @@ import numpy as np
 from utils import *
 from configmanager import ConfigManager 
 from pricing import PersonGenerator
-from context import *
 import argparse
 import logging
+
+logging.getLogger(__name__)
 
 SEED = 1
 np.random.seed(seed=SEED)

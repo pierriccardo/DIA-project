@@ -51,7 +51,7 @@ class Experiment5():
         self.ts_reward_per_experiments = []
 
         self.T = 200 # number of days
-        self.n_experiments = 8
+        self.n_experiments = 1
     def run(self):
 
         self.rewards_full = []

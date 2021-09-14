@@ -1,3 +1,4 @@
+from context2 import Context
 import numpy as np
 import matplotlib.pyplot as plt
 from configmanager import ConfigManager
@@ -40,9 +41,47 @@ arr1 = [10, 23, 30]
 arr2 = [20, 40, 90]
 print(np.cumsum(np.mean(100 - arr1)))
 
-'''
+
 
 classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
 prova = ["Y", "I"]
 if prova in classes:
     print('ok')
+
+
+a = [[['Y', 'A'], 0.2], [['Y', 'A'], 0.5]]
+best_feature = a[0]
+for e in a:
+    if e[1] > best_feature[1]:
+        best_feature = e
+print(best_feature)
+
+
+a = ['aaa']
+for e in a:
+    print(e)
+    a.append("bbb")
+
+def extract_obs(obs, classes):
+    # extract obs which belongs to the classes passed as argument
+    return [o for o in obs if o[0] in classes]
+
+obs = [[["A", "D"], 0, 1],
+[["Y", "I"], 0, 0],
+[["Y", "D"], 0, 3],
+[["A", "D"], 0, 2]]
+
+classes = [["A", "D"], ["Y", "D"]]
+
+a = extract_obs(obs, classes)
+print(a)
+
+cm = ConfigManager()
+cr = cm.conv_rates[0]
+print(cr)
+print(cm.prices)
+print(np.multiply(cr, cm.prices))
+current_opt = np.max(np.multiply(cr, cm.prices))
+print(current_opt)
+
+'''

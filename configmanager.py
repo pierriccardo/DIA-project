@@ -85,8 +85,10 @@ class ConfigManager():
         if we want to aggregate just 2 classes [0, 3]
         '''
         aggr_cr = np.zeros(self.n_arms)
+        scale = [.4, .2, .3, .1]
         for c in classes:
-            aggr_cr = np.add(aggr_cr, self.conv_rates[c])
+            conv_rate_scaled = [self.conv_rates[c][i]*scale[c] for i in range(len(self.conv_rates[c]))]
+            aggr_cr = np.add(aggr_cr, conv_rate_scaled)
         
         return np.divide(aggr_cr, len(classes))
     
