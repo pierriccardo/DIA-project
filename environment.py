@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 import random 
-from configmanager import ConfigManager
+from configmanager import ConfigManager, new_clicks
 '''
 environment class is defined by:
 - a number of arms
@@ -177,20 +177,18 @@ class PriEnv():
         self.n_arms = n_arms
         self.classes = classes
         self.cm = ConfigManager()
-        self.freq = self.cm.class_distribution
+
         # self.probabilities = self.cm.conv_rates
 
 
     def round(self, pulled_arm, num_clicks):
 
       for c in self.classes:
-        clicks = num_clicks[c]
+        clicks = num_clicks*self.cm.class_distribution[c]
         buyer = np.random.binomial(clicks, self.cm.conv_rates[c][pulled_arm])
       
       return buyer
 
-    def compute_optimum(self):
-      
-      for pulled_arm in range(self.n_arms):
-        
+    def compute_optimum():
+      return
 

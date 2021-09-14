@@ -45,10 +45,12 @@ class Experiment5new():
         self.ts_reward_per_experiments = []
 
         self.T = 200 # number of days
-        self.n_experiments = 10
+        self.n_experiments = 1
 
     def run(self):
-        print(self.opt)
+        print(self.cm.new_clicks)
+        
+        print(self.cm.cost_per_click)
         Benv = BidEnv2(self.bids, self.num_people)
         self.opt = Benv.compute_optimum(self.opt_pricing)[0]
         print(self.opt)
@@ -82,7 +84,7 @@ class Experiment5new():
                 
                 reward = news*self.opt_pricing-np.sum(costs)
 
-                #print('empirical opt pricing: '+str(buyer*price/news)+' theoretical opt pricing: '+str(self.opt_pricing))
+                print('reward: '+str(reward)+' ottimo teorico: '+str(self.opt))
                 past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
                 gpts_learner.update(pulled_bid, news)

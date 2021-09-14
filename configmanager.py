@@ -85,10 +85,8 @@ class ConfigManager():
         if we want to aggregate just 2 classes [0, 3]
         '''
         aggr_cr = np.zeros(self.n_arms)
-        scale = [.4, .2, .3, .1]
         for c in classes:
-            conv_rate_scaled = [self.conv_rates[c][i]*scale[c] for i in range(len(self.conv_rates[c]))]
-            aggr_cr = np.add(aggr_cr, conv_rate_scaled)
+            aggr_cr = np.add(aggr_cr, self.conv_rates[c])
         
         return np.divide(aggr_cr, len(classes))
     
@@ -140,5 +138,4 @@ def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
 
 def aggregated_new_cliks(bid, Na=10000, cc=0.44):
     return self.config["frequencies"]["class1"]*new_clicks(bid, Na, new_clicks["class1"][1])+self.config["frequencies"]["class2"]*new_clicks(bid, Na, new_clicks["class2"][1])+self.config["frequencies"]["class3"]*new_clicks(bid, Na, new_clicks["class3"][1])+self.config["frequencies"]["class4"]*new_clicks(bid, Na, new_clicks["class4"][1])
-
 
