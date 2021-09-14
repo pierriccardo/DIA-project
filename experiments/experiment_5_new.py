@@ -3,13 +3,12 @@ import matplotlib.pyplot as plt
 
 from configmanager import ConfigManager
 from tqdm import tqdm
-from environment import PricingEnvironment, BiddingEnvironment
+from environment import BidEnv2, BiddingEnvironment, PricingEnvironment
 from learners import *
 from scipy.stats import norm, beta
 
 
-
-class Experiment6():
+class Experiment5new():
     
     def __init__(self):
         self.cm = ConfigManager()
@@ -22,6 +21,7 @@ class Experiment6():
         self.p = self.cm.aggr_conv_rates()
         self.n_arms = len(self.prices) #p = cm.aggr_conv_rates()
         self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
+        self.opt_arm_pricing = np.argmax(np.multiply(self.p, self.prices))
         
 
         # bidding 
@@ -37,11 +37,6 @@ class Experiment6():
         self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
         indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
 
-        print(self.means)
-        # print(self.means[indice])
-        print(self.opt_pricing)
-        # print(self.cm.mean_cc(self.bids)[indice])
-        print(self.opt)
         
     
         self.gpts_reward_per_experiment = []
@@ -49,44 +44,47 @@ class Experiment6():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 180 # number of days
-        self.n_experiments = 5
+        self.T = 200 # number of days
+        self.n_experiments = 10
 
     def run(self):
+        print(self.opt)
+        Benv = BidEnv2(self.bids, self.num_people)
+        self.opt = Benv.compute_optimum(self.opt_pricing)[0]
+        print(self.opt)
 
         self.rewards_full = []
 
         for e in tqdm(range(0, self.n_experiments)):
 
-            Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
-
-            Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
-
-            ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
-            gpts_learner = GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
+            gpts_learner = GPTS2(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
 
             rewards_this = []
 
+            past_costs = [np.array(0.44)]*self.n_arms
+            
+
             for t in range(0,self.T):
                  
-                pulled_price, price_value = ts_learner.pull_arm()
+                pulled_price = self.opt_arm_pricing # lo cambio come voglio
+                price_value = self.opt_pricing
                 price = self.prices[pulled_price]
+
+                for bid in range(self.n_arms):  ## update quantiles of expected costs
+                    gpts_learner.exp_cost[bid] = np.quantile(past_costs[bid], 0.8)# np.mean(past_costs[bid])
 
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
                 # problema: il braccio tirato dal learner di bidding
                 # deve dipendere da price
                 
-                news, cost = Benv.round(pulled_bid)
-                buyer = Penv.round(pulled_price, news)
-
-                reward = buyer*price-cost
+                news, costs = Benv.round(pulled_bid)
+                
+                reward = news*self.opt_pricing-np.sum(costs)
 
                 #print('empirical opt pricing: '+str(buyer*price/news)+' theoretical opt pricing: '+str(self.opt_pricing))
+                past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
-                not_buyer = news-buyer
-                
-                ts_learner.update_more(pulled_price, reward, buyer, not_buyer)
                 gpts_learner.update(pulled_bid, news)
 
                 rewards_this.append(reward)
@@ -95,14 +93,11 @@ class Experiment6():
 
     def plot(self):
         #sns.distplot(np.array(p_arms))
-
         plt.figure(0)
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_6.png")
-
+        plt.savefig("img/experiments/experiment_5_new.png")
         #plt.show()
-

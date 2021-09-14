@@ -22,6 +22,7 @@ class ConfigManager():
         self.num_classes = len(self.classes)
         
         self.avg_cc = self.config["avg_cc"] # avg cost per click
+        self.cc = self.config['cost_per_click']
 
         self.ret = self.config['return_probability']
 
@@ -42,9 +43,10 @@ class ConfigManager():
         # return more samples is just for plotting
         return samples if size > 1 else samples[0] 
 
-    def cost_per_click(self, bid, alpha):
+    def cost_per_click(self, bid, classe, size):
         beta = np.sqrt(bid)
-        return bid * np.random.beta(alpha, beta, 1)
+        alpha = self.config['cost_per_click'][classe]
+        return bid * np.random.beta(alpha, beta, size)
     
     #def new_clicks(self, bids):
     #    return 100*(1.0-np.exp(-4*bids+3*bids**3))
@@ -67,8 +69,8 @@ class ConfigManager():
             v += self.new_clicks_function_sigma(bid, i, num_people[i])
         return v
 
-    def cc(self, bid):
-        return bid*np.random.beta(4.4,bid**0.5)
+    def cc(self, bid, size = 1):
+        return bid*np.random.beta(4.4,bid**0.5, size=size)
     
     def mean_cc(self, bid):
         return bid*(4.4/(4.4+bid**0.5))
