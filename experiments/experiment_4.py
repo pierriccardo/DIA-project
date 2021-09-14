@@ -24,7 +24,6 @@ class Experiment4():
         for i in range(4):
             logging.debug(f'experiment_4().__init__() -> current_opt_{i} {np.max(np.multiply(self.cm.conv_rates[i], self.prices))}')
 
-        self.reward_log = []
         self.reward_per_experiments = []
         self.regret_per_experiments = []
 
@@ -34,7 +33,7 @@ class Experiment4():
         self.splits = None
 
         self.T = 365 # number of days
-        self.n_experiments = 20
+        self.n_experiments = 10
 
     def run(self):
         pg = PersonGenerator()
@@ -65,8 +64,7 @@ class Experiment4():
                 # [[context classes, pulled_arm] , ...]
                 pulled_arms = context_gen.pull_arm()
 
-                for _ in range(num_people):     
-                    
+                for _ in range(num_people):                         
                     # we generate a new customer where
                     # p_class is a number in [0,1,2,3] i.e. the class
                     # p_labels is the correspondent class e.g. ['Y', 'I']
@@ -83,9 +81,9 @@ class Experiment4():
 
                     reward = env.round(pulled_arm, p_class)
 
+                    # TODO: make it an array without recompute the whole thing
                     current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))
                     
-
                     new_obs = [p_labels, pulled_arm, reward]
                     context_gen.update(new_obs)
                     

@@ -87,9 +87,10 @@ class ContextGenerator():
         learner_1 = self.train_new_learner(obs_1)
         learner_2 = self.train_new_learner(obs_2)
 
-        if len(obs_1) + len(obs_2) > 0:
-            p_1 = len(obs_1) / (len(obs_1) + len(obs_2))
-            p_2 = len(obs_2) / (len(obs_1) + len(obs_2)) 
+        len_obs = len(obs_1) + len(obs_2)
+        if len_obs > 0:
+            p_1 = len(obs_1) / len_obs
+            p_2 = len(obs_2) / len_obs 
         else:
             p_1 = p_2 = 0
         
@@ -142,6 +143,8 @@ class ContextGenerator():
                 logging.debug(f'ContextGenerator.generate() c_{c.id} splitted in: c_{c1.id}({classes_1}),c_{c2.id}({classes_2})')                
             
     def separate_classes(self, classes, feature):
+        # feature is an array like [Y, A]
+        # classes is the array of classes to separate
         classes1, classes2 = [], []
         for c in classes:
             if feature[0] in c: classes1.append(c)

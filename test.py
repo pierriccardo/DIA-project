@@ -1,3 +1,4 @@
+from context2 import Context
 import numpy as np
 import matplotlib.pyplot as plt
 from configmanager import ConfigManager
@@ -74,5 +75,13 @@ classes = [["A", "D"], ["Y", "D"]]
 
 a = extract_obs(obs, classes)
 print(a)
-'''
 
+cm = ConfigManager()
+cr = cm.conv_rates[0]
+print(cr)
+print(cm.prices)
+print(np.multiply(cr, cm.prices))
+current_opt = np.max(np.multiply(cr, cm.prices))
+print(current_opt)
+
+'''

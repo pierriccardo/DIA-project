@@ -75,14 +75,8 @@ class UCB1(Learner):
             #confidence = self.alpha*(2*np.log(sum(self.buyer+self.not_buyer))/ (self.buyer+self.not_buyer))**0.5
             #confidence = np.sqrt(2*np.log(self.t)/(self.times_pulled*(self.t-1)))
             #confidence = np.sqrt(2*np.log((self.buyer+self.not_buyer))/(self.times_pulled*(self.buyer+self.not_buyer-1)))
-<<<<<<< HEAD
-
-            confidence = np.sqrt(2*np.log((self.t)) /
-                                 ((self.buyer+self.not_buyer)))
-=======
             confidence = np.sqrt(2*np.log(self.t)/(self.buyer+self.not_buyer))
             
->>>>>>> 7dcdab143c708b2931e3594e9443684181412a29
             upper_bound = (self.empirical_means + confidence)*self.prices
             arm = np.random.choice(
                 np.where(upper_bound == upper_bound.max())[0])
@@ -189,7 +183,8 @@ class TS_Learner(Learner):
         # Hoeffding bound
 
         confidence = np.log(0.05)
-        #confidence = self.success_prob(opt_arm) / (1 + self.success_prob(opt_arm))
+        #confidence = np.log(exp_val / (1+exp_val))
+
 
         #pulled_times = (self.beta_parameters[opt_arm, 0] + self.beta_parameters[opt_arm, 1])
         #tot_pulled_times_opt = pulled_times if pulled_times > 0 else 1
@@ -201,7 +196,7 @@ class TS_Learner(Learner):
         logging.debug(
             f'TS_learner.expected_value_lowerbound() -> lb: {lb}, self.t {self.t}')
 
-        return lb * self.candidates[opt_arm]
+        return lb #* self.candidates[opt_arm]
 
 
 class GPTS_learner_positive(Learner):

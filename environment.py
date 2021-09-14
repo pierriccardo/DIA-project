@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 import random 
-from configmanager import ConfigManager, new_clicks
+from configmanager import ConfigManager
 '''
 environment class is defined by:
 - a number of arms
