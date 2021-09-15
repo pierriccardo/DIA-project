@@ -37,15 +37,23 @@ class ConfigManager():
     # ENVIRONMENT FUNCTIONS
     #------------------------------
 
+    def mean_ret(self, classes):
+        aggr_ret = 0
+        for c in classes:
+            aggr_ret += self.config['return_probability'][c]
+        return aggr_ret / len(classes)
+
     def return_probability(_lambda, size=1):
         samples = np.random.poisson(_lambda, size=size)
 
         # return more samples is just for plotting
         return samples if size > 1 else samples[0] 
 
-    def cost_per_click(self, bid, classe, size):
+    def cost_per_click(self, bid, classe, size, mean = False):
         beta = np.sqrt(bid)
         alpha = self.config['cost_per_click'][classe]
+        if (mean):
+            return bid*alpha/(alpha+beta)
         return bid * np.random.beta(alpha, beta, size)
     
     #def new_clicks(self, bids):
@@ -122,9 +130,9 @@ class ConfigManager():
 def conv_rate(x, a=1, b=1, c=1):
         return ((c*x) ** a) * np.exp(-b * c * x)
 
-def cost_per_click(bid, alpha):
-    beta = np.sqrt(bid)
-    return bid * np.random.beta(alpha, beta, 1)
+#def cost_per_click(bid, alpha):
+#    beta = np.sqrt(bid)
+#    return bid * np.random.beta(alpha, beta, 1)
 
 def return_probability(_lambda, size=1):
     samples = np.random.poisson(_lambda, size=size)
