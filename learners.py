@@ -347,6 +347,7 @@ class GPTS2(Learner):
         kernel = C(0.0001, (1e-6, 2e2)) * RBF(0.01, (1e-6, 1e1  ))
         self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
         self.exp_cost = np.zeros(n_arms)
+        self.upper_bound_cost = np.zeros(n_arms)
 
 
     def UpdateObservation(self, idx, reward):
@@ -366,9 +367,9 @@ class GPTS2(Learner):
         self.update_model()
 
     def is_eligible(self, idx, price_value, exp_cost):
-        proba = norm(loc = self.means[idx], scale = self.sigmas[idx]).cdf(0.0)
-        if (proba > self.threshold):
-            return False
+        #proba = norm(loc = self.means[idx], scale = self.sigmas[idx]).cdf(0.0)
+        #if (proba > self.threshold):
+        #    return False
         if (price_value-exp_cost < 0):
             return False
         return True
@@ -377,10 +378,10 @@ class GPTS2(Learner):
         if (len(self.pulled_arms) < 10):
             return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
         sample = np.random.normal(self.means,self.sigmas)
-        sample = sample*(price_value - self.arms*4.44/(4.4 + self.arms**0.5)) # adjust sample wrt price value
+        sample = sample*(price_value - self.exp_cost) # adjust sample wrt price value
         for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
             idx = np.argmax(sample)
-            if self.is_eligible(idx, price_value, self.exp_cost[idx]):
+            if self.is_eligible(idx, price_value, self.upper_bound_cost[idx]):
                 return idx
             else:
                 sample[idx] = -10000.0    # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio 

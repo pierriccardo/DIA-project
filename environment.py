@@ -166,7 +166,7 @@ class BidEnv2():
         mean = self.cm.new_clicks_function_mean(self.bids[pulled_arm], c, self.num_people[c])
 
         beta = np.sqrt(self.bids[pulled_arm])
-        alpha = self.cm.cc[c]
+        alpha = self.cm.costo[c]
         cost = self.bids[pulled_arm] * alpha /( beta + alpha )
 
         rew += mean*((lam+1)*price_value-cost)

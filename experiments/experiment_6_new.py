@@ -16,7 +16,7 @@ class Experiment6new():
 
         # pricing
         self.prices = np.array(self.cm.prices) # candidates
-        self.num_people = 10000*np.array(self.cm.class_distribution)
+        self.num_people = 56000*np.array(self.cm.class_distribution)
 
         # self.p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06] # probabilities (conv rate)
         self.p = self.cm.aggr_conv_rates()
@@ -26,41 +26,41 @@ class Experiment6new():
 
         # bidding 
         self.bids = np.array(self.cm.bids)
-        self.sigma = 10
+        #self.sigma = 10
         # self.p = np.array([.1, .03, .34, .28, .12, .19, .05, .56, .26, .35]) # cm.aggr_conv_rates()
         # perchè ridefiniamo questa???
 
         # return prob #######################################################################################
-        self.ret = self.cm.avg_ret
+        self.ret = self.cm.mean_ret([0,1,2,3])
         
         # self.means = self.cm.new_clicks(self.bids)
-        self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
-        self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
+        #self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
+        #self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
 
-        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
+        #self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
+        #indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
 
-        print(self.means)
+        #print(self.means)
         # print(self.means[indice])
         print(self.opt_pricing)
         # print(self.cm.mean_cc(self.bids)[indice])
-        print(self.opt)
+        #print(self.opt)
         
     
-        self.gpts_reward_per_experiment = []
-        self.p_arms = []
+        #self.gpts_reward_per_experiment = []
+        #self.p_arms = []
 
-        self.ts_reward_per_experiments = []
+        #self.ts_reward_per_experiments = []
 
-        self.T = 100 # number of days
-        self.n_experiments = 3
+        self.T = 365 # number of days
+        self.n_experiments = 10
 
     def run(self):
 
-        self.rewards_full = []
+        self.rewards_full = [] #lista delle reward dei vari esperimenti 
 
         Benv = BidEnv2(self.bids, self.num_people)
-        self.opt = Benv.compute_optimum(self.opt_pricing)[0]
+        self.opt = Benv.compute_optimum(self.opt_pricing, self.ret)[0]
 
         for e in tqdm(range(0, self.n_experiments)):
             
@@ -69,23 +69,24 @@ class Experiment6new():
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
             gpts_learner = GPTS2(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
 
-            rewards_this = []
+            rewards_this = [] # reward dell'esperimento 
 
-            past_costs = [np.array(0.44)]*self.n_arms
+            past_costs = [np.array([])]*self.n_arms
 
-            return_times = np.ones(1)
+            return_times = np.array(1.0)
 
             for t in range(0,self.T):
                  
-                pulled_price, price_value = ts_learner.pull_arm()
-                price = self.prices[pulled_price]
+                pulled_price, price_value = ts_learner.pull_arm() #indice e conv_rate_stimata*prezzo
+                price = self.prices[pulled_price] #prezzo pullato
 
                 mean_returns = np.mean(return_times)
                 price_value *= mean_returns
                 # il price value va moltiplicato per il numero di ritorni
 
                 for bid in range(self.n_arms):  
-                    gpts_learner.exp_cost[bid] = np.quantile(past_costs[bid], 0.8)
+                    gpts_learner.exp_cost[bid] = np.mean(past_costs[bid])
+                    gpts_learner.upper_bound_cost[bid] = np.quantile(past_costs[bid], 0.8)
                 
                 pulled_bid = gpts_learner.pull_arm(price_value)
 

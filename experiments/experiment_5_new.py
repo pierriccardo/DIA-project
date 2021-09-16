@@ -35,8 +35,8 @@ class Experiment5new():
         self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
         self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
 
-        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
+        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
+        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
 
         
     
@@ -45,8 +45,8 @@ class Experiment5new():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 100 # number of days
-        self.n_experiments = 5
+        self.T = 365 # number of days
+        self.n_experiments = 10
 
     def run(self):
         print(self.cm.new_clicks)
