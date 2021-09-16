@@ -39,22 +39,28 @@ class SpecificEnvironment():
 
 
 class BiddingEnvironment():
-  def __init__(self, bids, means, sigmas):
+  def __init__(self, bids, means, sigmas, classe=0):
     self.bids = bids
     self.means = means
     self.sigmas = sigmas
     self.cm = ConfigManager()
+    self.classe = classe
   
-  def cc(self, bid):
-    return self.cm.cc(bid)         #(bid/(1+bid**0.5))
 
   def round(self, pulled_arm):    # pulled arm is the index of one of the bids
     news = np.random.normal(self.means[pulled_arm], self.sigmas[pulled_arm])
+    news = max(1.0,news)
+    costs = self.cm.cost_per_click(self.bids[pulled_arm], self.classe, int(news+0.5))
+    return news, costs
+    
 
-    cost = news*self.cc(self.bids[pulled_arm])
-    return news, cost
-    # return news*(value - self.cc(self.bids[pulled_arm]))
-    # return news*(value - self.bids[pulled_arm])
+  def get_optimum(self, price_val, lam):
+    best = -10000
+    for pulled_arm in range(len(self.bids)):
+      reward = self.means[pulled_arm]*(price_val*(lam+1)-self.cm.cost_per_click(self.bids[pulled_arm], self.classe, 0, mean = True))
+      if (reward > best):
+        best = reward
+    return best
 
 
 class PricingEnvironment():
@@ -69,6 +75,9 @@ class PricingEnvironment():
 
         buyer = np.random.binomial(num_clicks, self.probabilities[pulled_arm])
         return buyer
+
+    def get_pricing_optimum(self):
+      return max(self.probabilities*self.candidates)
 
 
 ##################################
@@ -147,7 +156,7 @@ class BidEnv2():
     return total_news, costs
 
 
-  def compute_optimum(self, price_value):
+  def compute_optimum(self, price_value, lam):
     best = -10000
     best_arm = 0
     for pulled_arm in range(len(self.bids)):
@@ -160,7 +169,9 @@ class BidEnv2():
         alpha = self.cm.cc[c]
         cost = self.bids[pulled_arm] * alpha /( beta + alpha )
 
-        rew += mean*(price_value-cost)
+        rew += mean*((lam+1)*price_value-cost)
+      
+      
 
       if(rew > best):
         best = rew
@@ -177,18 +188,29 @@ class PriEnv():
         self.n_arms = n_arms
         self.classes = classes
         self.cm = ConfigManager()
+        self.total_recall = 0
+        for c in classes:
+          self.total_recall += self.cm.class_distribution[c]
 
         # self.probabilities = self.cm.conv_rates
-
-
+    
     def round(self, pulled_arm, num_clicks):
-
+      buyer = 0
       for c in self.classes:
-        clicks = num_clicks*self.cm.class_distribution[c]
-        buyer = np.random.binomial(clicks, self.cm.conv_rates[c][pulled_arm])
+        clicks = num_clicks*self.cm.class_distribution[c]/self.total_recall
+        buyer += np.random.binomial(clicks, self.cm.conv_rates[c][pulled_arm])
       
       return buyer
 
-    def compute_optimum():
-      return
+    def compute_optimum(self):
+      best = -10000
+      idx = 0
+      for pulled_arm in range(self.n_arms):
+        reward = 0
+        for c in self.classes:
+          reward += self.cm.conv_rates[c][pulled_arm]*self.cm.class_distribution[c]*self.candidates[pulled_arm]
+        if(reward>best):
+          best = reward
+          idx = pulled_arm
+      return best, idx
 

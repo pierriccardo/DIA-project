@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 from configmanager import ConfigManager
 from tqdm import tqdm
 
-from environment import PricingEnvironment, BiddingEnvironment, SpecificEnvironment
+from environment import PricingEnvironment, BiddingEnvironment, SpecificEnvironment, BidEnv2
 from context import ContextGenerator
 from learners import *
 from scipy.stats import norm, beta
@@ -15,96 +15,125 @@ from scipy.stats import norm, beta
 class Experiment7():
     
     def __init__(self):
+
         self.cm = ConfigManager()
+        self.colors = self.cm.colors
 
         # pricing
         self.prices = np.array(self.cm.prices) # candidates
+        self.num_people = 10000*np.array(self.cm.class_distribution)
 
-        self.p = self.cm.aggr_conv_rates()
         self.n_arms = len(self.prices) #p = cm.aggr_conv_rates()
-
-        self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
         
         # bidding 
         self.bids = np.array(self.cm.bids)
-        self.sigma = 10
-        
-        # self.means = self.cm.new_clicks(self.bids)
-        self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
-        self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
-
-        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-
-        print(self.means[indice])
-        print(self.opt_pricing)
-        print(self.cm.mean_cc(self.bids)[indice])
-        
-        self.gpts_reward_per_experiment = []
-        self.p_arms = []
-
-        self.ts_reward_per_experiments = []
 
         self.T = 200 # number of days
-        self.n_experiments = 8
+        self.n_experiments = 5
+
 
     def run(self):
 
-        self.rewards_full = []
-        pg = PersonGenerator()
+        Penvs = []
+        Benvs = []
 
+        for c in range(4):
+            Penvs.append(PricingEnvironment(self.n_arms, self.cm.conv_rates[c] ,self.prices))
+            Benvs.append(BiddingEnvironment(self.bids, self.cm.new_clicks_function_mean(self.bids, c, self.num_people[c]), self.cm.new_clicks_function_mean(self.bids, c, self.num_people[c]), classe = c))
+
+        ### compute pricing and bidding optima
+        self.pricing_opt = np.zeros(4)
+        self.opt = np.zeros(4)
+        for c in range(4):
+            self.pricing_opt[c] = Penvs[c].get_pricing_optimum()
+            self.opt[c] = Benvs[c].get_optimum(self.pricing_opt[c], self.cm.ret[c])
+
+        self.rewards_full = [[], [], [], []]
+
+        
         for e in tqdm(range(0, self.n_experiments)):
 
-            env = SpecificEnvironment(n_arms=self.n_arms, candidates=self.prices)
-            penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
-            benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
-            
-            
+            ### Define the learners
+
             ts_learners = []
-            gpts_learners = []
-            rewards_this = []
-            for macros in range(3):
+            gpts_learners = []           
+            for c in range(4):
                 ts_learners.append(TS_Learner(n_arms=self.n_arms, candidates=self.prices))
-                gpts_learners.append(GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2))
-                rewards_this.append([])
+                gpts_learners.append(GPTS2(n_arms=self.n_arms, arms=self.bids, threshold=0.2))
+
+            ### Define the lists of pasts costs per click
             
 
+            past_costs = []
+            for c in range(4):
+                past_costs.append([np.array(0.44)]*self.n_arms)
 
-            for t in range(0,self.T): # 1 round is one day
+            ### Define the list of past return times
+           
 
-                
-                num_people = pg.generate_people_num()
+            return_times = []
+            for c in range(4):
+                return_times.append(np.ones(1))
 
-                for _ in range(num_people): # p is a class e.g. ["Y", "I"], usually called user_class
-                    
-                    p_class, p_labels = pg.generate_person()
-                
-                    pulled_arm, _ = context_gen.pull_arm(p_labels)
-                    reward = env.round(pulled_arm, p_class)
+            ### rewards
 
-                    current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))
 
-                    new_obs = [p_labels, pulled_arm, reward]
-                    context_gen.update(new_obs)
+            rewards_this = [[], [], [], []]
 
-                    pulled_price, price_value = context_gen.pull_arm()
+            ### Real experiment starts
+
+
+            for t in range(0,self.T):
+
+                for c in range(4):
+                    pulled_price, price_value = ts_learners[c].pull_arm()
                     price = self.prices[pulled_price]
 
-                    pulled_bid = gpts_learner.pull_arm(price_value)
+                    mean_returns = np.mean(return_times[c])
+                    price_value *= mean_returns
+                    # il price value va moltiplicato per il numero di ritorni
+
+                    for bid in range(self.n_arms):  
+                        gpts_learners[c].exp_cost[bid] = np.quantile(past_costs[c][bid], 0.8)
                     
-                    news, cost = benv.round(pulled_bid)
-                    buyer = penv.round(pulled_price, news)
+                    pulled_bid = gpts_learners[c].pull_arm(price_value)
 
-                    reward = buyer*price - cost
+                    news, costs = Benvs[c].round(pulled_bid)
+                    news = int(news+0.5)
+                    buyer = Penvs[c].round(pulled_price, news)
 
-                    not_buyer = news - buyer
+                    new_returns = 1+np.random.poisson(lam = self.cm.ret[c], size = news)
+                    # simuliamo il numero di volte in cui ogni cliente ritorna
+
+                    pricing_rew = buyer*price-np.sum(costs)
+                    reward = buyer*price*np.mean(new_returns)-np.sum(costs)
+                    # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
+
+                    not_buyer = news-buyer
+
+                    past_costs[c][pulled_bid] = np.append(past_costs[c][pulled_bid], costs)
                     
-                    ts_learner.update_more(pulled_price, reward, buyer, not_buyer)
-                    gpts_learner.update(pulled_bid, news)
+                    ts_learners[c].update_more(pulled_price, pricing_rew, buyer, not_buyer)
+                    gpts_learners[c].update(pulled_bid, news)
 
-                    rewards_this.append(reward)
-            
-            self.rewards_full.append(rewards_this)
+                    rewards_this[c].append(reward)
+
+                    return_times = np.append(return_times, new_returns)
+
+            for c in range(4):
+                self.rewards_full[c].append(rewards_this[c])
+        
+
+        '''
+        for c in range(4):
+            print(Penvs[c].candidates)
+            print(Benvs[c].means)
+            print(self.pricing_opt[c])
+            print(self.opt[c])
+        '''
+
+        
+        
 
     def plot(self):
         #sns.distplot(np.array(p_arms))
@@ -112,10 +141,10 @@ class Experiment7():
         plt.figure(0)
         plt.ylabel('Regret')
         plt.xlabel('t')
-        plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
+        for c in range(4):
+            plt.plot(np.cumsum(np.mean(self.opt[c] - self.rewards_full[c], axis = 0)), color = self.colors[c], label=str(c))
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_7.png")
 
         #plt.show()
-
