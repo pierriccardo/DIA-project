@@ -156,7 +156,7 @@ class BidEnv2():
     return total_news, costs
 
 
-  def compute_optimum(self, price_value, lam):
+  def compute_optimum(self, price_value, lam = 0):
     best = -10000
     best_arm = 0
     for pulled_arm in range(len(self.bids)):

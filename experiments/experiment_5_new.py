@@ -45,8 +45,8 @@ class Experiment5new():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 365 # number of days
-        self.n_experiments = 100
+        self.T = 100 # number of days
+        self.n_experiments = 5
 
     def run(self):
         print(self.cm.new_clicks)

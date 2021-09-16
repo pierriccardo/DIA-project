@@ -40,8 +40,10 @@ class ConfigManager():
     def mean_ret(self, classes):
         aggr_ret = 0
         for c in classes:
-            aggr_ret += self.config['return_probability'][c]
-        return aggr_ret / len(classes)
+            ret_scaled = [self.ret[c][i]*self.class_distribution[c] for i in range(len(self.ret[c]))]
+            aggr_ret = np.add(aggr_ret, ret_scaled)
+            #aggr_ret += self.config['return_probability'][c]
+        return aggr_ret #/ len(classes)
 
     def return_probability(_lambda, size=1):
         samples = np.random.poisson(_lambda, size=size)
