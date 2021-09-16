@@ -40,15 +40,23 @@ class ConfigManager():
     # ENVIRONMENT FUNCTIONS
     #------------------------------
 
-    def return_probability(_lambda, size=1):
-        samples = np.random.poisson(_lambda, size=size)
+    def mean_ret(self, classes):
+        aggr_ret = 0
+        for c in classes:
+            aggr_ret += self.config['return_probability'][c]
+        return aggr_ret / len(classes)
+
+    def return_probability(self, lam, size=1):
+        samples = np.random.poisson(lam, size=size)
 
         # return more samples is just for plotting
         return samples if size > 1 else samples[0] 
 
-    def cost_per_click(self, bid, classe, size):
+    def cost_per_click(self, bid, classe, size, mean = False):
         beta = np.sqrt(bid)
         alpha = self.config['cost_per_click'][classe]
+        if (mean):
+            return bid*alpha/(alpha+beta)
         return bid * np.random.beta(alpha, beta, size)
     
     #def new_clicks(self, bids):
@@ -88,10 +96,8 @@ class ConfigManager():
         if we want to aggregate just 2 classes [0, 3]
         '''
         aggr_cr = np.zeros(self.n_arms)
-        scale = [.4, .2, .3, .1]
         for c in classes:
-            conv_rate_scaled = [self.conv_rates[c][i]*scale[c] for i in range(len(self.conv_rates[c]))]
-            aggr_cr = np.add(aggr_cr, conv_rate_scaled)
+            aggr_cr = np.add(aggr_cr, self.conv_rates[c])
         
         return np.divide(aggr_cr, len(classes))
     
@@ -127,13 +133,10 @@ class ConfigManager():
 def conv_rate(x, a=1, b=1, c=1):
         return ((c*x) ** a) * np.exp(-b * c * x)
 
-def cost_per_click(bid, alpha):
-    beta = np.sqrt(bid)
-    return bid * np.random.beta(alpha, beta, 1)
+#def cost_per_click(bid, alpha):
+#    beta = np.sqrt(bid)
+#    return bid * np.random.beta(alpha, beta, 1)
 
-def return_probability(_lambda, size=1):
-    samples = np.random.poisson(_lambda, size=size)
-    return samples if size > 1 else samples[0]
 
 def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
     p = 1-(cc/(2*bid))
@@ -143,5 +146,4 @@ def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
 
 def aggregated_new_cliks(bid, Na=10000, cc=0.44):
     return self.config["frequencies"]["class1"]*new_clicks(bid, Na, new_clicks["class1"][1])+self.config["frequencies"]["class2"]*new_clicks(bid, Na, new_clicks["class2"][1])+self.config["frequencies"]["class3"]*new_clicks(bid, Na, new_clicks["class3"][1])+self.config["frequencies"]["class4"]*new_clicks(bid, Na, new_clicks["class4"][1])
-
 

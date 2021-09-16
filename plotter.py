@@ -2,10 +2,11 @@ import os
 import yaml
 import numpy as np
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 from configmanager import *
-
-
+SEED = 1
+np.random.seed(seed=SEED)
 class Plotter:
 
     def __init__(self):
@@ -15,6 +16,8 @@ class Plotter:
 
         self.cm = ConfigManager() 
         self.imgpath = self.cm.env_img_path
+
+        self.title_font = 15
         
     def plot_conv_rate(self, user_class=0):
 
@@ -47,19 +50,19 @@ class Plotter:
 
     def plot_all_conv_rates(self, classes=[0,1,2]):
 
-        fig, ax = plt.subplots(figsize=(25, 6.5), nrows=1, ncols=len(classes))
+        fig, ax = plt.subplots(figsize=(12, 4), nrows=1, ncols=len(classes))
         # plt.tight_layout()
-        fig.suptitle('Conversion Rates', fontsize=20)
+        fig.suptitle('Conversion Rates', fontsize=self.title_font)
+        
+        ax[0].set_ylabel('Conversion Rate')
 
         for i, user_class in enumerate(classes):
             
             ax[i].set_xlabel('Price(€)')
-            ax[i].set_ylabel('Conversion Rate')
-
             color = self.cm.colors[user_class]
 
             x = np.linspace(0, 15, 10)
-            y = self.cm.conv_rates[i]
+            y = self.cm.conv_rates[user_class]
 
             class_label = self.cm.class_labels[user_class]
             ax[i].plot(x, y,
@@ -75,7 +78,7 @@ class Plotter:
             ax[i].grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
-        filename = 'conv_rate_all.png'
+        filename = 'all_conv_rates.png'
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
@@ -106,7 +109,7 @@ class Plotter:
         ax.grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
-        filename = 'conv_rate_merged.png'
+        filename = 'merged_conv_rates.png'
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
@@ -114,7 +117,7 @@ class Plotter:
 
         fig, ax = plt.subplots(figsize=(20, 6), nrows=1, ncols=4)
         # plt.tight_layout()
-        fig.suptitle('Cost per click', fontsize=20)
+        fig.suptitle('Cost per click', fontsize=self.title_font)
 
         ax[0].set_ylabel('Cost per click')
 
@@ -144,30 +147,29 @@ class Plotter:
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
-    def plot_all_return_probability(self):
+    def plot_all_return_probability(self, classes=[0,2,3]):
 
-        fig, ax = plt.subplots(figsize=(20, 6), nrows=1, ncols=4)
-        # plt.tight_layout()
-        fig.suptitle('Return Probability', fontsize=20)
+        fig, ax = plt.subplots(figsize=(12, 5), nrows=1, ncols=len(classes))
+        fig.suptitle('Return Probability', fontsize=self.title_font)
 
         ax[0].set_ylabel('Return Probability')
 
-        for index, user_class in enumerate(self.config["classes"]):
+        for index, user_class in enumerate(classes):
 
-            _lambda = self.config["return_probability"][user_class]
-            color = self.config["class_colors"][user_class]
-
-            ax[index].set_title(f'Probability to return for {user_class}')
+            lam = self.cm.ret[user_class]
             ax[index].set_xlabel("Number of comebacks")
 
+            samples = self.cm.return_probability(lam, size=100000)
+
             ax[index].hist(
-                return_probability(_lambda, size=100000),
-                14,
+                samples,
                 density=True,
-                color=color,
-                label=self.config["class_labels"][user_class])
+                color=self.cm.colors[user_class],
+                label=self.cm.class_labels[user_class],
+                edgecolor='black')
 
             ax[index].legend(loc=0)
+            ax[index].set_axisbelow(True)
             ax[index].grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
@@ -179,7 +181,7 @@ class Plotter:
 
         fig, ax = plt.subplots(figsize=(20, 6), nrows=1, ncols=4)
         # plt.tight_layout()
-        fig.suptitle('New clicks', fontsize=20)
+        fig.suptitle('New clicks', fontsize=self.title_font)
 
         ax[0].set_ylabel('New clicks')
 
@@ -215,8 +217,8 @@ class Plotter:
 if __name__ == "__main__":
     p = Plotter()
 
-    p.plot_all_conv_rates([0,2,3])
-    p.plot_merged_conv_rates([0,2,3])
+    p.plot_all_conv_rates(classes=[0,2,3])
+    p.plot_merged_conv_rates(classes=[0,2,3])
     #p.plot_all_new_clicks()
     #p.plot_all_cost_per_click()
-    #p.plot_all_return_probability()
+    p.plot_all_return_probability()

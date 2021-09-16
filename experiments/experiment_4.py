@@ -8,7 +8,7 @@ from tqdm import tqdm
 from configmanager import *
 import logging
 
-from context2 import ContextGenerator
+from context import ContextGenerator
 
 class Experiment4():
 
@@ -34,12 +34,16 @@ class Experiment4():
         self.splits = None
 
         self.T = 365 # number of days
-        self.n_experiments = 20
+        self.n_experiments = 10
 
+        # TS
         self.ts_reward_per_experiments = []
         self.ts_regret_per_experiment = []
         self.ts_comulative_regret_per_experiment = []
         self.opt_per_experiment = []
+
+        # plots
+        self.alpha = 0.3 # opacity of the confidence interval
 
     def run(self):
         pg = PersonGenerator()
@@ -52,6 +56,7 @@ class Experiment4():
             ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
             rewards = np.array([])
             regrets = np.array([])
+            optimus = np.array([])
 
             ts_regret = []
 
@@ -66,6 +71,7 @@ class Experiment4():
                
                 daily_reward = 0
                 daily_regret = 0
+                daily_opt = 0
                 
 
                 # pull arms from context, for each context we pull
@@ -101,6 +107,7 @@ class Experiment4():
 
                     # TODO: make it an array without recompute the whole thing
                     current_opt = np.max(np.multiply(self.cm.conv_rates[p_class], self.prices))
+                    daily_opt += current_opt
                     
                     
                     new_obs = [p_labels, pulled_arm, reward]
@@ -119,9 +126,12 @@ class Experiment4():
 
                 rewards = np.append(rewards, daily_reward)
                 regrets = np.append(regrets, daily_regret)
+                optimus = np.append(optimus, daily_opt)
+                
   
             self.reward_per_experiments.append(rewards)
             self.regret_per_experiments.append(regrets)
+            self.opt_per_experiment.append(optimus)
             self.comulative_regret_per_experiment.append(np.cumsum(regrets))
 
             # TS
@@ -160,32 +170,76 @@ class Experiment4():
                         axes[i].set_ylabel('Feature 2')
                 fig.suptitle('Context splits')
                 plt.savefig(f'img/experiments/experiment_4_splits.png')
+    
+    def plot_reward(self):
+        plt.figure(2)
+        plt.xlabel("t")
+        plt.ylabel("Reward")
 
-    def plot(self):
-        #self._plot_splits()
-        self.plot_ts()
+        x = np.linspace(0, self.T, self.T)
+        y = np.cumsum(np.mean(self.reward_per_experiments, axis=0))
+
+        y_opt = np.cumsum(np.mean(self.opt_per_experiment, axis=0))
+        
+        plt.plot(x, y, label='Context Gen', color=self.colors[3])
+        plt.plot(x, y_opt, label='Context Gen', color=self.colors[2])
+        plt.legend(loc=0)
+        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        plt.savefig("img/experiments/experiment_4_reward.png")
+
+    def plot_cg(self):
 
         plt.figure(1)
         plt.xlabel("t")
         plt.ylabel("Regret")
-        plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[1])
-        plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+
+        x = np.linspace(0, self.T, self.T)
+        y = np.cumsum(np.mean(self.regret_per_experiments, axis=0))
+        
+        ci = 1.96 * np.std(y) / self.n_experiments #np.mean(y)
+        #ci = 1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments)
+
+        plt.plot(x, y, label='Context Gen', color=self.colors[3])
+        plt.fill_between(x, (y-ci), (y+ci), color=self.colors[3], alpha=self.alpha)
+        #plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+        #plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_4.png")
+        plt.savefig("img/experiments/experiment_4_regret.png")
     
     def plot_ts(self):
 
         plt.figure(0)
         plt.xlabel("t")
         plt.ylabel("Regret")
-        plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[1])
-        plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)), self.colors[3], label="TS")
-        plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
-        plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
+
+
+        x = np.linspace(0, self.T, self.T)
+        y = np.cumsum(np.mean(self.regret_per_experiments, axis=0))
+        ci = 1.96 * np.std(y) / self.n_experiments #np.mean(y)
+        #ci = 1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) 
+
+        plt.plot(x, y, label='Context Gen', color=self.colors[3])
+        plt.fill_between(x, (y-ci), (y+ci), color=self.colors[3], alpha=self.alpha)
+
+        ts_y = np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0))
+        ts_ci = 1.96 * np.std(ts_y) / np.mean(ts_y)
+        #ts_ci = 1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments)
+        
+        plt.plot(x, ts_y, label='TS', color=self.colors[2])
+        plt.fill_between(x, (y-ts_ci), (y+ts_ci), color=self.colors[2], alpha=self.alpha)
+        
+        #plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[3])
+        #plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+        #plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+        #plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)), self.colors[3], label="TS")
+        #plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
+        #plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_4_TS.png")
+        plt.savefig("img/experiments/experiment_4_ts_comparison.png")
+    
+    def plot(self):
+        self.plot_cg()
+        self.plot_ts()
+        self.plot_reward()
