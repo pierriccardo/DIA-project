@@ -78,6 +78,7 @@ class UCB1(Learner):
             confidence = np.sqrt(2*np.log(self.t)/(self.buyer+self.not_buyer))
             
             upper_bound = (self.empirical_means + confidence)*self.prices
+            #upper_bound = self.empirical_means*self.prices + confidence
             arm = np.random.choice(
                 np.where(upper_bound == upper_bound.max())[0])
         return arm

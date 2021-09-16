@@ -34,7 +34,7 @@ class Experiment4():
         self.splits = None
 
         self.T = 365 # number of days
-        self.n_experiments = 10
+        self.n_experiments = 5
 
         # TS
         self.ts_reward_per_experiments = []
