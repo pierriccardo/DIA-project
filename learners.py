@@ -137,7 +137,7 @@ class TS_Learner(Learner):
     def update_more(self, pulled_arm, reward, buyer, not_buyer):
         self.t += 1
 
-        self.update_observations(pulled_arm, reward)
+        #self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm,
                              0] = self.beta_parameters[pulled_arm, 0] + buyer
         self.beta_parameters[pulled_arm,
@@ -376,7 +376,7 @@ class GPTS2(Learner):
 
     def pull_arm(self, price_value):
         if (len(self.pulled_arms) < 10):
-            return np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
+            return len(self.pulled_arms) #np.random.choice(self.n_arms)   # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
         sample = np.random.normal(self.means,self.sigmas)
         sample = sample*(price_value - self.exp_cost) # adjust sample wrt price value
         for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
