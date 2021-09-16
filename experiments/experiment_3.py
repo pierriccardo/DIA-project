@@ -98,7 +98,7 @@ class Experiment3():
 
                 gr_pulled_arm = gr_learner.pull_arm()
                 uc_pulled_arm = uc_learner.pull_arm()
-                ts_pulled_arm, _ = ts_learner.pull_arm()
+                ts_pulled_arm = ts_learner.pull_arm()
 
                 uc_buyers = 0
                 ts_buyers = 0

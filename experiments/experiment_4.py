@@ -84,7 +84,7 @@ class Experiment4():
                 # TS
                 ts_buyers = 0
                 ts_daily_reward = 0
-                ts_pulled_arm, _ = ts_learner.pull_arm()
+                ts_pulled_arm = ts_learner.pull_arm()
                 ts_daily_opt = 0
 
                 for _ in range(num_people):                         

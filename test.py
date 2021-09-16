@@ -1,7 +1,8 @@
-from context2 import Context
 import numpy as np
 import matplotlib.pyplot as plt
 from configmanager import ConfigManager
+
+cm = ConfigManager()
 
 '''
 classes = [["Y", "I"], ["Y", "D"], ["A", "I"], ["A", "D"]]
@@ -85,3 +86,57 @@ current_opt = np.max(np.multiply(cr, cm.prices))
 print(current_opt)
 
 '''
+
+nc = [cm.new_clicks(bid, 0) for bid in cm.bids]
+mean = [cm.new_clicks_function_mean(bid, 0, 56000) for bid in cm.bids]
+sigma = [cm.new_clicks_function_sigma(bid, 0, 56000) for bid in cm.bids]
+
+print(nc)
+print(mean)
+print(sigma)
+
+plt.figure(0)
+plt.xlabel("bids")
+plt.ylabel("new clicks")
+
+
+x = cm.bids
+plt.plot(x, nc, label='nc', color=cm.colors[3])
+plt.plot(x, mean, label='mean', color=cm.colors[2])
+plt.plot(x, sigma, label='sigma', color=cm.colors[1])
+plt.legend(loc=0)
+plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+plt.show()
+
+fig, ax = plt.subplots(figsize=(12, 4), nrows=1, ncols=3)
+# plt.tight_layout()
+fig.suptitle('Conversion Rates', fontsize=self.title_font)
+
+ax[0].set_ylabel('Conversion Rate')
+
+for i, user_class in enumerate(classes):
+    
+    ax[i].set_xlabel('Price(€)')
+    color = self.cm.colors[user_class]
+
+    x = np.linspace(0, 15, 10)
+    y = self.cm.conv_rates[user_class]
+
+    class_label = self.cm.class_labels[user_class]
+    ax[i].plot(x, y,
+                    color,
+                    label=class_label,
+                    marker='o',
+                    markersize=3,
+                    markerfacecolor=color,
+                    markeredgecolor=color,
+                    markeredgewidth=4)
+
+    ax[i].legend(loc=0)
+    ax[i].grid(True, color='0.6', dashes=(5, 2, 1, 2))
+
+# saving image
+filename = 'all_conv_rates.png'
+savepath = os.path.join(self.imgpath, filename)
+fig.savefig(savepath)
+

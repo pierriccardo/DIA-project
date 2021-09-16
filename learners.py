@@ -121,7 +121,7 @@ class TS_Learner(Learner):
         expected_rewards = np.multiply(beta_samples, self.candidates)
 
         idx = np.argmax(expected_rewards)
-        return idx, max(expected_rewards)
+        return idx
 
     def update(self, pulled_arm, reward):
         self.t += 1
@@ -134,10 +134,8 @@ class TS_Learner(Learner):
         self.beta_parameters[pulled_arm,
                              1] = self.beta_parameters[pulled_arm, 1] + 1.0 - binary_reward
 
-    def update_more(self, pulled_arm, reward, buyer, not_buyer):
+    def update_more(self, pulled_arm, buyer, not_buyer):
         self.t += 1
-
-        #self.update_observations(pulled_arm, reward)
         self.beta_parameters[pulled_arm,
                              0] = self.beta_parameters[pulled_arm, 0] + buyer
         self.beta_parameters[pulled_arm,
@@ -199,160 +197,42 @@ class TS_Learner(Learner):
 
         return lb #* self.candidates[opt_arm]
 
-
-class GPTS_learner_positive(Learner):
-
-    def __init__(self, n_arms, arms, threshold):
-        super().__init__(n_arms)
-        self.arms = arms
-        self.means = np.ones(n_arms)*10000  # np.zeros(n_arms)
-        self.sigmas = np.ones(n_arms)*10000
-        # per avere il numero del round utilizzeremo len(pulled_arm)
-        self.pulled_arms = []
-        self.threshold = threshold
-        alpha = 3.0 #10.0
-        kernel = C(0.0001, (1e-6, 5e1)) * RBF(0.01, (1e-6, 1e1  ))
-        self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
-
-
-    def UpdateObservation(self, idx, reward):
-        self.update_observations(idx, reward)
-        self.pulled_arms.append(self.arms[idx])
-
-    def update_model(self):
-        x = np.atleast_2d(self.pulled_arms).T
-        y = self.collected_rewards
-        self.gp.fit(x, y)
-        self.means, self.sigmas = self.gp.predict(
-            np.atleast_2d(self.arms).T, return_std=True)
-        self.sigmas = np.maximum(self.sigmas, 1e-2)
-
-    def update(self, pulled_arm, reward):
-        self.t += 1
-        self.UpdateObservation(pulled_arm, reward)
-        self.update_model()
-
-    def is_eligible(self, idx, price_value):
-        proba = norm(loc=self.means[idx], scale=self.sigmas[idx]).cdf(0.0)
-        if (proba > self.threshold):
-            return False
-        if (price_value-self.arms[idx]*beta.ppf(1-self.threshold, 4.4, self.arms[idx]**0.5) < 0):
-            return False
-        return True
-
-    def pull_arm(self, price_value):
-        if (len(self.pulled_arms) < 10):
-            # scelta uniforme nei primi 20 round  --> deve essere coerente con l'enviroment
-            return np.random.choice(self.n_arms)
-        sample = np.random.normal(self.means, self.sigmas)
-        # adjust sample wrt price value
-        sample = sample*(price_value - self.arms*4.44/(4.4 + self.arms**0.5))
-        neg = []
-        for i in range(len(sample)):  # controllo uno alla volta gli elementi del sample
-            idx = np.argmax(sample)
-            if self.is_eligible(idx, price_value):
-                return idx
-            else:
-                # siamo sicuri che nella prossima iterazione non si sceglieà questo braccio
-                sample[idx] = -10000.0
-        print('errore, nessun braccio eligible, ne restituisco uno a caso')
-        return np.argmax(np.random.normal(self.means, self.sigmas))
-
-
-#######################
-
-# classi per il 7
-
-#######################
-
-class multi_TS_Learner(Learner):
-
-    def __init__(self, num, n_arms, candidates):
-        super().__init__(n_arms)
-        self.learners = []
-        self.num = num
-        for i in range(num):
-            self.learners.append(TS_Learner(n_arms, candidates))
-
-    def pull_arm(self):
-
-        idxes = []
-        maxes = []
-        for i in range(self.num):
-            res = self.learners[i].pull_arm()
-            idxes.append(res[0])
-            maxes.append(res[1])
-        return idxes, maxes
-
-    def update(self, pulled_arm, reward):
-
-        for i in range(self.num):
-            self.learners[i].update(pulled_arm[i], reward[i])
-
-    def update_more(self, pulled_arm, reward, buyer, not_buyer):
-
-        for i in range(self.num):
-            self.learners[i].update(
-                pulled_arm[i], reward[i], buyer[i], not_buyer[i])
-
-    def update_more_single(self, idx, pulled_arm, reward, buyer, not_buyer):
-        self.learners[idx].update_more(pulled_arm, reward, buyer, not_buyer)
-
-
-class multi_GPTS(Learner):
-
-    def __init__(self, num, n_arms, arms, threshold):
-        super().__init__(n_arms)
-        self.learners = []
-        self.num = num
-        for i in range(num):
-            self.learners.append(
-                GPTS_learner_positive(n_arms, arms, threshold))
-
-    def UpdateObservation(self, idx, reward):
-
-        for i in range(self.num):
-            self.learners[i].UpdateObservation(idx[i], reward[i])
-
-    def update(self, pulled_arm, reward):
-
-        for i in range(self.num):
-            self.learners[i].update(pulled_arm[i], reward[i])
-
-    def update_single(self, idx, pulled_arm, reward):
-        self.learners[idx].update(pulled_arm, reward)
-
-    def pull_arm(self, price_value):
-
-        ret = []
-        for i in range(self.num):
-            ret.append(self.learners[i].pull_arm(price_value[i]))
-
-        return ret
-
 ###########################
 # classi nuove per correggere il punto 5 after gatti
 ###########################
 
-class GPTS2(Learner):
+class GPTS(Learner):
 
     def __init__(self, n_arms, arms, threshold):
+
         super().__init__(n_arms)
         self.arms = arms
-        self.means = np.ones(n_arms)*10000 #np.zeros(n_arms)
-        self.sigmas = np.ones(n_arms)*10000
+        
+        self.means = np.zeros(n_arms) 
+        self.sigmas = np.ones(n_arms) * 10
+
         self.pulled_arms = []         # per avere il numero del round utilizzeremo len(pulled_arm)
         self.threshold = threshold
-        alpha = 3.0 #10.0
-        kernel = C(0.0001, (1e-6, 2e2)) * RBF(0.01, (1e-6, 1e1  ))
-        self.gp = GaussianProcessRegressor(kernel = kernel, alpha = alpha**2, n_restarts_optimizer = 9)
+        
+        alpha = 3.0
+
+        # Gaussian Process Regressor
+        theta = 0.0001
+        l = 0.01
+        kernel = C(theta, (1e-6, 2e2)) * RBF(l, (1e-6, 1e1))
+        self.gp = GaussianProcessRegressor(
+            kernel = kernel, 
+            alpha = alpha**2, 
+            n_restarts_optimizer = 9,
+            normalize_y=True)
+
         self.exp_cost = np.zeros(n_arms)
         self.upper_bound_cost = np.zeros(n_arms)
 
 
-    def UpdateObservation(self, idx, reward):
-        self.update_observations(idx, reward)
-        self.pulled_arms.append(self.arms[idx])
+    def update_observation(self, pulled_arm, reward):
+        self.update_observations(pulled_arm, reward)
+        self.pulled_arms.append(self.arms[pulled_arm])
 
     def update_model(self):
         x = np.atleast_2d(self.pulled_arms).T
@@ -363,7 +243,7 @@ class GPTS2(Learner):
 
     def update(self, pulled_arm, reward):
         self.t += 1
-        self.UpdateObservation(pulled_arm, reward)
+        self.update_observation(pulled_arm, reward)
         self.update_model()
 
     def is_eligible(self, idx, price_value, exp_cost):

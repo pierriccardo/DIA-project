@@ -142,17 +142,25 @@ class BidEnv2():
     self.classes = classes
     self.num_people = num_people
 
-  def round(self, pulled_arm):
+  def round(self, pulled_arm): # arm = bid
+    # news = new clicks
     total_news = 0
     costs = np.zeros(1)
+    
     for c in self.classes:
       mean = self.cm.new_clicks_function_mean(self.bids[pulled_arm], c, self.num_people[c])
       std = self.cm.new_clicks_function_sigma(self.bids[pulled_arm], c, self.num_people[c])## per ulteriori test posso renderla 0
       news = np.random.normal(mean, std)
-      #print(news)
+      
       cost = self.cm.cost_per_click(self.bids[pulled_arm], c, size = int(news+0.5))
+      
+      # total news = numero di persone che arrivano selezionando quella bid
       total_news += news
+      
+      # costs è il vettore che contiene tutte le spese di bid
+      # e.g. [0.42, 0.42...] 
       costs = np.append(costs, cost)
+      
     return total_news, costs
 
 

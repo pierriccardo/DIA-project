@@ -10,7 +10,8 @@ class ConfigManager():
 
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
-        
+            
+        self.num_people = self.config['num_people']
         self.env_img_path = self.config["env_imgpath"]
         self.class_labels = self.config["class_labels"] 
         
@@ -19,7 +20,7 @@ class ConfigManager():
         self.n_arms = len(self.prices)
 
         self.class_distribution = self.config['class_distribution']
-        self.new_clicks = self.config["new_clicks"]
+        self.new_clicks_lambdas = self.config["new_clicks"]
         
         self.classes = self.get_classes()
         self.num_classes = len(self.classes)
@@ -40,14 +41,6 @@ class ConfigManager():
     # ENVIRONMENT FUNCTIONS
     #------------------------------
 
-    def mean_ret(self, classes):
-        aggr_ret = 0
-        for c in classes:
-            ret_scaled = self.ret[c]*self.class_distribution[c] 
-            aggr_ret = np.add(aggr_ret, ret_scaled)
-            #aggr_ret += self.config['return_probability'][c]
-        return aggr_ret #/ len(classes)
-
     def return_probability(self, lam, size=1):
         samples = np.random.poisson(lam, size=size)
 
@@ -64,8 +57,14 @@ class ConfigManager():
     #def new_clicks(self, bids):
     #    return 100*(1.0-np.exp(-4*bids+3*bids**3))
 
+    def new_clicks(self, bid, user_class):
+        num_people = self.num_people * self.class_distribution[user_class]
+        mean = self.new_clicks_function_mean(bid, user_class, num_people)
+        sigma = self.new_clicks_function_sigma(bid, user_class, num_people)
+        return np.random.normal(mean,sigma)
+       
     def new_clicks_function_mean(self, bid, classe, num_people):
-        return (1-0.40/(2*bid))*num_people*self.new_clicks[classe]
+        return (1-0.40/(2*bid))*num_people*self.new_clicks_lambdas[classe]
     
     def aggregated_new_clicks_function_mean(self, bid, num_people):
         v = 0
@@ -74,7 +73,7 @@ class ConfigManager():
         return v
 
     def new_clicks_function_sigma(self, bid, classe, num_people):
-        return (1-0.40/(2*bid))*num_people**0.5*self.new_clicks[classe]
+        return (1-0.40/(2*bid))*num_people**0.5*self.new_clicks_lambdas[classe]
 
     def aggregated_new_clicks_function_sigma(self, bid, num_people):
         v = 0
@@ -107,13 +106,21 @@ class ConfigManager():
         
         return aggr_cr
     
-    def aggr_return_probability(self):
-        ret_prob = 0
-        for user_class in self.classes:
-            _lambda = self.config["return_probability"][user_class]
-
-            ret_prob += self.return_probability(_lambda)
-        return ret_prob / self.num_classes
+    def aggr_return_probability(self, classes):
+        aggr_ret = 0
+        for c in classes:
+            ret_scaled = self.ret[c]*self.class_distribution[c] 
+            aggr_ret = np.add(aggr_ret, ret_scaled)
+            #aggr_ret += self.config['return_probability'][c]
+        return aggr_ret #/ len(classes)
+    
+    #def aggr_return_probability(self):
+    #    ret_prob = 0
+    #    for user_class in self.classes:
+    #        _lambda = self.config["return_probability"][user_class]
+    #
+    #        ret_prob += self.return_probability(_lambda)
+    #    return ret_prob / self.num_classes
     
     def aggr_cost_per_click(self, bid):
         aggr_cc = 0
@@ -135,21 +142,3 @@ class ConfigManager():
     
     def get_features(self):
         return self.config["features"]
-
-def conv_rate(x, a=1, b=1, c=1):
-        return ((c*x) ** a) * np.exp(-b * c * x)
-
-#def cost_per_click(bid, alpha):
-#    beta = np.sqrt(bid)
-#    return bid * np.random.beta(alpha, beta, 1)
-
-
-def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
-    p = 1-(cc/(2*bid))
-    mean = Na*p*p0
-    sd = (Na*p*p0*(1-p0))**0.5
-    return np.random.normal(mean,sd)
-
-def aggregated_new_cliks(bid, Na=10000, cc=0.44):
-    return self.config["frequencies"]["class1"]*new_clicks(bid, Na, new_clicks["class1"][1])+self.config["frequencies"]["class2"]*new_clicks(bid, Na, new_clicks["class2"][1])+self.config["frequencies"]["class3"]*new_clicks(bid, Na, new_clicks["class3"][1])+self.config["frequencies"]["class4"]*new_clicks(bid, Na, new_clicks["class4"][1])
-

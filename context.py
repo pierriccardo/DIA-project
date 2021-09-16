@@ -78,7 +78,7 @@ class ContextGenerator():
         pulled_arms = [] 
 
         for c in self.contexts:
-            pulled_arm, _ = c.learner.pull_arm()
+            pulled_arm = c.learner.pull_arm()
             pulled_arms.append([c.classes, pulled_arm])
         return pulled_arms      
 
