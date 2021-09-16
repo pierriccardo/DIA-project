@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 from configmanager import ConfigManager
 from tqdm import tqdm
 
-from environment import MultiBidding, MultiPricing, PricingEnvironment, BiddingEnvironment, SpecificEnvironment
+from environment import PricingEnvironment, BiddingEnvironment, SpecificEnvironment
 from context import ContextGenerator
 from learners import *
 from scipy.stats import norm, beta

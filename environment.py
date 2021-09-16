@@ -1,7 +1,7 @@
 import numpy as np
 import yaml
 import random 
-from configmanager import ConfigManager, new_clicks
+from configmanager import ConfigManager
 '''
 environment class is defined by:
 - a number of arms
@@ -80,56 +80,6 @@ class PricingEnvironment():
       return max(self.probabilities*self.candidates)
 
 
-##################################
-
-########### materiale per Exp 7
-
-##################################
-
-class MultiBidding():
-  def __init__(self, num, bids = 0, means = 0, sigmas = 0):
-
-    self.num = num
-    self.envs = []
-
-    for i in range(num):
-        self.envs.append(BiddingEnvironment(bids[i], means[i], sigmas[i]))
-    
-    self.cm = ConfigManager()
-
-  def add(self, env):
-      self.envs.append(env)
-      self.num += 1
-  
-  def round(self, pulled_arm):    # pulled arm is the index of one of the bids
-    news = []
-    cost = []
-    for i in range(self.num):
-        ret = self.envs[i].round(pulled_arm[i])
-        news.append(ret[0])
-        cost.append(ret[1])
-    return news, cost
-
-class MultiPricing():
-    def __init__(self, num, n_arms = 0, probabilities = 0, candidates = 0):
-
-        self.num = num
-        self.envs = []
-
-        for i in range(num):
-            self.envs.append(BiddingEnvironment(n_arms[i], probabilities[i], candidates[i]))
-
-    def add(self, env):
-       self.envs.append(env)
-       self.num += 1
-
-    def round(self, pulled_arm, num_clicks): # this time the number of people that click is determined by the bidding part,
-        ret = []
-        for i in range(self.num):
-            ret.append(self.envs[i].round(pulled_arm[i], num_clicks[i]))
-        return ret
-
-
 ###############################
 # Nuovi environment con correzioni after gatti
 ###############################
@@ -164,7 +114,10 @@ class BidEnv2():
     return total_news, costs
 
 
-  def compute_optimum(self, price_value, lam = 0):
+  def compute_optimum(self, opt_price, lam = 0):
+    """
+    lam is the average number of returns
+    """
     best = -10000
     best_arm = 0
     for pulled_arm in range(len(self.bids)):
@@ -177,10 +130,7 @@ class BidEnv2():
         alpha = self.cm.costo[c]
         cost = self.bids[pulled_arm] * alpha /( beta + alpha )
 
-        rew += mean*((lam+1)*price_value-cost)
-      
-      
-
+        rew += mean*((lam+1)*opt_price-cost)
       if(rew > best):
         best = rew
         best_arm = pulled_arm

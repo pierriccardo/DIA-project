@@ -15,27 +15,28 @@ class Experiment6():
         self.cm = ConfigManager()
 
         # pricing
-        self.prices = self.cm.prices # candidates
+        self.prices = np.array(self.cm.prices) # candidates
         self.num_people = self.cm.num_people*np.array(self.cm.class_distribution)
 
         self.p = self.cm.aggr_conv_rates()
         self.n_arms = len(self.prices)
         self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
-        self.best_price = np.argmax(np.multiply(self.p, self.prices))
         
+
         # bidding 
         self.bids = np.array(self.cm.bids)
 
         # calcola i ritorni medi delle varie classi
         self.ret = self.cm.aggr_return_probability([0,1,2,3])
+        self.ret = 1 #self.cm.aggr_return_probability([0,1,2,3])
         
     
         #self.gpts_reward_per_experiment = []
         #self.ts_reward_per_experiments = []
         #self.p_arms = []
 
-        self.T = 40 # number of days
-        self.n_experiments = 1
+        self.T = 200 # number of days
+        self.n_experiments = 3
 
     def run(self):
 
@@ -53,12 +54,11 @@ class Experiment6():
             rewards_this = [] # reward dell'esperimento 
 
             past_costs = [np.array(0.44)]*self.n_arms
-            
             return_times = np.array(1.0)
 
             for t in range(0,self.T):
 
-                pulled_price = ts_learner.pull_arm() #self.best_price
+                pulled_price = ts_learner.pull_arm() 
                 price_value = ts_learner.expected_value(pulled_price)
 
                 price = self.prices[pulled_price] #prezzo pullato
@@ -81,9 +81,9 @@ class Experiment6():
                 # numero di persone che comprano
                 buyer = Penv.round(pulled_price, news)
 
-                new_returns = self.cm.return_probability(lam = self.ret, size = news)
                 # simuliamo il numero di volte in cui ogni cliente ritorna
-
+                new_returns = np.ones(news) #self.cm.return_probability(lam = self.ret, size = news)
+                
                 # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
                 reward = buyer*price*np.mean(new_returns) - np.sum(costs)
                
@@ -91,9 +91,6 @@ class Experiment6():
                 past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
                 ts_learner.update_more(pulled_price, buyer, news-buyer) 
-                if t == 39:
-                    print([ts_learner.success_prob(a) for a in range(self.n_arms)])
-                    print(ts_learner.beta_parameters)
                 gpts_learner.update(pulled_bid, news)
 
                 rewards_this.append(reward)
@@ -101,7 +98,6 @@ class Experiment6():
                 return_times = np.append(return_times, new_returns)
             
             self.rewards_full.append(rewards_this)
-            #print(past_costs[0])
 
     def plot_reward(self):
         # TODO: plot reward
