@@ -9,7 +9,7 @@ from scipy.stats import norm, beta
 
 
 
-class Experiment6():
+class Experiment6new():
     
     def __init__(self):
         self.cm = ConfigManager()
@@ -52,8 +52,8 @@ class Experiment6():
 
         #self.ts_reward_per_experiments = []
 
-        self.T = 365 # number of days
-        self.n_experiments = 10
+        self.T = 200 # number of days
+        self.n_experiments = 3
 
     def run(self):
 
@@ -71,7 +71,7 @@ class Experiment6():
 
             rewards_this = [] # reward dell'esperimento 
 
-            past_costs = [np.array([])]*self.n_arms
+            past_costs = [np.array(0)]*self.n_arms
 
             return_times = np.array(1.0)
 
@@ -91,21 +91,22 @@ class Experiment6():
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
                 news, costs = Benv.round(pulled_bid)
-                news = int(news+0.5)
+                news = int(news+0.5) #serve per ottenere un intero 
                 buyer = Penv.round(pulled_price, news)
 
                 new_returns = np.random.poisson(lam = self.ret, size = news)
                 # simuliamo il numero di volte in cui ogni cliente ritorna
 
-                pricing_rew = buyer*price-np.sum(costs)
-                reward = news*self.opt_pricing-np.sum(costs)
+                pricing_rew = buyer*price
+                reward = buyer*price*np.mean(new_returns) - np.sum(costs)
+                #reward = news*self.opt_pricing-np.sum(costs)
                 # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
 
                 not_buyer = news-buyer
 
                 past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
-                ts_learner.update_more(pulled_price, pricing_rew, buyer, not_buyer)
+                ts_learner.update_more(pulled_price, pricing_rew, buyer, not_buyer) #forse pricing_rew non serve
                 gpts_learner.update(pulled_bid, news)
 
                 rewards_this.append(reward)

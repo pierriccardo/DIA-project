@@ -73,8 +73,6 @@ elif args.experiment == '6':
     exp = Experiment6()
 elif args.experiment == '7':
     exp = Experiment7()
-elif args.experiment == '6b':
-    exp = Experiment6_b()
 elif args.experiment == '7b':
     exp = Experiment7_b()
 elif args.experiment == '7c':
