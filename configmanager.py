@@ -11,6 +11,9 @@ class ConfigManager():
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
         
+        self.env_img_path = self.config["env_imgpath"]
+        self.class_labels = self.config["class_labels"] 
+        
         self.bids = self.config['bids']
         self.prices = self.config["prices"] # candidates
         self.n_arms = len(self.prices)
@@ -45,8 +48,8 @@ class ConfigManager():
             #aggr_ret += self.config['return_probability'][c]
         return aggr_ret #/ len(classes)
 
-    def return_probability(_lambda, size=1):
-        samples = np.random.poisson(_lambda, size=size)
+    def return_probability(self, lam, size=1):
+        samples = np.random.poisson(lam, size=size)
 
         # return more samples is just for plotting
         return samples if size > 1 else samples[0] 
@@ -140,9 +143,6 @@ def conv_rate(x, a=1, b=1, c=1):
 #    beta = np.sqrt(bid)
 #    return bid * np.random.beta(alpha, beta, 1)
 
-def return_probability(_lambda, size=1):
-    samples = np.random.poisson(_lambda, size=size)
-    return samples if size > 1 else samples[0]
 
 def new_clicks(bid, Na=10000, p0=0.01, cc=0.44):
     p = 1-(cc/(2*bid))
