@@ -25,7 +25,7 @@ class ConfigManager():
         self.num_classes = len(self.classes)
         
         self.avg_cc = self.config["avg_cc"] # avg cost per click
-        self.cc = self.config['cost_per_click']
+        self.costo = self.config['cost_per_click']
 
         self.ret = self.config['return_probability']
 
@@ -85,8 +85,11 @@ class ConfigManager():
     def cc(self, bid, size = 1):
         return bid*np.random.beta(4.4,bid**0.5, size=size)
     
-    def mean_cc(self, bid):
-        return bid*(4.4/(4.4+bid**0.5))
+    def mean_cc(self, bid, classes):
+        v = 0
+        for i in classes:
+            v += bid*(self.costo[i]/(self.costo[i]+bid**0.5))*self.class_distribution[i]
+        return v
     #------------------------------
     # AGGREGATED FUNCTIONS
     #------------------------------

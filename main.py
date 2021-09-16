@@ -60,7 +60,6 @@ from experiments.experiment_6 import Experiment6
 from experiments.experiment_7 import Experiment7
 from experiments.experiment_7_Davide import Experiment7_b
 from experiments.experiment_7_return_time import Experiment7_c
-from experiments.experiment_5_new import Experiment5new
 from experiments.experiment_7_new import Experiment7new
 
 exp = None

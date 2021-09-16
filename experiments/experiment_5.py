@@ -1,9 +1,10 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.core.fromnumeric import shape, size
 
 from configmanager import ConfigManager
 from tqdm import tqdm
-from environment import BiddingEnvironment, PricingEnvironment
+from environment import BidEnv2, BiddingEnvironment, PricingEnvironment
 from learners import *
 from scipy.stats import norm, beta
 
@@ -26,7 +27,7 @@ class Experiment5():
 
         # bidding 
         self.bids = np.array(self.cm.bids)
-        self.sigma = 10
+        self.sigma = 2
         # self.p = np.array([.1, .03, .34, .28, .12, .19, .05, .56, .26, .35]) # cm.aggr_conv_rates()
         # perchè ridefiniamo questa???
         
@@ -34,15 +35,9 @@ class Experiment5():
         self.means = self.cm.aggregated_new_clicks_function_mean(self.bids, self.num_people)
         self.sigmas = self.cm.aggregated_new_clicks_function_sigma(self.bids, self.num_people)
 
+        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
+        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids, classes= [0,1,2,3])))
 
-        
-
-        self.opt = np.max(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-        indice = np.argmax(self.means * (self.opt_pricing - self.cm.mean_cc(self.bids)))
-
-        print(self.means[indice])
-        print(self.opt_pricing)
-        print(self.cm.mean_cc(self.bids)[indice])
         
     
         self.gpts_reward_per_experiment = []
@@ -50,19 +45,30 @@ class Experiment5():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 200 # number of days
-        self.n_experiments = 1
+        self.T = 365 # number of days
+        self.n_experiments = 10
+
     def run(self):
+        print(self.cm.new_clicks)
+        
+        print(self.cm.cost_per_click)
+        Benv = BidEnv2(self.bids, self.num_people)
+        self.opt = Benv.compute_optimum(self.opt_pricing)[0]
+        print(self.opt)
 
         self.rewards_full = []
 
+        self.com_reg = []
+
+
         for e in tqdm(range(0, self.n_experiments)):
 
-            Benv = BiddingEnvironment(self.bids, self.means, self.sigmas)
-
-            gpts_learner = GPTS_learner_positive(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
+            gpts_learner = GPTS2(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
 
             rewards_this = []
+
+            past_costs = [np.array(0.44)]*self.n_arms
+            
 
             for t in range(0,self.T):
                  
@@ -70,23 +76,30 @@ class Experiment5():
                 price_value = self.opt_pricing
                 price = self.prices[pulled_price]
 
+                for bid in range(self.n_arms):  ## update quantiles of expected costs
+                    gpts_learner.exp_cost[bid] = np.quantile(past_costs[bid], 0.8)# np.mean(past_costs[bid])
+
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
                 # problema: il braccio tirato dal learner di bidding
                 # deve dipendere da price
                 
-                news, cost = Benv.round(pulled_bid)
+                news, costs = Benv.round(pulled_bid)
                 
-                reward = news*self.opt_pricing-cost
+                reward = news*self.opt_pricing-np.sum(costs)
 
-                #print('empirical opt pricing: '+str(buyer*price/news)+' theoretical opt pricing: '+str(self.opt_pricing))
-                
+                print('reward: '+str(reward)+' ottimo teorico: '+str(self.opt))
+                past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
                 gpts_learner.update(pulled_bid, news)
 
                 rewards_this.append(reward)
             
             self.rewards_full.append(rewards_this)
+            self.com_reg.append(np.cumsum((self.opt - self.rewards_full)))
+
+        
+
 
     def plot(self):
         #sns.distplot(np.array(p_arms))
@@ -94,7 +107,11 @@ class Experiment5():
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.025, axis = 0),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.975,  axis = 0),'g',linestyle='dashed')
+        #plt.plot(1.96*np.cumsum(np.std(self.opt - self.rewards_full, axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        #plt.plot(-1.96*np.cumsum(np.std(self.opt - self.rewards_full, axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_5.png")
+        plt.savefig("img/experiments/experiment_5_new.png")
         #plt.show()

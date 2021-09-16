@@ -52,8 +52,8 @@ class Experiment6():
 
         #self.ts_reward_per_experiments = []
 
-        self.T = 100 # number of days
-        self.n_experiments = 3
+        self.T = 365 # number of days
+        self.n_experiments = 10
 
     def run(self):
 
@@ -77,8 +77,7 @@ class Experiment6():
 
             for t in range(0,self.T):
                  
-                pulled_price, _ = ts_learner.pull_arm() #indice e conv_rate_stimata*prezzo
-                price_value = ts_learner.expected_value(pulled_price)
+                pulled_price, price_value = ts_learner.pull_arm() #indice e conv_rate_stimata*prezzo
                 price = self.prices[pulled_price] #prezzo pullato
 
                 mean_returns = np.mean(return_times)
@@ -86,7 +85,8 @@ class Experiment6():
                 # il price value va moltiplicato per il numero di ritorni
 
                 for bid in range(self.n_arms):  
-                    gpts_learner.exp_cost[bid] = np.quantile(past_costs[bid], 0.8)
+                    gpts_learner.exp_cost[bid] = np.mean(past_costs[bid])
+                    gpts_learner.upper_bound_cost[bid] = np.quantile(past_costs[bid], 0.8)
                 
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
@@ -102,7 +102,6 @@ class Experiment6():
                 # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
 
                 not_buyer = news-buyer
-
 
                 past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
                 
@@ -128,6 +127,6 @@ class Experiment6():
         #plt.plot(-1.96*(np.std(np.cumsum(self.opt - self.rewards_full), axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_6.png")
+        plt.savefig("img/experiments/experiment_6_new.png")
 
         #plt.show()
