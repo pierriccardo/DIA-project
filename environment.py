@@ -189,8 +189,5 @@ class PriEnv():
       
       return buyer
 
-    def compute_optimum(self):
-      
-      for pulled_arm in range(self.n_arms):
         
 

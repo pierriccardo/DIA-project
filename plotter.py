@@ -13,18 +13,15 @@ class Plotter:
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
 
-        self.imgpath = self.config["env_imgpath"]
-
         self.cm = ConfigManager() 
+        self.imgpath = self.cm.env_img_path
         
-
-    def plot_conv_rate(self, user_class="class1"):
-
-        a, b, c = tuple(self.config["conv_rate"][user_class])
-        color = self.config["class_colors"][user_class]
+    def plot_conv_rate(self, user_class=0):
 
         x = np.linspace(0, 8, 20)
-        y = self.cm.conv_rate(x, a, b, c)
+        y = self.cm.conv_rates[user_class]
+        color = self.cm.colors[user_class]
+
 
         fig = plt.figure(figsize=(6, 5))
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
@@ -33,7 +30,7 @@ class Plotter:
         ax.set_title(f'{self.config["class_labels"][user_class]}')
         ax.plot(x, y,
                 color,
-                label=f'{self.config["class_labels"][user_class]}',
+                label=self.cm.class_labels[user_class],
                 marker='o',
                 markersize=3,
                 markerfacecolor=color,
@@ -44,30 +41,30 @@ class Plotter:
         ax.grid(True, color='0.6', dashes=(5, 2, 1, 2))
 
         # saving image
-        filename = f'conv_rate_{self.config["class_labels"][user_class]}.png'
+        filename = f'conv_rate_{self.cm.class_labels[user_class]}.png'
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
-    def plot_all_conv_rate(self):
+    def plot_all_conv_rates(self, classes=[0,1,2]):
 
-        fig, ax = plt.subplots(figsize=(25, 6.5), nrows=1, ncols=4)
+        fig, ax = plt.subplots(figsize=(25, 6.5), nrows=1, ncols=len(classes))
         # plt.tight_layout()
         fig.suptitle('Conversion Rates', fontsize=20)
 
-        for i, user_class in enumerate(self.config["classes"]):
+        for i, user_class in enumerate(classes):
             
             ax[i].set_xlabel('Price(€)')
             ax[i].set_ylabel('Conversion Rate')
 
-            a, b, c = tuple(self.config["conv_rate"][user_class])
-            color = self.config["class_colors"][user_class]
+            color = self.cm.colors[user_class]
 
-            x = np.linspace(0, 10, 20)
-            y = self.cm.conv_rate(x, a, b, c)
+            x = np.linspace(0, 15, 10)
+            y = self.cm.conv_rates[i]
 
+            class_label = self.cm.class_labels[user_class]
             ax[i].plot(x, y,
                             color,
-                            label=self.config["class_labels"][user_class],
+                            label=class_label,
                             marker='o',
                             markersize=3,
                             markerfacecolor=color,
@@ -82,7 +79,7 @@ class Plotter:
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
-    def plot_merged_conv_rate(self):
+    def plot_merged_conv_rates(self, classes=[0,1,2]):
 
         fig = plt.figure(figsize=(6, 5))
         ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
@@ -90,16 +87,15 @@ class Plotter:
         ax.set_ylabel('Conversion Rate')
         ax.set_title('Conversion Rates')
 
-        for user_class in self.config["classes"]:
-           
-            a, b, c = tuple(self.config["conv_rate"][user_class])
-            color = self.config["class_colors"][user_class]
+        for user_class in classes:
+    
+            color = self.cm.colors[user_class]
 
-            x = np.linspace(0, 8, 20)
-            y = self.cm.conv_rate(x, a, b, c)
+            x = np.linspace(0, 15, 10)
+            y = self.cm.conv_rates[user_class]
             ax.plot(x, y,
                     color,
-                    label=self.config["class_labels"][user_class],
+                    label=self.cm.class_labels[user_class],
                     marker='o',
                     markersize=3,
                     markerfacecolor=color,
@@ -218,12 +214,9 @@ class Plotter:
 
 if __name__ == "__main__":
     p = Plotter()
-    
-    for i, c in enumerate(p.config["classes"]):
-        p.plot_conv_rate(user_class=c)
 
-    p.plot_all_conv_rate()
-    p.plot_merged_conv_rate()
-    p.plot_all_new_clicks()
-    p.plot_all_cost_per_click()
-    p.plot_all_return_probability()
+    p.plot_all_conv_rates([0,2,3])
+    p.plot_merged_conv_rates([0,2,3])
+    #p.plot_all_new_clicks()
+    #p.plot_all_cost_per_click()
+    #p.plot_all_return_probability()

@@ -11,6 +11,9 @@ class ConfigManager():
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
         
+        self.env_img_path = self.config["env_imgpath"]
+        self.class_labels = self.config["class_labels"] 
+        
         self.bids = self.config['bids']
         self.prices = self.config["prices"] # candidates
         self.n_arms = len(self.prices)

@@ -2,6 +2,7 @@ from numpy import split
 from learners import Learner, TS_Learner
 import logging
 import itertools
+from collections import Counter
 
 class Context:
 
@@ -30,6 +31,12 @@ class ContextGenerator():
         self.contexts = []
         self.split_color_matrices = []  
         self.current_id = 0
+
+        self.splits_frequency = {}
+        self.splits_frequency_array = []
+
+        # keep count of the number of generation done 
+        self.generations = 0 
 
 
         ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.candidates)
@@ -106,10 +113,13 @@ class ContextGenerator():
         return (p_1 * mu_1 + p_2 * mu_2) - mu_0
     
     def generate(self):
-
+        
+        self.splits_frequency[self.generations] = []
+        split_string = ""
+        
         for c in self.contexts:
             split_conditions = []
-
+            
             for f in self.features: # [Y, A], [I, D]
                 if c.has_feature(f): 
                     split_cond = self.evaluate_split(c, f) 
@@ -140,8 +150,13 @@ class ContextGenerator():
                 self.contexts.append(c2)
                 self.contexts.remove(c)
 
+                self.splits_frequency[self.generations].append(best_feature)
+                split_string += best_feature[0]+best_feature[1] + ","
+        
+
                 logging.debug(f'ContextGenerator.generate() c_{c.id} splitted in: c_{c1.id}({classes_1}),c_{c2.id}({classes_2})')                
-            
+        self.generations += 1
+        self.splits_frequency_array.append(split_string[:-1])
     def separate_classes(self, classes, feature):
         # feature is an array like [Y, A]
         # classes is the array of classes to separate
@@ -181,5 +196,10 @@ class ContextGenerator():
     
     def get_split_matrices(self):
         return self.split_color_matrices
-                
+    
+    def compute_split_frequency(self):        
+        counter = Counter(self.splits_frequency_array)
+        #result = [(*key, counter[key]) for key in counter]
+        result = [(key, counter[key]) for key in counter]
+        return result
     
