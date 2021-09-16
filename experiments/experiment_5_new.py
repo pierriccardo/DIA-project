@@ -1,5 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from numpy.core.fromnumeric import shape, size
 
 from configmanager import ConfigManager
 from tqdm import tqdm
@@ -26,7 +27,7 @@ class Experiment5new():
 
         # bidding 
         self.bids = np.array(self.cm.bids)
-        self.sigma = 10
+        self.sigma = 2
         # self.p = np.array([.1, .03, .34, .28, .12, .19, .05, .56, .26, .35]) # cm.aggr_conv_rates()
         # perchè ridefiniamo questa???
         
@@ -44,8 +45,8 @@ class Experiment5new():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 200 # number of days
-        self.n_experiments = 1
+        self.T = 365 # number of days
+        self.n_experiments = 100
 
     def run(self):
         print(self.cm.new_clicks)
@@ -56,6 +57,9 @@ class Experiment5new():
         print(self.opt)
 
         self.rewards_full = []
+
+        self.com_reg = []
+
 
         for e in tqdm(range(0, self.n_experiments)):
 
@@ -92,6 +96,10 @@ class Experiment5new():
                 rewards_this.append(reward)
             
             self.rewards_full.append(rewards_this)
+            self.com_reg.append(np.cumsum((self.opt - self.rewards_full)))
+
+        
+
 
     def plot(self):
         #sns.distplot(np.array(p_arms))
@@ -99,6 +107,10 @@ class Experiment5new():
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.025, axis = 0),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.975,  axis = 0),'g',linestyle='dashed')
+        #plt.plot(1.96*np.cumsum(np.std(self.opt - self.rewards_full, axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        #plt.plot(-1.96*np.cumsum(np.std(self.opt - self.rewards_full, axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_5_new.png")

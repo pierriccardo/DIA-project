@@ -86,9 +86,10 @@ class ConfigManager():
         '''
         aggr_cr = np.zeros(self.n_arms)
         for c in classes:
-            aggr_cr = np.add(aggr_cr, self.conv_rates[c])
+            conv_rate_scaled = [self.conv_rates[c][i]*self.class_distribution[c] for i in range(len(self.conv_rates[c]))]
+            aggr_cr = np.add(aggr_cr, conv_rate_scaled)
         
-        return np.divide(aggr_cr, len(classes))
+        return aggr_cr
     
     def aggr_return_probability(self):
         ret_prob = 0

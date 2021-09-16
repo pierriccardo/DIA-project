@@ -52,8 +52,8 @@ class Experiment6new():
 
         self.ts_reward_per_experiments = []
 
-        self.T = 200 # number of days
-        self.n_experiments = 10
+        self.T = 365 # number of days
+        self.n_experiments = 100
 
     def run(self):
 
@@ -120,6 +120,10 @@ class Experiment6new():
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.025, axis = 0),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.975,  axis = 0),'g',linestyle='dashed')
+        #plt.plot(1.96*(np.std(np.cumsum(self.opt - self.rewards_full), axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
+        #plt.plot(-1.96*(np.std(np.cumsum(self.opt - self.rewards_full), axis=0))/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g',linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_6_new.png")

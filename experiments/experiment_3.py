@@ -93,7 +93,7 @@ class Experiment3():
                 daily_regret_uc = 0 ## per il grafico 2
                 daily_regret_ts = 0 ## per il grafico 2
 
-                people = pg.generate_people_num(50)
+                people = pg.generate_people_num(100)
                 daily_opt = self.opt * people
 
                 gr_pulled_arm = gr_learner.pull_arm()
