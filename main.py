@@ -39,6 +39,7 @@ parser.add_argument('--log', '-l',  type=int,  default=40, help='wheter to outpu
 
 parser.add_argument('--days', '-d',  type=int,  default=365, help='number of days for the experiment')
 parser.add_argument('--n_exp', '-ne',  type=int,  default=10, help='number of experiments to perform')
+parser.add_argument('--delay', '-del',  type=int,  default=30, help='delay to apply on the experiment, just for 5,6,7')
 args = parser.parse_args()
 
 #------------------------------
@@ -68,18 +69,18 @@ if args.experiment == '3':
 elif args.experiment == '4':
     exp.append(Experiment4(days=args.days, n_exp=args.n_exp))
 elif args.experiment == '5':
-    exp.append(Experiment5(days=args.days, n_exp=args.n_exp))
+    exp.append(Experiment5(days=args.days, n_exp=args.n_exp, delay=args.delay))
 elif args.experiment == '6':
-    exp.append(Experiment6(days=args.days, n_exp=args.n_exp))
+    exp.append(Experiment6(days=args.days, n_exp=args.n_exp, delay=args.delay))
 elif args.experiment == '7':
-    exp.append(Experiment7(days=args.days, n_exp=args.n_exp))
+    exp.append(Experiment7(days=args.days, n_exp=args.n_exp, delay=args.delay))
 
 elif args.experiment == 'all':
     exp.append(Experiment3(cm.exp_values['exp3']['days'], cm.exp_values['exp3']['n_exp']))
     exp.append(Experiment4(cm.exp_values['exp4']['days'], cm.exp_values['exp4']['n_exp']))
-    exp.append(Experiment5(cm.exp_values['exp5']['days'], cm.exp_values['exp5']['n_exp']))
-    exp.append(Experiment6(cm.exp_values['exp6']['days'], cm.exp_values['exp6']['n_exp']))
-    exp.append(Experiment7(cm.exp_values['exp7']['days'], cm.exp_values['exp7']['n_exp']))
+    exp.append(Experiment5(cm.exp_values['exp5']['days'], cm.exp_values['exp5']['n_exp'], cm.exp_values['exp5']['delay']))
+    exp.append(Experiment6(cm.exp_values['exp6']['days'], cm.exp_values['exp6']['n_exp'], cm.exp_values['exp6']['delay']))
+    exp.append(Experiment7(cm.exp_values['exp7']['days'], cm.exp_values['exp7']['n_exp'], cm.exp_values['exp7']['delay']))
 else:
     print(f'Error Experiment {args.experiment} does not exist')
 

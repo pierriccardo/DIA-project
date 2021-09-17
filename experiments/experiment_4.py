@@ -179,9 +179,9 @@ class Experiment4():
         plt.ylabel("Reward")
 
         x = np.linspace(0, self.T, self.T)
-        y = np.cumsum(np.mean(self.reward_per_experiments, axis=0))
+        y = np.mean(self.reward_per_experiments, axis=0)
 
-        y_opt = np.cumsum(np.mean(self.opt_per_experiment, axis=0))
+        y_opt = np.mean(self.opt_per_experiment, axis=0)
         
         plt.plot(x, y, label='Context Gen', color=self.colors[3])
         plt.plot(x, y_opt, label='Optimum', color=self.colors[2])

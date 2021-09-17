@@ -13,12 +13,15 @@ exp_values:
   exp5:
     days: 365
     n_exp: 10
+    delay: 30
   exp6:
     days: 365
     n_exp: 10
+    delay: 30
   exp7:
     days: 365
     n_exp: 10
+    delay: 30
 
 avg_price: 6 # avg price of a beer
 avg_cc: 0.42 # avg cost per click
