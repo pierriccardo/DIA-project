@@ -39,10 +39,9 @@ class Experiment7():
 
         self.run_exp([3],[0,1,2])
         self.plot_regret(self.cm.colors[2], lab = 'classe 3')
+        #plt.savefig("img/experiments/experiment_7_regret.png")
         self.plot_reward(self.cm.colors[2], lab = 'classe 3')
-
-        plt.savefig("img/experiments/experiment_7_regret.png")
-        plt.savefig("img/experiments/experiment_7_reward.png")
+        #plt.savefig("img/experiments/experiment_7_reward.png")
 
     def run_exp(self, classes, not_classes):# self.classes
 
@@ -133,13 +132,13 @@ class Experiment7():
             self.regret_full.append(regret_this)
             #print(past_costs[0])
 
-            self.results[classes]['regret'] = self.regret_full
-            self.results[classes]['reward'] = self.reward_full
+            #self.results[classes]['regret'] = self.regret_full
+            #self.results[classes]['reward'] = self.reward_full
 
     def plot(self):
         pass
 
-    def plot_regret(self)
+    #def plot_regret(self)
 
     def plot_regret(self, col, lab):
         plt.figure(71)
@@ -150,15 +149,16 @@ class Experiment7():
         plt.plot(np.quantile(np.cumsum(self.regret_full, axis=1), q=0.975,  axis = 0), col,linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        plt.savefig("img/experiments/experiment_7_regret.png")
         
     def plot_reward(self, col, lab):
-        plt.figure(72)
-        plt.ylabel('Reward')
-        plt.xlabel('t')
-
+        f1 = plt
+        f1.figure(72)
+        f1.ylabel('Reward')
+        f1.xlabel('t')
         x = np.mean(self.rewards_full, axis = 0)
-        plt.plot(x, col, label=lab)
-        plt.plot([self.opt for i in range(len(x))], color=self.cm.colors[4], label=lab)
-        plt.legend(loc=0)
-        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_7_reward.png")
+        f1.plot(x, col, label=lab)
+        f1.plot([self.opt for i in range(len(x))], col,linestyle='dashed', label= "ottimo" + lab)
+        f1.legend(loc=0)
+        f1.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        f1.savefig("img/experiments/experiment_7_reward.png")
