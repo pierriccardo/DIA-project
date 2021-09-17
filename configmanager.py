@@ -10,7 +10,9 @@ class ConfigManager():
 
         with open('config.yml', 'r') as file:
             self.config = yaml.safe_load(file)
-            
+        
+        self.exp_values = self.config['exp_values']
+
         self.num_people = self.config['num_people']
         self.env_img_path = self.config["env_imgpath"]
         self.class_labels = self.config["class_labels"] 

@@ -113,26 +113,25 @@ class Plotter:
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
-    def plot_all_cost_per_click(self):
+    def plot_all_cost_per_click(self, classes=[0,2,3]):
 
-        fig, ax = plt.subplots(figsize=(20, 6), nrows=1, ncols=4)
-        # plt.tight_layout()
+        fig, ax = plt.subplots(figsize=(12, 4), nrows=1, ncols=len(classes))
         fig.suptitle('Cost per click', fontsize=self.title_font)
 
         ax[0].set_ylabel('Cost per click')
 
-        for index, user_class in enumerate(self.config["classes"]):
+        for index, user_class in enumerate(classes):
 
-            alpha = self.config["cost_per_click"][user_class]
-            color = self.config["class_colors"][user_class]
-
+            color = self.cm.colors[user_class]
+          
             ax[index].set_xlabel('Bid')
 
             x = self.config["bids"]
-            y = [self.cm.cost_per_click(i, alpha) for i in x]
+            y = [self.cm.cost_per_click(bid, user_class, 1, mean=True) for bid in self.cm.bids]
+            
             ax[index].plot(x, y,
                            color,
-                           label=self.config["class_labels"][user_class],
+                           label=self.cm.class_labels[user_class],
                            marker='o',
                            markersize=3,
                            markerfacecolor=color,
@@ -146,6 +145,37 @@ class Plotter:
         filename = 'all_cost_per_click.png'
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
+    
+    def plot_merged_cost_per_click(self, classes=[0,2,3]):
+        fig = plt.figure(figsize=(6, 5))
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.set_xlabel('Bid')
+        ax.set_ylabel('Cost per click')
+        ax.set_title('Cost per click')
+
+        for user_class in classes:
+    
+            color = self.cm.colors[user_class]
+
+            x = np.linspace(0, 15, 10)
+            y = [self.cm.cost_per_click(bid, user_class, 1, mean=True) for bid in self.cm.bids]
+            ax.plot(x, y,
+                    color,
+                    label=self.cm.class_labels[user_class],
+                    marker='o',
+                    markersize=3,
+                    markerfacecolor=color,
+                    markeredgecolor=color,
+                    markeredgewidth=4)
+
+        ax.legend(loc=0)
+        ax.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+
+        # saving image
+        filename = 'merged_cost_per_click.png'
+        savepath = os.path.join(self.imgpath, filename)
+        fig.savefig(savepath)
+
 
     def plot_all_return_probability(self, classes=[0,2,3]):
 
@@ -177,28 +207,22 @@ class Plotter:
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
 
-    def plot_all_new_clicks(self):
+    def plot_all_new_clicks(self, classes=[0,2,3]):
 
-        fig, ax = plt.subplots(figsize=(20, 6), nrows=1, ncols=4)
-        # plt.tight_layout()
+        fig, ax = plt.subplots(figsize=(12, 4), nrows=1, ncols=len(classes))
         fig.suptitle('New clicks', fontsize=self.title_font)
 
         ax[0].set_ylabel('New clicks')
 
-        cc = self.config["avg_cc"]
-
-        for index, user_class in enumerate(self.config["classes"]):
-
-            Na, p0 = tuple(self.config["new_clicks"][user_class])
-            color = self.config["class_colors"][user_class]
+        for index, user_class in enumerate(classes):
 
             ax[index].set_xlabel('Bid')
-
-            x = self.config["bids"]
-            y = [new_clicks(i, Na, p0, cc) for i in x]
+            x = self.cm.bids
+            y = [self.cm.new_clicks(bid, user_class) for bid in self.cm.bids]
+            color=self.cm.colors[user_class]
             ax[index].plot(x, y,
                            color,
-                           label=self.config["class_labels"][user_class],
+                           label=self.cm.class_labels[user_class],
                            marker='o',
                            markersize=3,
                            markerfacecolor=color,
@@ -212,6 +236,37 @@ class Plotter:
         filename = 'all_new_clicks.png'
         savepath = os.path.join(self.imgpath, filename)
         fig.savefig(savepath)
+    
+    def plot_merged_new_clicks(self, classes=[0,2,3]):
+
+        fig = plt.figure(figsize=(6, 5))
+        ax = fig.add_axes([0.1, 0.1, 0.8, 0.8])
+        ax.set_xlabel('Bid')
+        ax.set_ylabel('New Clicks')
+        ax.set_title('New Clicks')
+
+        for user_class in classes:
+    
+            color = self.cm.colors[user_class]
+
+            x = np.linspace(0, 15, 10)
+            y = [self.cm.new_clicks(bid, user_class) for bid in self.cm.bids]
+            ax.plot(x, y,
+                    color,
+                    label=self.cm.class_labels[user_class],
+                    marker='o',
+                    markersize=3,
+                    markerfacecolor=color,
+                    markeredgecolor=color,
+                    markeredgewidth=4)
+
+        ax.legend(loc=0)
+        ax.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+
+        # saving image
+        filename = 'merged_new_clicks.png'
+        savepath = os.path.join(self.imgpath, filename)
+        fig.savefig(savepath)
 
 
 if __name__ == "__main__":
@@ -219,6 +274,11 @@ if __name__ == "__main__":
 
     p.plot_all_conv_rates(classes=[0,2,3])
     p.plot_merged_conv_rates(classes=[0,2,3])
-    #p.plot_all_new_clicks()
-    #p.plot_all_cost_per_click()
+
+    p.plot_all_new_clicks()
+    p.plot_merged_new_clicks()
+
+    p.plot_all_cost_per_click()
+    p.plot_merged_cost_per_click()
+
     p.plot_all_return_probability()

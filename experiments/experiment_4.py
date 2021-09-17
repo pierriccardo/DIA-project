@@ -11,8 +11,10 @@ import logging
 from context import ContextGenerator
 
 class Experiment4():
+    
+    NAME = 'Experiment 4'
 
-    def __init__(self):
+    def __init__(self, days=365, n_exp=10):
         self.cm = ConfigManager()
         
         self.features = self.cm.features
@@ -33,8 +35,8 @@ class Experiment4():
         self.colors = self.cm.colors
         self.splits = None
 
-        self.T = 365 # number of days
-        self.n_experiments = 5
+        self.T = days # number of days
+        self.n_experiments = n_exp
 
         # TS
         self.ts_reward_per_experiments = []
@@ -121,7 +123,7 @@ class Experiment4():
                     ts_daily_reward += ts_reward
                     if ts_reward > 0: ts_buyers += 1
                     ts_daily_opt += current_opt
-                ts_learner.update_more(ts_pulled_arm, ts_reward, ts_buyers, num_people - ts_buyers) 
+                ts_learner.update_more(ts_pulled_arm, ts_buyers, num_people - ts_buyers) 
                 ts_regret.append(ts_daily_opt - ts_daily_reward)
 
                 rewards = np.append(rewards, daily_reward)
@@ -172,7 +174,7 @@ class Experiment4():
                 plt.savefig(f'img/experiments/experiment_4_splits.png')
     
     def plot_reward(self):
-        plt.figure(2)
+        plt.figure(41)
         plt.xlabel("t")
         plt.ylabel("Reward")
 
@@ -182,14 +184,14 @@ class Experiment4():
         y_opt = np.cumsum(np.mean(self.opt_per_experiment, axis=0))
         
         plt.plot(x, y, label='Context Gen', color=self.colors[3])
-        plt.plot(x, y_opt, label='Context Gen', color=self.colors[2])
+        plt.plot(x, y_opt, label='Optimum', color=self.colors[2])
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_4_reward.png")
 
     def plot_cg(self):
 
-        plt.figure(1)
+        plt.figure(42)
         plt.xlabel("t")
         plt.ylabel("Regret")
 
@@ -209,7 +211,7 @@ class Experiment4():
     
     def plot_ts(self):
 
-        plt.figure(0)
+        plt.figure(43)
         plt.xlabel("t")
         plt.ylabel("Regret")
 

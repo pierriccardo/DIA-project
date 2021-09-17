@@ -11,7 +11,9 @@ from configmanager import *
 
 class Experiment3():
 
-    def __init__(self):
+    NAME = 'Experiment 3'
+
+    def __init__(self, days=365, n_exp=100):
         cm = ConfigManager()
 
         self.opt_2 = []
@@ -27,8 +29,8 @@ class Experiment3():
         self.n_arms = cm.n_arms
         self.opt = np.max(np.multiply(self.p, self.prices)) 
 
-        self.T = 365 # number of days
-        self.n_experiments = 100
+        self.T = days # number of days
+        self.n_experiments = n_exp
 
         self.colors = cm.colors
 
@@ -124,8 +126,8 @@ class Experiment3():
                     if ts_reward > 0: ts_buyers += 1
                 
                 gr_learner.update(gr_pulled_arm, gr_reward)
-                uc_learner.update_more(uc_pulled_arm, uc_reward, uc_buyers, people - uc_buyers)
-                ts_learner.update_more(ts_pulled_arm, ts_reward, ts_buyers, people - ts_buyers) 
+                uc_learner.update_more(uc_pulled_arm, uc_buyers, people - uc_buyers)
+                ts_learner.update_more(ts_pulled_arm, ts_buyers, people - ts_buyers) 
 
                 gr_regret.append(daily_opt - gr_daily_reward)
                 uc_regret.append(daily_opt - uc_daily_reward)
@@ -167,7 +169,7 @@ class Experiment3():
 
     def plot(self):
 
-        plt.figure(0)
+        plt.figure(30)
         plt.xlabel("t")
         plt.ylabel("Regret")
         plt.plot(np.cumsum(np.mean(self.gr_regret_per_experiment, axis=0)), self.colors[0], label="Greedy")
@@ -183,7 +185,7 @@ class Experiment3():
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_3.png")
 
-        plt.figure(1)
+        plt.figure(31)
         plt.xlabel("t")
         plt.ylabel("Regret")
         plt.plot(np.cumsum(np.mean(self.gr_regret_per_experiment_2, axis=0)), self.colors[0], label="Greedy")
@@ -193,7 +195,7 @@ class Experiment3():
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_3_1.png")
 
-        plt.figure(2)
+        plt.figure(32)
         plt.xlabel("t")
         plt.ylabel("Reward")
         plt.plot(np.mean(self.gr_reward_per_experiment, axis=0), self.colors[0], label="Greedy")

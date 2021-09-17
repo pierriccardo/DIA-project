@@ -1,150 +1,164 @@
-from pricing import PersonGenerator
 import numpy as np
 import matplotlib.pyplot as plt
 
 from configmanager import ConfigManager
 from tqdm import tqdm
-
-from environment import PricingEnvironment, BiddingEnvironment, SpecificEnvironment, BidEnv2
-from context import ContextGenerator
+from environment import BidEnv2, PricingEnvironment, BiddingEnvironment
 from learners import *
 from scipy.stats import norm, beta
 
 
 
 class Experiment7():
-    
-    def __init__(self):
 
+    NAME = 'Experiment 7'
+    
+    def __init__(self, days=365, n_exp=10):
         self.cm = ConfigManager()
-        self.colors = self.cm.colors
 
         # pricing
-        self.prices = np.array(self.cm.prices) # candidates
-        self.num_people = 10000*np.array(self.cm.class_distribution)
-
-        self.n_arms = len(self.prices) #p = cm.aggr_conv_rates()
+        self.prices = self.cm.prices # candidates
+        self.n_arms = len(self.prices)
         
         # bidding 
         self.bids = np.array(self.cm.bids)
 
-        self.T = 200 # number of days
-        self.n_experiments = 5
+        self.T = days # number of days
+        self.n_experiments = n_exp
 
+        self.results = {}
 
     def run(self):
+        self.run_exp([0,1],[2,3])
+        self.plot_regret(self.cm.colors[0], lab = 'classi 0-1')
+        self.plot_reward(self.cm.colors[0], lab = 'classi 0-1')
 
-        Penvs = []
-        Benvs = []
+        self.run_exp([2],[0,1,3])
+        self.plot_regret(self.cm.colors[1], lab = 'classe 2')
+        self.plot_reward(self.cm.colors[1], lab = 'classe 2')
 
-        for c in range(4):
-            Penvs.append(PricingEnvironment(self.n_arms, self.cm.conv_rates[c] ,self.prices))
-            Benvs.append(BiddingEnvironment(self.bids, self.cm.new_clicks_function_mean(self.bids, c, self.num_people[c]), self.cm.new_clicks_function_mean(self.bids, c, self.num_people[c]), classe = c))
+        self.run_exp([3],[0,1,2])
+        self.plot_regret(self.cm.colors[2], lab = 'classe 3')
+        self.plot_reward(self.cm.colors[2], lab = 'classe 3')
 
-        ### compute pricing and bidding optima
-        self.pricing_opt = np.zeros(4)
-        self.opt = np.zeros(4)
-        for c in range(4):
-            self.pricing_opt[c] = Penvs[c].get_pricing_optimum()
-            self.opt[c] = Benvs[c].get_optimum(self.pricing_opt[c], self.cm.ret[c])
+        plt.savefig("img/experiments/experiment_7_regret.png")
+        plt.savefig("img/experiments/experiment_7_reward.png")
 
-        self.rewards_full = [[], [], [], []]
+    def run_exp(self, classes, not_classes):# self.classes
 
-        
+        self.classes = classes
+        self.not_classes = not_classes
+
+        self.num_people = self.cm.num_people*np.array(self.cm.class_distribution)
+        for c in self.not_classes:
+            self.num_people[c] = 0
+
+
+        self.rewards_full = [] #lista delle reward dei vari esperimenti 
+        self.regret_full = []
+
+        self.p = self.cm.aggr_conv_rates(self.classes)
+        # calcola i ritorni medi delle varie classi
+        self.ret = self.cm.aggr_return_probability(self.classes)
+
+        self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
+        self.best_price = np.argmax(np.multiply(self.p, self.prices))
+
+
+        #### questo è quello che c'era veramente in run
+
+        Benv = BidEnv2(self.bids, self.num_people)
+        Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
+        self.opt, self.best_bid = Benv.compute_optimum(self.opt_pricing, self.ret)
+
         for e in tqdm(range(0, self.n_experiments)):
-
-            ### Define the learners
-
-            ts_learners = []
-            gpts_learners = []           
-            for c in range(4):
-                ts_learners.append(TS_Learner(n_arms=self.n_arms, candidates=self.prices))
-                gpts_learners.append(GPTS2(n_arms=self.n_arms, arms=self.bids, threshold=0.2))
-
-            ### Define the lists of pasts costs per click
             
+            ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.prices)
+            gpts_learner = GPTS(n_arms=self.n_arms, arms=self.bids, threshold=0.2)
 
-            past_costs = []
-            for c in range(4):
-                past_costs.append([np.array(0.44)]*self.n_arms)
+            rewards_this = [] # reward dell'esperimento 
+            regret_this = []
 
-            ### Define the list of past return times
-           
-
-            return_times = []
-            for c in range(4):
-                return_times.append(np.ones(1))
-
-            ### rewards
-
-
-            rewards_this = [[], [], [], []]
-
-            ### Real experiment starts
-
+            past_costs = [np.array(0.44)]*self.n_arms
+            
+            return_times = np.array(1.0)
 
             for t in range(0,self.T):
 
-                for c in range(4):
-                    pulled_price, price_value = ts_learners[c].pull_arm()
-                    price = self.prices[pulled_price]
+                pulled_price = self.best_price#ts_learner.pull_arm() 
+                price_value = ts_learner.expected_value(pulled_price)
 
-                    mean_returns = np.mean(return_times[c])
-                    price_value *= mean_returns
-                    # il price value va moltiplicato per il numero di ritorni
+                price = self.prices[pulled_price] #prezzo pullato
 
-                    for bid in range(self.n_arms):  
-                        gpts_learners[c].exp_cost[bid] = np.quantile(past_costs[c][bid], 0.8)
-                    
-                    pulled_bid = gpts_learners[c].pull_arm(price_value)
+                mean_returns = np.mean(return_times)
 
-                    news, costs = Benvs[c].round(pulled_bid)
-                    news = int(news+0.5)
-                    buyer = Penvs[c].round(pulled_price, news)
+                # il price value va moltiplicato per il numero di ritorni
+                # expected prezzo arm estratto, moltiplicato per il numero medio di ritorni
+                price_value *= mean_returns
+                
+                for bid in range(self.n_arms):  
+                    gpts_learner.exp_cost[bid] = np.mean(past_costs[bid])
+                    gpts_learner.upper_bound_cost[bid] = np.quantile(past_costs[bid], 0.8)
+                
+                pulled_bid = gpts_learner.pull_arm(price_value)
 
-                    new_returns = 1+np.random.poisson(lam = self.cm.ret[c], size = news)
-                    # simuliamo il numero di volte in cui ogni cliente ritorna
+                news, costs = Benv.round(pulled_bid)
+                pseudo_news, pseudo_costs = Benv.round(self.best_bid)
+                news = int(np.ceil(news))
+                pseudo_news = int(np.ceil(pseudo_news))
 
-                    pricing_rew = buyer*price-np.sum(costs)
-                    reward = buyer*price*np.mean(new_returns)-np.sum(costs)
-                    # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
+                # numero di persone che comprano
+                buyer = Penv.round(pulled_price, news)
 
-                    not_buyer = news-buyer
+                new_returns = 1+self.cm.return_probability(lam = self.ret, size = news)
+                # simuliamo il numero di volte in cui ogni cliente ritorna
 
-                    past_costs[c][pulled_bid] = np.append(past_costs[c][pulled_bid], costs)
-                    
-                    ts_learners[c].update_more(pulled_price, pricing_rew, buyer, not_buyer)
-                    gpts_learners[c].update(pulled_bid, news)
+                # il price è moltiplicato per il numero medio di volte in cui gli utenti sono tornati
+                pseudo_reward = pseudo_news*self.opt_pricing*(self.ret+1) - np.sum(pseudo_costs)
+                reward = buyer*price*np.mean(new_returns) - np.sum(costs)
 
-                    rewards_this[c].append(reward)
+               
+                # salviamo i nuovi costi ottenuti nei costi passati
+                past_costs[pulled_bid] = np.append(past_costs[pulled_bid], costs)
+                
+                ts_learner.update_more(pulled_price, buyer, news-buyer) 
+                gpts_learner.update(pulled_bid, news)
 
-                    return_times = np.append(return_times, new_returns)
+                rewards_this.append(reward)
+                regret_this.append(pseudo_reward - reward)
 
-            for c in range(4):
-                self.rewards_full[c].append(rewards_this[c])
-        
+                return_times = np.append(return_times, new_returns)
+            
+            self.rewards_full.append(rewards_this)
+            self.regret_full.append(regret_this)
+            #print(past_costs[0])
 
-        '''
-        for c in range(4):
-            print(Penvs[c].candidates)
-            print(Benvs[c].means)
-            print(self.pricing_opt[c])
-            print(self.opt[c])
-        '''
-
-        
-        
+            self.results[classes]['regret'] = self.regret_full
+            self.results[classes]['reward'] = self.reward_full
 
     def plot(self):
-        #sns.distplot(np.array(p_arms))
+        pass
 
-        plt.figure(0)
-        plt.ylabel('Regret')
+    def plot_regret(self)
+
+    def plot_regret(self, col, lab):
+        plt.figure(71)
+        plt.ylabel('Pseudo Regret')
         plt.xlabel('t')
-        for c in range(4):
-            plt.plot(np.cumsum(np.mean(self.opt[c] - self.rewards_full[c], axis = 0)), color = self.colors[c], label=str(c))
+        plt.plot(np.cumsum(np.mean(self.regret_full, axis = 0)),col, label=lab)
+        plt.plot(np.quantile(np.cumsum(self.regret_full, axis=1), q=0.025, axis = 0), col,linestyle='dashed', label="GPTS Confidence Interval 95%")
+        plt.plot(np.quantile(np.cumsum(self.regret_full, axis=1), q=0.975,  axis = 0), col,linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_7.png")
+        
+    def plot_reward(self, col, lab):
+        plt.figure(72)
+        plt.ylabel('Reward')
+        plt.xlabel('t')
 
-        #plt.show()
+        x = np.mean(self.rewards_full, axis = 0)
+        plt.plot(x, col, label=lab)
+        plt.plot([self.opt for i in range(len(x))], color=self.cm.colors[4], label=lab)
+        plt.legend(loc=0)
+        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        plt.savefig("img/experiments/experiment_7_reward.png")

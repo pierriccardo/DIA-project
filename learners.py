@@ -97,7 +97,7 @@ class UCB1(Learner):
             self.confidence[a] = (2*np.log(self.t) / number_pulled)**0.5
         np.append(self.rewards_per_arm[pulled_arm], reward)
 
-    def update_more(self, pulled_arm, reward, buyer, not_buyer):
+    def update_more(self, pulled_arm, buyer, not_buyer):
         self.t += 1
 
         self.buyer[pulled_arm] += buyer

@@ -12,7 +12,7 @@ logging.getLogger(__name__)
 
 SEED = 1
 np.random.seed(seed=SEED)
-
+cm = ConfigManager()
 #------------------------------
 # ARGUMENTS PARSER
 #------------------------------
@@ -36,6 +36,9 @@ parser = argparse.ArgumentParser(description='Expriments launcher')
 parser.add_argument('--experiment', '-e',  type=str,  default=3, help='experiment number')
 parser.add_argument('--logfile', '-lf',  type=str, help='wheter to output in a logfile or not')
 parser.add_argument('--log', '-l',  type=int,  default=40, help='wheter to output in a logfile or not')
+
+parser.add_argument('--days', '-d',  type=int,  default=365, help='number of days for the experiment')
+parser.add_argument('--n_exp', '-ne',  type=int,  default=10, help='number of experiments to perform')
 args = parser.parse_args()
 
 #------------------------------
@@ -58,32 +61,37 @@ from experiments.experiment_4 import Experiment4
 from experiments.experiment_5 import Experiment5
 from experiments.experiment_6 import Experiment6
 from experiments.experiment_7 import Experiment7
-from experiments.experiment_7_Davide import Experiment7_b
-from experiments.experiment_7_return_time import Experiment7_c
-from experiments.experiment_7_new import Experiment7new
 
-exp = None
+exp = []
 if args.experiment == '3':
-    exp = Experiment3()
+    exp.append(Experiment3(days=args.days, n_exp=args.n_exp))
 elif args.experiment == '4':
-    exp = Experiment4()
+    exp.append(Experiment4(days=args.days, n_exp=args.n_exp))
 elif args.experiment == '5':
-    exp = Experiment5()
+    exp.append(Experiment5(days=args.days, n_exp=args.n_exp))
 elif args.experiment == '6':
-    exp = Experiment6()
+    exp.append(Experiment6(days=args.days, n_exp=args.n_exp))
 elif args.experiment == '7':
-    exp = Experiment7()
-elif args.experiment == '7b':
-    exp = Experiment7_b()
-elif args.experiment == '7c':
-    exp = Experiment7_c()
-elif args.experiment == '7new':
-    exp = Experiment7new()
+    exp.append(Experiment7(days=args.days, n_exp=args.n_exp))
+
+elif args.experiment == 'all':
+    exp.append(Experiment3(cm.exp_values['exp3']['days'], cm.exp_values['exp3']['n_exp']))
+    exp.append(Experiment4(cm.exp_values['exp4']['days'], cm.exp_values['exp4']['n_exp']))
+    exp.append(Experiment5(cm.exp_values['exp5']['days'], cm.exp_values['exp5']['n_exp']))
+    exp.append(Experiment6(cm.exp_values['exp6']['days'], cm.exp_values['exp6']['n_exp']))
+    exp.append(Experiment7(cm.exp_values['exp7']['days'], cm.exp_values['exp7']['n_exp']))
 else:
     print(f'Error Experiment {args.experiment} does not exist')
 
-if exp is not None:
-    exp.run()   
-    exp.plot()
+import traceback
+if len(exp) > 0:
+    for e in exp:
+        try:
+            print(f'[Running {e.NAME} | num_exp: {e.n_experiments} | days: {e.T}]')
+            e.run()   
+            e.plot()
+        except:
+            print('Error running Experiment {e.NAME}')
+            traceback.print_exc()
 else:
     logging.error("Experiment selected doesn't exists")

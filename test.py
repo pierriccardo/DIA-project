@@ -85,8 +85,6 @@ print(np.multiply(cr, cm.prices))
 current_opt = np.max(np.multiply(cr, cm.prices))
 print(current_opt)
 
-'''
-
 nc = [cm.new_clicks(bid, 0) for bid in cm.bids]
 #mean = [cm.new_clicks_function_mean(bid, 0, 56000) for bid in cm.bids]
 sigma = [cm.new_clicks_function_sigma(bid, 0, 56000) for bid in cm.bids]
@@ -111,3 +109,6 @@ plt.legend(loc=0)
 plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
 plt.show()
 
+'''
+for i, e in enumerate(cm.class_distribution):
+    print(f'num: {cm.num_people * e} class {cm.class_labels[i]}')

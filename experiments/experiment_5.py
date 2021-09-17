@@ -1,3 +1,4 @@
+from matplotlib import colors
 import numpy as np
 import matplotlib.pyplot as plt
 from numpy.core.fromnumeric import shape, size
@@ -11,8 +12,10 @@ import logging
 
 
 class Experiment5():
+
+    NAME = 'Experiment 5'
     
-    def __init__(self):
+    def __init__(self, days=365, n_exp=10):
         self.cm = ConfigManager()
 
         # pricing
@@ -27,8 +30,8 @@ class Experiment5():
         # bidding 
         self.bids = np.array(self.cm.bids)      
 
-        self.T = 365 # number of days
-        self.n_experiments = 10
+        self.T = days # number of days
+        self.n_experiments = n_exp
 
         self.reward_per_experiment = []
         
@@ -80,17 +83,18 @@ class Experiment5():
             self.reward_per_experiment.append(rewards_this)
 
     def plot_reward(self):
-        plt.figure(1)
+        plt.figure(51)
         plt.ylabel('Reward')
         plt.xlabel('t')
-
-        plt.plot(np.mean(self.reward_per_experiment, axis = 0),'g', label="GPTS")
+        x = np.mean(self.reward_per_experiment, axis = 0)
+        plt.plot(x,self.cm.colors[0], label="GPTS")
+        plt.plot([self.opt for i in range(len(x))],self.cm.colors[3], label="optimum")
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_5_reward.png")
 
     def plot_regret(self):
-        plt.figure(0)
+        plt.figure(52)
         plt.ylabel('Regret')
         plt.xlabel('t')
         plt.plot(np.cumsum(np.mean(self.opt - self.reward_per_experiment, axis = 0)),color=self.cm.colors[0], label="GPTS")

@@ -10,8 +10,10 @@ from scipy.stats import norm, beta
 
 
 class Experiment6():
+
+    NAME = 'Experiment 6'
     
-    def __init__(self):
+    def __init__(self, days=365, n_exp=10):
         self.cm = ConfigManager()
 
         # pricing
@@ -34,8 +36,8 @@ class Experiment6():
         #self.ts_reward_per_experiments = []
         #self.p_arms = []
 
-        self.T = 40 # number of days
-        self.n_experiments = 1
+        self.T = days # number of days
+        self.n_experiments = n_exp
 
     def run(self):
 
@@ -104,17 +106,28 @@ class Experiment6():
             #print(past_costs[0])
 
     def plot_reward(self):
-        # TODO: plot reward
-        pass
-
-    def plot(self):
-
-        plt.figure(0)
-        plt.ylabel('Regret')
+        plt.figure(61)
+        plt.ylabel('Reward')
         plt.xlabel('t')
-        plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),'g', label="GPTS")
-        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.025, axis = 0),'g',linestyle='dashed', label="GPTS Confidence Interval 95%")
-        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.975,  axis = 0),'g',linestyle='dashed')
+        x = np.cumsum(np.mean(self.rewards_full, axis = 0))
+        plt.plot(x,self.cm.colors[0], label="GPTS")
+        plt.plot([self.opt for i in range(len(x))], label="optimum")
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_6.png")
+        plt.savefig("img/experiments/experiment_6_reward.png")
+
+    def plot_regret(self):
+
+        plt.figure(62)
+        plt.ylabel('Regret')
+        plt.xlabel('t')
+        plt.plot(np.cumsum(np.mean(self.opt - self.rewards_full, axis = 0)),self.cm.colors[3], label="GPTS")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.025, axis = 0),self.cm.colors[0],linestyle='dashed', label="GPTS Confidence Interval 95%")
+        plt.plot(np.quantile(np.cumsum(self.opt - self.rewards_full, axis=1), q=0.975,  axis = 0),self.cm.colors[0],linestyle='dashed')
+        plt.legend(loc=0)
+        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
+        plt.savefig("img/experiments/experiment_6_regret.png")
+    
+    def plot(self):
+        self.plot_regret()
+        self.plot_reward()
