@@ -13,7 +13,7 @@ class Experiment3():
 
     NAME = 'Experiment 3'
 
-    def __init__(self, days=365, n_exp=100):
+    def __init__(self, days=365, n_exp=100, n_people=850):
         cm = ConfigManager()
 
         self.opt_2 = []
@@ -31,6 +31,7 @@ class Experiment3():
 
         self.T = days # number of days
         self.n_experiments = n_exp
+        self.n_people = n_people
 
         self.colors = cm.colors
 
@@ -95,7 +96,7 @@ class Experiment3():
                 daily_regret_uc = 0 ## per il grafico 2
                 daily_regret_ts = 0 ## per il grafico 2
 
-                people = pg.generate_people_num(100)
+                people = pg.generate_people_num(n=self.n_people)
                 daily_opt = self.opt * people
 
                 gr_pulled_arm = gr_learner.pull_arm()
@@ -183,19 +184,9 @@ class Experiment3():
         plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_3.png")
+        plt.savefig("img/experiments/experiment_3_regret.png")
 
         plt.figure(31)
-        plt.xlabel("t")
-        plt.ylabel("Regret")
-        plt.plot(np.cumsum(np.mean(self.gr_regret_per_experiment_2, axis=0)), self.colors[0], label="Greedy")
-        plt.plot(np.cumsum(np.mean(self.uc_regret_per_experiment_2, axis=0)), self.colors[1], label="UCB1")
-        plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment_2, axis=0)), self.colors[3], label="TS")
-        plt.legend(loc=0)
-        plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_3_1.png")
-
-        plt.figure(32)
         plt.xlabel("t")
         plt.ylabel("Reward")
         plt.plot(np.mean(self.gr_reward_per_experiment, axis=0), self.colors[0], label="Greedy")
@@ -204,4 +195,4 @@ class Experiment3():
         plt.plot(np.mean(self.opt_per_exp, axis=0), self.colors[2], label="Opt")
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
-        plt.savefig("img/experiments/experiment_3_2.png")
+        plt.savefig("img/experiments/experiment_3_reward.png")

@@ -11,6 +11,8 @@ import logging
 
 
 class Experiment5():
+
+    NAME = 'Experiment 5'
     
     def __init__(self, days=365, n_exp=10, delay=30):
         self.cm = ConfigManager()
@@ -18,8 +20,6 @@ class Experiment5():
         # pricing
         self.prices = np.array(self.cm.prices) # candidates
         self.num_people = self.cm.num_people*np.array(self.cm.class_distribution)
-
-        self.DELAY = 0
 
         # self.p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06] # probabilities (conv rate)
         self.p = self.cm.aggr_conv_rates()
@@ -33,8 +33,6 @@ class Experiment5():
         self.n_experiments = n_exp
         self.DELAY = delay
         self.reward_per_experiment = []
-
-        
 
     def run(self):
         Benv = BidEnv2(self.bids, self.num_people)

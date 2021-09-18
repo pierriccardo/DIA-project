@@ -7,9 +7,11 @@ exp_values:
   exp3:
     days: 365
     n_exp: 100
+    n_people: 850
   exp4:
     days: 365
     n_exp: 10
+    n_people: 850
   exp5:
     days: 365
     n_exp: 10

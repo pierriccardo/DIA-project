@@ -1,7 +1,6 @@
 import numpy as np
 import yaml
 import itertools
-from utils import *
 import logging
 
 class ConfigManager():

@@ -23,6 +23,7 @@ to set manually the number of experiments to perform and the number of days add 
     -ne 10          //number of experiments to perform
     -d              //number of days for each experiment
     -del            //delay to apply, valid only for exp 5,6,7 
+    -np             //binomial n param to generate people number, for exp 3,4
 
 To debug the experiments is possible to show the log on terminal or to put the log inside a file:
 

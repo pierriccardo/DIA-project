@@ -14,7 +14,7 @@ class Experiment4():
     
     NAME = 'Experiment 4'
 
-    def __init__(self, days=365, n_exp=10):
+    def __init__(self, days=365, n_exp=10, n_people=850):
         self.cm = ConfigManager()
         
         self.features = self.cm.features
@@ -37,6 +37,7 @@ class Experiment4():
 
         self.T = days # number of days
         self.n_experiments = n_exp
+        self.n_people = n_people
 
         # TS
         self.ts_reward_per_experiments = []
@@ -69,7 +70,7 @@ class Experiment4():
                     context_gen.init_context()
                     context_gen.generate() 
 
-                num_people = pg.generate_people_num(n=300)
+                num_people = pg.generate_people_num(n=self.n_people)
                
                 daily_reward = 0
                 daily_regret = 0
