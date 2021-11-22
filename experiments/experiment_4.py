@@ -146,8 +146,7 @@ class Experiment4():
             logging.info(f'contexts generated in experiment {e}:')
             logging.info(f'{context_gen.splits_frequency}')
             logging.info(f'split freqs exp {e} {splits_freq}')
-            #print(splits_freq)
-
+            
             self.splits = context_gen.get_split_matrices()
 
             for index, label in zip(range(4), self.classes):
@@ -199,13 +198,14 @@ class Experiment4():
         x = np.linspace(0, self.T, self.T)
         y = np.cumsum(np.mean(self.regret_per_experiments, axis=0))
         
-        ci = 1.96 * np.std(y) / self.n_experiments #np.mean(y)
+        #ci = 1.96 * np.std(y) / self.n_experiments #np.mean(y)
         #ci = 1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments)
-
-        plt.plot(x, y, label='Context Gen', color=self.colors[3])
-        plt.fill_between(x, (y-ci), (y+ci), color=self.colors[3], alpha=self.alpha)
-        #plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        #plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
+        #plt.plot(x, y, label='Context Gen', color=self.colors[3])
+        #plt.fill_between(x, (y-ci), (y+ci), color=self.colors[3], alpha=self.alpha)
+        
+        plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[2])
+        plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[2],linestyle='dashed')
+        plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[2],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_4_regret.png")
@@ -216,7 +216,7 @@ class Experiment4():
         plt.xlabel("t")
         plt.ylabel("Regret")
 
-
+        '''
         x = np.linspace(0, self.T, self.T)
         y = np.cumsum(np.mean(self.regret_per_experiments, axis=0))
         ci = 1.96 * np.std(y) / self.n_experiments #np.mean(y)
@@ -231,13 +231,13 @@ class Experiment4():
         
         plt.plot(x, ts_y, label='TS', color=self.colors[2])
         plt.fill_between(x, (y-ts_ci), (y+ts_ci), color=self.colors[2], alpha=self.alpha)
-        
-        #plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[3])
-        #plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        #plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[1],linestyle='dashed')
-        #plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)), self.colors[3], label="TS")
-        #plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
-        #plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
+        '''
+        plt.plot(np.cumsum(np.mean(self.regret_per_experiments, axis=0)), label='Context Gen', color=self.colors[2])
+        plt.plot(1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[2],linestyle='dashed')
+        plt.plot(-1.96*np.std(self.comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.regret_per_experiments, axis=0)),self.colors[2],linestyle='dashed')
+        plt.plot(np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)), self.colors[3], label="TS")
+        plt.plot(1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
+        plt.plot(-1.96*np.std(self.ts_comulative_regret_per_experiment, axis=0)/np.sqrt(self.n_experiments) + np.cumsum(np.mean(self.ts_regret_per_experiment, axis=0)),self.colors[3],linestyle='dashed')
         plt.legend(loc=0)
         plt.grid(True, color='0.6', dashes=(5, 2, 1, 2))
         plt.savefig("img/experiments/experiment_4_ts_comparison.png")

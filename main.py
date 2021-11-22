@@ -15,21 +15,6 @@ cm = ConfigManager()
 #------------------------------
 # ARGUMENTS PARSER
 #------------------------------
-# to be used wen running the file main.py
-
-# --experiment or -e used to choose the experiment
-# e.g. python main.py -e 4 (will run and plot exp 4)
-
-# --logfile or -lf if specified put the log in a file
-# e.g. python main.py -e 4 -lf
-
-# --log or -l used to choose the logging level
-# levels used are 
-# DEBUG   = 10
-# INFO    = 20
-# WARNING = 30
-# ERROR   = 40
-# e.g. python main.py -e 4 -l 10 (to activate DEBUG)
 
 parser = argparse.ArgumentParser(description='Expriments launcher')
 parser.add_argument('--experiment', '-e',  type=str,  default=3, help='experiment number')
@@ -88,7 +73,7 @@ import traceback
 if len(exp) > 0:
     for e in exp:
         try:
-            print(f'[Running {e.NAME} | num_exp: {e.n_experiments} | days: {e.T} | ]')
+            print(f'[Running {e.NAME} | num_exp: {e.n_experiments} | days: {e.T}]')
             e.run()   
             e.plot()
         except:

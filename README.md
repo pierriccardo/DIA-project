@@ -27,7 +27,7 @@ to set manually the number of experiments to perform and the number of days add 
 
 To debug the experiments is possible to show the log on terminal or to put the log inside a file:
 
-    python main.py -e 4 -l 10 -lf
+    python main.py -e 4 -l 10 -lf log.txt
 
     -lf log.txt     //will save the log in a file called 'log.txt'
     -l 10           //will set the log granularity
@@ -38,7 +38,19 @@ the following levels of granularity are possible (default logging levels):
 * 30 shows warning logging
 * 40 shows error logging
 Look logging documentation for more details 
+
+# Additional notes
+Some experiments may log warnings, to disable them run the experiment command in this way:
+
+    python -W ignore main.py -e 5 
     
+# Generate Environment images
+To generate the images for the environment function run the following command:
+
+    python plotter.py
+
+Images will appear in the folder /img/environment
+
 # Folders:
 - experiments: experiments files
 - images: 

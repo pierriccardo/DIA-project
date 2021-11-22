@@ -54,9 +54,6 @@ class ConfigManager():
         if (mean):
             return bid*alpha/(alpha+beta)
         return bid * np.random.beta(alpha, beta, size)
-    
-    #def new_clicks(self, bids):
-    #    return 100*(1.0-np.exp(-4*bids+3*bids**3))
 
     def new_clicks(self, bid, user_class):
         num_people = self.num_people * self.class_distribution[user_class]
@@ -114,14 +111,6 @@ class ConfigManager():
             aggr_ret = np.add(aggr_ret, ret_scaled)
             #aggr_ret += self.config['return_probability'][c]
         return aggr_ret #/ len(classes)
-    
-    #def aggr_return_probability(self):
-    #    ret_prob = 0
-    #    for user_class in self.classes:
-    #        _lambda = self.config["return_probability"][user_class]
-    #
-    #        ret_prob += self.return_probability(_lambda)
-    #    return ret_prob / self.num_classes
     
     def aggr_cost_per_click(self, bid):
         aggr_cc = 0

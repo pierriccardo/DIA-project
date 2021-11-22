@@ -55,8 +55,6 @@ class Experiment3():
         self.uc_reward_per_experiment = []
         self.ts_reward_per_experiment = []
 
-        #self.opt_per_experiment = []
-
         self.opt_per_exp = []
 
     def run(self):
@@ -160,8 +158,7 @@ class Experiment3():
             self.gr_comulative_regret_per_experiment.append(np.cumsum(gr_regret))
             self.uc_comulative_regret_per_experiment.append(np.cumsum(uc_regret))
             self.ts_comulative_regret_per_experiment.append(np.cumsum(ts_regret)) 
-            #print(self.gr_comulative_regret_per_experiment)  
-            # 
+            
             self.opt_per_exp.append(opt_days) 
 
             

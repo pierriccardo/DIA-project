@@ -21,9 +21,9 @@ class Experiment5():
         self.prices = np.array(self.cm.prices) # candidates
         self.num_people = self.cm.num_people*np.array(self.cm.class_distribution)
 
-        # self.p = [.12, .3, .1, .5, .07, .43, .03, .02, .34, .06] # probabilities (conv rate)
+        
         self.p = self.cm.aggr_conv_rates()
-        self.n_arms = len(self.prices) #p = cm.aggr_conv_rates()
+        self.n_arms = len(self.prices) 
         self.opt_pricing = np.max(np.multiply(self.p, self.prices)) 
         
         # bidding 

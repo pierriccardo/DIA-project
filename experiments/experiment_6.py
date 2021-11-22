@@ -43,9 +43,6 @@ class Experiment6():
         Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
         self.opt, self.best_bid = Benv.compute_optimum(self.opt_pricing, self.ret)
 
-        #pseudo_news, pseudo_costs = Benv.round(self.best_bid, deterministic=True)
-        #pseudo_reward = pseudo_news*self.opt_pricing*self.ret - np.sum(pseudo_costs)
-
         for e in tqdm(range(0, self.n_experiments)):
 
             pull_arm_buffer = []
@@ -82,9 +79,7 @@ class Experiment6():
                 pulled_bid = gpts_learner.pull_arm(price_value)
 
                 news, costs = Benv.round(pulled_bid)
-                #pseudo_news, pseudo_costs = Benv.round(self.best_bid)
                 news = int(np.ceil(news))
-                #pseudo_news = int(np.ceil(pseudo_news))
 
                 # numero di persone che comprano
                 buyer = Penv.round(pulled_price, news)
@@ -109,14 +104,13 @@ class Experiment6():
                     gpts_learner.update(pull_arm_buffer[-(self.DELAY+1)], news_buffer[-(self.DELAY+1)])
 
                 rewards_this.append(reward)
-                #regret_this.append(pseudo_reward - reward)
 
                 if t>self.DELAY:
                     return_times = np.append(return_times, new_returns)
             
             self.rewards_full.append(rewards_this)
             self.regret_full.append(regret_this)
-            #print(past_costs[0])
+          
 
     def plot_reward(self):
         plt.figure(61)

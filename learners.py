@@ -72,13 +72,10 @@ class UCB1(Learner):
         if self.t < self.n_arms:
             arm = self.t
         else:
-            #confidence = self.alpha*(2*np.log(sum(self.buyer+self.not_buyer))/ (self.buyer+self.not_buyer))**0.5
-            #confidence = np.sqrt(2*np.log(self.t)/(self.times_pulled*(self.t-1)))
-            #confidence = np.sqrt(2*np.log((self.buyer+self.not_buyer))/(self.times_pulled*(self.buyer+self.not_buyer-1)))
+            
             confidence = np.sqrt(2*np.log(self.t)/(self.buyer+self.not_buyer))
             
             upper_bound = (self.empirical_means + confidence)*self.prices
-            #upper_bound = self.empirical_means*self.prices + confidence
             arm = np.random.choice(
                 np.where(upper_bound == upper_bound.max())[0])
         return arm
@@ -182,11 +179,6 @@ class TS_Learner(Learner):
         # Hoeffding bound
 
         confidence = np.log(0.05)
-        #confidence = np.log(exp_val / (1+exp_val))
-
-
-        #pulled_times = (self.beta_parameters[opt_arm, 0] + self.beta_parameters[opt_arm, 1])
-        #tot_pulled_times_opt = pulled_times if pulled_times > 0 else 1
 
         alpha = self.beta_parameters[opt_arm, 0]
         beta = self.beta_parameters[opt_arm, 1]
@@ -195,11 +187,8 @@ class TS_Learner(Learner):
         logging.debug(
             f'TS_learner.expected_value_lowerbound() -> lb: {lb}, self.t {self.t}')
 
-        return lb #* self.candidates[opt_arm]
+        return lb 
 
-###########################
-# classi nuove per correggere il punto 5 after gatti
-###########################
 
 class GPTS(Learner):
 
@@ -247,9 +236,7 @@ class GPTS(Learner):
         self.update_model()
 
     def is_eligible(self, idx, price_value, exp_cost):
-        #proba = norm(loc = self.means[idx], scale = self.sigmas[idx]).cdf(0.0)
-        #if (proba > self.threshold):
-        #    return False
+        
         if (price_value-exp_cost < 0):
             return False
         return True

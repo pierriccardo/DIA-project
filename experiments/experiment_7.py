@@ -56,8 +56,6 @@ class Experiment7():
         self.best_price = np.argmax(np.multiply(self.p, self.prices))
 
 
-        #### questo è quello che c'era veramente in run
-
         Benv = BidEnv2(self.bids, self.num_people)
         Penv = PricingEnvironment(n_arms=self.n_arms, probabilities=self.p, candidates=self.prices)
         self.opt, self.best_bid = Benv.compute_optimum(self.opt_pricing, self.ret)
@@ -133,7 +131,7 @@ class Experiment7():
             
             self.rewards_full.append(rewards_this)
             self.regret_full.append(regret_this)
-            #print(past_costs[0])
+            
 
         self.results[classes[0]] = {}
         self.results[classes[0]]['regret'] = self.regret_full
@@ -147,7 +145,7 @@ class Experiment7():
     def plot_regret(self):
         
         plt.figure(71)
-        plt.ylabel('Pseudo Regret')
+        plt.ylabel('Regret')
         plt.xlabel('t')
         classes = [0,2,3]
         for c in classes:

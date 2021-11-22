@@ -43,12 +43,12 @@ num_people: 52000
 #  | Y | A |
 # I|C1 |C2 |
 # D|C1 |C3 |
+
 conv_rates:
 
 - [.10, .25, .60, .25, .19, .18, .09, .05, .01, .00] # C1
 - [.10, .25, .60, .25, .19, .18, .09, .05, .01, .00] # C1
 - [.01, .04, .09, .10, .25, .28, .34, .46, .28, .15] # C2
-#- [.05, .12, .20, .35, .45, .35, .30, .20, .12, .09] # C3
 - [.05, .12, .16, .20, .45, .35, .30, .20, .12, .09] # C3
 
 cost_per_click: [
@@ -72,16 +72,6 @@ new_clicks: [
   0.01  # C3
 ]
 
-# used when people are generated, is the spawn probability of each class
-#class_distribution: [.4, .2, .3, .1]
-#class_distribution: [.25, .25, .25, .25]
-#class_distribution: [
-#  0.14, # C1
-#  0.05, # C1
-#  0.28, # C2
-#  0.53  # C3
-#]
-
 class_distribution: [
   0.05, # C1
   0.24, # C1
@@ -94,7 +84,7 @@ features: # labels
   - ["I", "D"]
 
 #------------------------------
-# MISCELLANEOUS
+# GENERAL
 #------------------------------
 seed: 1234
 env_imgpath: "img/environment"
@@ -102,7 +92,7 @@ exp_imgpath: "img/experiments"
 colors: ['#EF476F', '#FFD166', '#06D6A0', '#118AB2', '#008000']
 class_colors: ['r', 'g', 'b', 'y']
 class_labels: [
-  "(C1) young - interested", 
+  "(C1) young - int/disint", 
   "(C1) young - disinterested", 
   "(C2) adult - interested", 
   "(C3) adult - disinterested" 

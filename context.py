@@ -47,8 +47,7 @@ class ContextGenerator():
         self.current_id = 0
         self.contexts = []
         ts_learner = TS_Learner(n_arms=self.n_arms, candidates=self.candidates)
-        # we train the learner since observations may be not empty at the 
-        # beginning e.g. if some delay are applied
+        # we train the learner since observations may be not empty at the beginning 
         self.train_learner(ts_learner, self.obs)
         init_context = Context(0, self.classes, ts_learner)
         self.contexts.append(init_context)

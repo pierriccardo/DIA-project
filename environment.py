@@ -80,11 +80,6 @@ class PricingEnvironment():
       return max(self.probabilities*self.candidates)
 
 
-###############################
-# Nuovi environment con correzioni after gatti
-###############################
-
-
 class BidEnv2():
   def __init__(self, bids, num_people, classes = [0,1,2,3]):
     self.bids = bids
